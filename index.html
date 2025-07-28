@@ -71,89 +71,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-7.7杂项+DNS劫持步骤" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/07/28/7.7%E6%9D%82%E9%A1%B9+DNS%E5%8A%AB%E6%8C%81%E6%AD%A5%E9%AA%A4/" class="article-date">
-  <time class="dt-published" datetime="2025-07-28T06:02:28.943Z" itemprop="datePublished">2025-07-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>企业DHCP一般为自动获得</p>
-<p>DHCP资源耗尽攻击和DHCP欺骗攻击</p>
-<p>202.106.0.20北京dns</p>
-<p>8.8.8.8谷歌dns</p>
-<p>114.114.114.114阿里dns</p>
-<p>115.115.115.115阿里dns</p>
-<p>169.254.98.61地址（特殊）桥接的特殊故障</p>
-<p>远程连接10.10.20.191<br>用户名administrator密码123qwe!@#</p>
-<p>flashFXP连接10.10.20.191，用户名zhuji密码11qq&#96;&#96;&#96;</p>
-<p>flashFXP连接10.10.20.92</p>
-<p>内网XNHA-CPE密码：Xnha@6688</p>
-<p>kali中使用dhcpstarv -v -i eth0命令用于发起密集的dhcp请求模拟数百个客户端同时请求IP地址，检验服务器稳定性</p>
-<ol>
-<li><strong><code>dhcpstarv</code></strong><ul>
-<li><strong>作用</strong>：DHCP性能测试工具（非系统内置，需额外安装），用于发起密集的DHCP请求。</li>
-<li><strong>典型场景</strong>：<ul>
-<li>压力测试：模拟数百个客户端同时请求IP地址，检验服务器稳定性13。</li>
-<li>安全审计：检测服务器是否易受DHCP耗竭攻击（耗尽IP地址池）7。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong><code>-v</code></strong><ul>
-<li><strong>详细模式（Verbose）</strong>：实时输出操作日志，包括每个请求的发送&#x2F;响应状态、错误信息等，便于调试13。</li>
-</ul>
-</li>
-<li><strong><code>-i eth0</code></strong><ul>
-<li><strong>指定网络接口</strong>：强制命令通过物理网卡 <code>eth0</code> 发送DHCP请求（而非回环接口或其他虚拟接口）</li>
-</ul>
-</li>
-</ol>
-<p>13台根域</p>
-<h3 id="登录网站的步骤"><a href="#登录网站的步骤" class="headerlink" title="登录网站的步骤"></a>登录网站的步骤</h3><p>打开浏览器访问网站先查浏览器缓存，再查host文件没有后，查云服务器最后查dns，首选能直接查出为递归查询，若要访问根域则为迭代查询</p>
-<p>host</p>
-<p>ipconfig &#x2F;flushdns清空dns缓存</p>
-<h3 id="DNS劫持步骤"><a href="#DNS劫持步骤" class="headerlink" title="DNS劫持步骤"></a>DNS劫持步骤</h3><p>首先准备一台服务器这里为Windows Server 2022服务器需要具备dns功能，客户机为Windows10，攻击机为kali</p>
-<p>先使用kali启动Apache2服务systemctl start apache2</p>
-<p>使用kali修改&#x2F;etc&#x2F;ettercap&#x2F;etter.dns文件在文件中添加以下条目（不确定，只是这一条可行还有其他可行代码）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dnstest.com   A   192.168.227.101</span><br><span class="line">www.dnstest.com   AAAA   192.168.227.101</span><br><span class="line">www.dnstest.com   PTR   192.168.224.101</span><br><span class="line">*   A   192.168.227.101</span><br></pre></td></tr></table></figure>
-
-<p>之后启动ettercap-pkexec</p>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20250707193811803.png" alt="image-20250707193811803"></p>
-<p>点击运行后，选择右上角的三个点，点击Hosts中的Scan for hosts</p>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20250707193946585.png" alt="image-20250707193946585"></p>
-<p>等待扫描完成后再点击Hosts中的Hosts list，观察到列出的IP地址分别选择为目标1和目标2</p>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20250707194126688.png" alt="image-20250707194126688"></p>
-<p>然后在点击右上角的地球图标，选择第一个ARP psisoning</p>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20250707194221291.png" alt="image-20250707194221291"></p>
-<p>然后再次点击三个小点的地方点击Plugins中的Manage plugins</p>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20250707194335317.png" alt="image-20250707194335317"></p>
-<p>进入界面后选择dns_spoof</p>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20250707194410161.png" alt="image-20250707194410161"></p>
-<p>接着操作客户机，打开cmd首先输入ipconfig &#x2F;flushdns清除DNS缓存，可以多清除几次，然后输入命令nslookup <a target="_blank" rel="noopener" href="http://www.dnstest.com,若返回/">www.dnstest.com，若返回</a></p>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20250707194908193.png" alt="image-20250707194908193"></p>
-<p>然后打开浏览器输入<a target="_blank" rel="noopener" href="http://www.dnstest.com若出现在kali启动apache2页面,那么本次攻击成功./">www.dnstest.com若出现在kali启动Apache2页面，那么本次攻击成功。</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/07/28/7.7%E6%9D%82%E9%A1%B9+DNS%E5%8A%AB%E6%8C%81%E6%AD%A5%E9%AA%A4/" data-id="cmdmt4dqf0000gku65qqf3mp3" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
     <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/07/28/hello-world/" class="article-date">
@@ -234,10 +151,6 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
-        
-          <li>
-            <a href="/2025/07/28/7.7%E6%9D%82%E9%A1%B9+DNS%E5%8A%AB%E6%8C%81%E6%AD%A5%E9%AA%A4/">(no title)</a>
-          </li>
         
           <li>
             <a href="/2025/07/28/hello-world/">Hello World</a>
