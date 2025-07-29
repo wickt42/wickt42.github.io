@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="PicGo配置"><meta name="keywords" content="typora"><meta name="author" content="wickt42,undefined"><meta name="copyright" content="wickt42"><title>PicGo配置 | Wickt42's Tech Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/reset.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/theme/black.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/highlight/monokai.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="reveal"><div class="slides"><section data-markdown data-separator="---" data-separator-vertical="--" data-charset="utf-8"><script type="text/template">
+# PicGo的Github配置
+
+首先准备一个github账号，并新创建一个仓库用于存放图片
+
+## 配置github
+
+### 生成一个token，用于PicGo访问github
+
+在用户设置界面，找到左侧菜单栏的Developer setting设置
+
+![image-20250728175158323](https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250728210322361.png)
+
+然后选择Personal access tokens菜单的Token（classic）点击Generate new token
+
+![image-20250728175832797](https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250728204317642.png)
+
+然后输入note，点击repo，最后拉到下面点击创建
+
+![image-20250728175930295](https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250728201822943.png)
+
+到此github配置完成
+
+## PicGo配置
+
+1、图床名自己设置
+
+2、仓库名为创建的github仓库名
+
+3、分支名为main
+
+4、token为刚刚创建的token
+
+5、存储路径可写可不写，我这里是写的img/路径是自己在仓库创建的文件夹，专用存储图片的文件夹
+
+6、最后设置自定义域名，选择免费的cdn--jsdelivr加速，https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main
+
+![image-20250728201240706](https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250728210323787.png)
+
+### 附赠：github仓库创建文件夹
+
+1. 克隆仓库到本地：
+
+   ```bash
+   git clone https://github.com/你的用户名/你的仓库.git
+   cd 你的仓库
+   ```
+
+2. 创建文件夹并添加占位文件：
+
+   ```bash
+   mkdir 新文件夹名
+   touch 新文件夹名/.gitkeep  # 或 echo "# 新文件夹" > 新文件夹名/README.md
+   ```
+
+3. 提交更改：
+
+   ```bash
+   git add .
+   git commit -m "Add 新文件夹"
+   git push origin main
+   ```
+
+- 如果文件夹是空的，Git 不会跟踪它，必须添加文件。
+- `.gitkeep` 是一个约定俗成的空目录占位文件名（无特殊功能，只是占位）。
+- 如果仓库启用了 **分支保护规则**，可能需要通过 Pull Request 提交更改。
+
+## Typora配置
+
+在偏好设置的图像设置中设置即可
+
+![image-20250728195529162](https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250728210326330.png)
+</script></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/zoom/zoom.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/search/search.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/notes/notes.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/math/math.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/markdown/markdown.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/highlight/highlight.js"></script><script>Reveal.initialize({
+  mouseWheel: false,
+  transition: 'slide',
+  transitionSpeed: 'default',
+  parallaxBackgroundImage: '',
+  parallaxBackgroundSize: '',
+  parallaxBackgroundHorizontal: '',
+  parallaxBackgroundVertical: '',
+  autoSlide: false,
+  loop: false,
+  controlsLayout: 'bottom-right', // Determines where controls appear, "edges" or "bottom-right"
+  controlsBackArrows: 'faded',
+  progress: true,
+  showNotes: false,
+  autoPlayMedia: false,
+  backgroundTransition: 'fade',
+  markdown: {
+    smartypants: true
+  },
+  plugins: [
+  RevealMarkdown,
+  // Markdown
+  RevealHighlight,
+  // Search
+  RevealSearch,
+  // Speaker notes
+  RevealNotes,
+  // Zoom in and out with Alt+click
+  RevealZoom,
+  // MathJax
+  RevealMath
+  ]
+});</script></body></html>
