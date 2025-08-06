@@ -1,0 +1,477 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="8.4_work"><meta name="keywords" content=""><meta name="author" content="wickt42"><meta name="copyright" content="wickt42"><title>8.4_work | Wickt42's Tech Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '7.3.0'
+} </script><meta name="generator" content="Hexo 7.3.0"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9%E5%92%8C%E8%A7%A3%E5%8E%8B%E7%BC%A9"><span class="toc-number">1.</span> <span class="toc-text">压缩和解压缩</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4"><span class="toc-number">1.1.</span> <span class="toc-text">一、系统运维</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86-%E5%AE%9A%E6%9C%9F%E5%8E%8B%E7%BC%A9%E6%97%A7%E6%97%A5%E5%BF%97%E8%8A%82%E7%9C%81%E7%A9%BA%E9%97%B4"><span class="toc-number">1.1.1.</span> <span class="toc-text">1、日志管理  定期压缩旧日志节省空间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%A4%87%E4%BB%BD%E6%93%8D%E4%BD%9C"><span class="toc-number">1.1.2.</span> <span class="toc-text">2、备份操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E8%BD%AF%E4%BB%B6%E9%83%A8%E7%BD%B2"><span class="toc-number">1.1.3.</span> <span class="toc-text">3、软件部署</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E5%8F%91%E5%8E%8B%E7%BC%A9%E5%8C%85"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">分发压缩包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E6%96%B9%E6%A1%88"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">自动化方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4"><span class="toc-number">1.1.4.</span> <span class="toc-text">4、系统维护</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E5%85%A8%E8%BF%90%E7%BB%B4"><span class="toc-number">1.2.</span> <span class="toc-text">二、安全运维</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%AE%89%E5%85%A8%E5%AE%A1%E8%AE%A1"><span class="toc-number">1.2.1.</span> <span class="toc-text">1、安全审计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%AE%89%E5%85%A8%E4%BC%A0%E8%BE%93"><span class="toc-number">1.2.2.</span> <span class="toc-text">2、安全传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94"><span class="toc-number">1.2.3.</span> <span class="toc-text">3、应急响应</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.</span> <span class="toc-text">生成测试文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.1.</span> <span class="toc-text">查看文件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">压缩文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#gzip%E5%91%BD%E4%BB%A4"><span class="toc-number">2.1.</span> <span class="toc-text">gzip命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">文件压缩</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%A7%A3%E5%8E%8B"><span class="toc-number">2.1.0.2.</span> <span class="toc-text">文件解压</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bzip2%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.</span> <span class="toc-text">bzip2命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9"><span class="toc-number">2.2.1.</span> <span class="toc-text">压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8B"><span class="toc-number">2.2.2.</span> <span class="toc-text">解压</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E5%91%BD%E4%BB%A4tar"><span class="toc-number">2.3.</span> <span class="toc-text">打包命令tar</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%A8%A1%E5%BC%8F%EF%BC%88%E5%BF%85%E9%A1%BB%E9%80%89%E4%B8%80%E4%B8%AA%EF%BC%89"><span class="toc-number">2.3.0.1.</span> <span class="toc-text">操作模式（必须选一个）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E9%80%89%E9%A1%B9"><span class="toc-number">2.3.1.</span> <span class="toc-text">关键选项</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%96%87%E4%BB%B6%E6%8C%87%E5%AE%9A"><span class="toc-number">2.3.1.1.</span> <span class="toc-text">1. 文件指定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%8E%8B%E7%BC%A9%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.3.1.2.</span> <span class="toc-text">2. 压缩类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%9D%83%E9%99%90%E4%B8%8E%E8%B7%AF%E5%BE%84"><span class="toc-number">2.3.1.3.</span> <span class="toc-text">3. 权限与路径</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%BF%87%E6%BB%A4%E6%96%87%E4%BB%B6"><span class="toc-number">2.3.1.4.</span> <span class="toc-text">4. 过滤文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9%E6%95%88%E7%8E%87%E5%AF%B9%E6%AF%94"><span class="toc-number">2.3.2.</span> <span class="toc-text">压缩效率对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9-1"><span class="toc-number">2.3.3.</span> <span class="toc-text">压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8B-1"><span class="toc-number">2.3.4.</span> <span class="toc-text">解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B"><span class="toc-number">2.3.5.</span> <span class="toc-text">查看</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%94%A8%E6%B3%95"><span class="toc-number">2.3.6.</span> <span class="toc-text">其他用法</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729165900674.jpg"></div><div class="author-info__name text-center">wickt42</div><div class="author-info__description text-center">Information Security</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/wickt42/wickt42.github.io">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">13</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">3</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">8</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://github.com/">github</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody">hexo-theme-melody</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729164955479.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Wickt42's Tech Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/slides">Slides</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">8.4_work</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2025-08-04</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="压缩和解压缩"><a href="#压缩和解压缩" class="headerlink" title="压缩和解压缩"></a>压缩和解压缩</h1><h2 id="一、系统运维"><a href="#一、系统运维" class="headerlink" title="一、系统运维"></a>一、系统运维</h2><h3 id="1、日志管理-定期压缩旧日志节省空间"><a href="#1、日志管理-定期压缩旧日志节省空间" class="headerlink" title="1、日志管理  定期压缩旧日志节省空间"></a>1、日志管理  定期压缩旧日志节省空间</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查找并压缩30天前的日志</span></span><br><span class="line">find /var/log -name <span class="string">&quot;*.log&quot;</span> -mtime +30 -<span class="built_in">exec</span> gzip -v &#123;&#125; \;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进阶方案：压缩后删除原文件（节省空间）</span></span><br><span class="line">find /var/log -name <span class="string">&quot;*.log&quot;</span> -mtime +30 -<span class="built_in">exec</span> sh -c <span class="string">&#x27;gzip -v &quot;&#123;&#125;&quot; &amp;&amp; rm -f &quot;&#123;&#125;&quot;&#x27;</span> \;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定时任务（每月1号执行）</span></span><br><span class="line">0 0 1 * * /usr/bin/find /var/log -name <span class="string">&quot;*.log&quot;</span> -mtime +30 -<span class="built_in">exec</span> gzip &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<p><strong>应用场景</strong>：</p>
+<ul>
+<li>Apache&#x2F;Nginx日志归档</li>
+<li>应用服务日志轮转</li>
+<li>审计日志长期保存</li>
+</ul>
+<p><strong>关键参数</strong>：</p>
+<ul>
+<li><code>-mtime +30</code>：30天前的文件</li>
+<li><code>-exec</code>：对找到的文件执行操作</li>
+<li><code>gzip -v</code>：显示压缩详情</li>
+</ul>
+<h3 id="2、备份操作"><a href="#2、备份操作" class="headerlink" title="2、备份操作"></a>2、备份操作</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cp</span> 原文件 备份文件.back </span><br><span class="line">tar -g /backup/snamshot -czvf backup </span><br><span class="line"><span class="comment"># 完整备份（带时间戳）</span></span><br><span class="line">tar -czvf backup_full_$(<span class="built_in">date</span> +%F).tar.gz /data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 增量备份（需先创建快照）</span></span><br><span class="line">tar -g /backup/snapshot -czvf backup_inc_$(<span class="built_in">date</span> +%F).tar.gz /data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 差异备份</span></span><br><span class="line">tar -g /backup/snapshot -czvf backup_diff.tar.gz -N <span class="string">&quot;<span class="subst">$(cat /backup/snapshot)</span>&quot;</span> /data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加密备份</span></span><br><span class="line">tar -czvf - /sensitive_data | openssl enc -aes-256-cbc -out backup_encrypted.tar.gz.enc</span><br></pre></td></tr></table></figure>
+
+<p>恢复流程</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 解密恢复</span></span><br><span class="line">openssl enc -d -aes-256-cbc -<span class="keyword">in</span> backup_encrypted.tar.gz.enc | tar -xzvf -</span><br><span class="line"></span><br><span class="line"><span class="comment"># 增量恢复</span></span><br><span class="line">tar -xzvf backup_full.tar.gz</span><br><span class="line">tar -xzvf backup_inc_1.tar.gz</span><br><span class="line">tar -xzvf backup_inc_2.tar.gz</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3、软件部署"><a href="#3、软件部署" class="headerlink" title="3、软件部署"></a>3、软件部署</h3><h4 id="分发压缩包"><a href="#分发压缩包" class="headerlink" title="分发压缩包"></a>分发压缩包</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 创建部署包</span></span><br><span class="line">tar -czvf app_v2.3.tar.gz --exclude=<span class="string">&quot;.git&quot;</span> --exclude=<span class="string">&quot;node_modules&quot;</span> ./app/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 安全传输到目标服务器</span></span><br><span class="line">scp -i ~/.ssh/deploy_key app_v2.3.tar.gz user@server:/tmp/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 远程解压部署</span></span><br><span class="line">ssh -i ~/.ssh/deploy_key user@server <span class="string">&quot; </span></span><br><span class="line"><span class="string">  tar -xzvf /tmp/app_v2.3.tar.gz -C /opt/apps/ &amp;&amp; </span></span><br><span class="line"><span class="string">  systemctl restart app_service</span></span><br><span class="line"><span class="string">&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="自动化方案"><a href="#自动化方案" class="headerlink" title="自动化方案"></a>自动化方案</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用Ansible批量部署</span></span><br><span class="line">ansible all -m copy -a <span class="string">&quot;src=app_v2.3.tar.gz dest=/tmp/&quot;</span></span><br><span class="line">ansible all -m shell -a <span class="string">&quot;tar -xzvf /tmp/app_v2.3.tar.gz -C /opt/apps/&quot;</span></span><br><span class="line">ansible all -m service -a <span class="string">&quot;name=app_service state=restarted&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、系统维护"><a href="#4、系统维护" class="headerlink" title="4、系统维护"></a>4、系统维护</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 磁盘空间监控</span></span><br><span class="line"><span class="built_in">df</span> -h | awk <span class="string">&#x27;$5 &gt; 80% &#123;print $6 &quot; is &quot; $5&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 内存泄漏检测</span></span><br><span class="line">watch -n 60 <span class="string">&#x27;ps aux --sort=-%mem | head -10&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定时清理临时文件</span></span><br><span class="line">find /tmp -<span class="built_in">type</span> f -mtime +7 -delete</span><br><span class="line"></span><br><span class="line"><span class="comment"># 系统更新（滚动更新）</span></span><br><span class="line">dnf update -y &amp;&amp; dnf clean all</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="二、安全运维"><a href="#二、安全运维" class="headerlink" title="二、安全运维"></a>二、安全运维</h2><h3 id="1、安全审计"><a href="#1、安全审计" class="headerlink" title="1、安全审计"></a>1、安全审计</h3><p>加密压缩敏感日志 </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 压缩并加密审计日志</span></span><br><span class="line">tar -czvf - /var/log/audit/* | gpg --symmetric --cipher-algo AES256 -o audit_$(<span class="built_in">date</span> +%F).tar.gz.gpg</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解密查看</span></span><br><span class="line">gpg -d audit_2025-08-04.tar.gz.gpg | tar -xzvf -</span><br></pre></td></tr></table></figure>
+
+<p><strong>日志完整性保护</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 生成SHA256校验值</span></span><br><span class="line"><span class="built_in">sha256sum</span> audit.log &gt; audit.log.sha256</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证日志完整性</span></span><br><span class="line"><span class="built_in">sha256sum</span> -c audit.log.sha256</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、安全传输"><a href="#2、安全传输" class="headerlink" title="2、安全传输"></a>2、安全传输</h3><p>加密传输 </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用OpenSSL加密传输</span></span><br><span class="line">tar -czvf - /data | openssl enc -aes-256-cbc -pass pass:密钥 | nc -l 12345</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接收端</span></span><br><span class="line">nc server_ip 12345 | openssl enc -d -aes-256-cbc -pass pass:密钥 | tar -xzvf -</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用SSH隧道</span></span><br><span class="line">tar -czvf - /sensitive | ssh user@remote <span class="string">&quot;cat &gt; backup.tar.gz&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>证书加密传输</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 公钥加密</span></span><br><span class="line">tar -czvf - /data | openssl smime -encrypt -aes256 -binary -outform DER remote_cert.pem &gt; data.tar.enc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 私钥解密</span></span><br><span class="line">openssl smime -decrypt -<span class="keyword">in</span> data.tar.enc -inform DER -inkey private.key | tar -xzvf -</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、应急响应"><a href="#3、应急响应" class="headerlink" title="3、应急响应"></a>3、应急响应</h3><p><strong>快速收集系统信息</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># incident_response.sh</span></span><br><span class="line"></span><br><span class="line">OUTDIR=<span class="string">&quot;/forensics/<span class="subst">$(hostname)</span>_<span class="subst">$(date +%F_%H%M)</span>&quot;</span></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="variable">$OUTDIR</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 系统信息</span></span><br><span class="line"><span class="built_in">uname</span> -a &gt; <span class="variable">$OUTDIR</span>/system_info.txt</span><br><span class="line">ip a &gt; <span class="variable">$OUTDIR</span>/network_config.txt</span><br><span class="line">ps aux &gt; <span class="variable">$OUTDIR</span>/process_list.txt</span><br><span class="line">netstat -tulnpe &gt; <span class="variable">$OUTDIR</span>/network_connections.txt</span><br><span class="line">lsof -i &gt; <span class="variable">$OUTDIR</span>/open_ports.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 恶意样本打包</span></span><br><span class="line">find / -mtime -1 -<span class="built_in">type</span> f -<span class="built_in">exec</span> tar -rvf <span class="variable">$OUTDIR</span>/suspicious_files.tar &#123;&#125; +</span><br><span class="line">gzip <span class="variable">$OUTDIR</span>/suspicious_files.tar</span><br><span class="line"></span><br><span class="line"><span class="comment"># 内存快照</span></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mem of=<span class="variable">$OUTDIR</span>/memory_dump.bin bs=1M count=1024</span><br></pre></td></tr></table></figure>
+
+<p>恶意样本分析流程：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 隔离样本</span></span><br><span class="line"><span class="built_in">mkdir</span> /quarantine &amp;&amp; <span class="built_in">mv</span> suspicious_file /quarantine/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 计算哈希值</span></span><br><span class="line"><span class="built_in">sha256sum</span> /quarantine/suspicious_file &gt; hashes.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 限制权限</span></span><br><span class="line"><span class="built_in">chmod</span> 400 /quarantine/suspicious_file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 打包加密</span></span><br><span class="line">tar -czvf - /quarantine | gpg --encrypt --recipient security-team@company.com &gt; malware_analysis.tar.gz.gpg</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 上传到沙箱分析</span></span><br><span class="line">curl -X POST -F <span class="string">&quot;file=@malware_analysis.tar.gz.gpg&quot;</span> https://malware-analysis-api.com</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="生成测试文件"><a href="#生成测试文件" class="headerlink" title="生成测试文件"></a>生成测试文件</h2><p><code>/dev/zero</code>文件，能够输出无限连续的0x00字节，用作创建空白文件，初始化存储空间</p>
+<p><code>/dev/null</code>文件，是黑洞设备可以丢弃所有写入，用于屏蔽程序输出</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@wickt tmp]# <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=/tmp/testfile bs=1M count=100</span><br><span class="line"></span><br><span class="line"><span class="comment"># if=/dev/zero ，输入源为/dev/zero</span></span><br><span class="line"><span class="comment"># of=/tmp/testfile ， 输出文件为/tmp/testfile</span></span><br><span class="line"><span class="comment"># bs=1M		每一块大小为1M</span></span><br><span class="line"><span class="comment"># count=100		添加的块的数量</span></span><br><span class="line"></span><br><span class="line">[root@wickt tmp]# <span class="built_in">ls</span> -lh testfile</span><br><span class="line">-rw-r--r--. 1 root root 100M 8月   4 18:24 testfile</span><br><span class="line"><span class="comment"># -h 输出文件大小，以能看懂的形式</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="查看文件"><a href="#查看文件" class="headerlink" title="查看文件"></a>查看文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@wickt tmp]# file test.txt</span><br><span class="line">test.txt: ASCII text</span><br><span class="line">[root@wickt tmp]# file testfile</span><br><span class="line">testfile: data</span><br><span class="line">[root@wickt tmp]# hexdump testfile</span><br><span class="line">0000000 0000 0000 0000 0000 0000 0000 0000 0000</span><br><span class="line">*</span><br><span class="line">6400000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最前面 0000000 是起始偏移量</span></span><br><span class="line"><span class="comment"># 中间 0000 是文件数据</span></span><br><span class="line"><span class="comment"># * 号表示数据都和上面一样</span></span><br><span class="line"><span class="comment"># 最后的 6400000 表示数据结束地址</span></span><br></pre></td></tr></table></figure>
+
+<p>file 文件名，查看文件类型</p>
+<p><code>test.txt</code>文件中写入了单词<code>apple</code>用file命令查看时<code>ASCII</code>文件。</p>
+<p>刚才创建的testfile文件显示为data，表示file命令无法识别该文件的具体格式。从&#x2F;dev&#x2F;zero文件创建的全是0的空数据，被系统理解为纯二进制的数据或是非标准格式，所以无法识别。</p>
+<h1 id="压缩文件"><a href="#压缩文件" class="headerlink" title="压缩文件"></a>压缩文件</h1><h2 id="gzip命令"><a href="#gzip命令" class="headerlink" title="gzip命令"></a>gzip命令</h2><p><code>gzip</code> 是 Linux&#x2F;Unix 系统中一个非常常用的文件压缩工具，它使用 LZ77 和 Huffman 编码算法（DEFLATE）来减小文件大小。<strong>压缩后的文件通常以 <code>.gz</code> 为扩展名，并且 <code>gzip</code> 默认会删除原始文件</strong>（除非使用 <code>-k</code> 选项）。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gzip [选项] 文件名</span><br><span class="line">gunzip [选项] 文件名.gz		<span class="comment"># 解压缩文件，等效于 gzip -d 命令</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p><strong>压缩与解压基础:</strong></p>
+<ul>
+<li><code>-c</code> 或 <code>--stdout</code> 或 <code>--to-stdout</code>：<strong>将压缩或解压后的输出写到标准输出（屏幕），不改变原始文件。</strong> 这是将结果通过管道传递给其他命令或保存到不同文件的关键。<ul>
+<li>压缩到屏幕：<code>gzip -c file.txt</code></li>
+<li>压缩并保存为新文件：<code>gzip -c file.txt &gt; file.txt.gz</code></li>
+<li>解压到屏幕：<code>gzip -cd file.txt.gz</code></li>
+<li>解压并保存为新文件：<code>gzip -cd file.txt.gz &gt; file.txt</code></li>
+</ul>
+</li>
+<li><code>-d</code> 或 <code>--decompress</code> 或 <code>--uncompress</code>：<strong>解压缩文件。</strong> 这是 <code>gunzip</code> 命令的等效方式。<ul>
+<li><code>gzip -d file.txt.gz</code> (解压后得到 <code>file.txt</code>, 并删除 <code>file.txt.gz</code>)</li>
+</ul>
+</li>
+<li><code>-k</code> 或 <code>--keep</code>：<strong>压缩或解压时保留原始文件。</strong> 这是防止 <code>gzip</code> 默认删除源文件的关键选项。<ul>
+<li><code>gzip -k file.txt</code> (压缩后得到 <code>file.txt.gz</code>, 并且 <code>file.txt</code> 仍然存在)</li>
+<li><code>gzip -dk file.txt.gz</code> (解压后得到 <code>file.txt</code>, 并且 <code>file.txt.gz</code> 仍然存在)</li>
+</ul>
+</li>
+<li><code>-f</code> 或 <code>--force</code>：<strong>强制执行操作。</strong><ul>
+<li>强制覆盖已存在的输出文件。</li>
+<li>即使文件有多个硬链接、是终端设备或压缩数据看起来不完整也尝试压缩。</li>
+<li>当与 <code>-c</code> 结合使用时，即使输入数据不是常规文件（如管道、设备），也尝试压缩。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>压缩级别控制 (速度 vs 压缩率):</strong></p>
+<ul>
+<li><code>-#</code> 或 <code>--fast</code> 或 <code>--best</code>：<strong>设置压缩级别。</strong> <code>#</code> 是一个从 1 到 9 的数字。<ul>
+<li><code>-1</code> 或 <code>--fast</code>：<strong>最快压缩</strong>，但压缩率最低（文件压缩后相对较大）。</li>
+<li><code>-9</code> 或 <code>--best</code>：<strong>最慢压缩</strong>，但压缩率最高（文件压缩后相对最小）。</li>
+<li><code>-6</code>：<strong>默认压缩级别</strong>，在速度和压缩率之间取得较好的平衡。</li>
+<li>通常，级别 6-9 之间的压缩率差异不大，但级别 9 会显著增加压缩时间。级别 1 非常快，但压缩效果较差。</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">速度</th>
+<th align="left">压缩率</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-1</code> <code>--fast</code></td>
+<td align="left">最快</td>
+<td align="left">最低</td>
+<td align="left">牺牲压缩率换取速度</td>
+</tr>
+<tr>
+<td align="left"><code>-6</code></td>
+<td align="left">默认</td>
+<td align="left">默认</td>
+<td align="left">较好的平衡点 (默认级别)</td>
+</tr>
+<tr>
+<td align="left"><code>-9</code> <code>--best</code></td>
+<td align="left">最慢</td>
+<td align="left">最高</td>
+<td align="left">牺牲速度换取最大压缩率</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>信息查看:</strong></p>
+<ul>
+<li><code>-l</code> 或 <code>--list</code>：<strong>列出压缩文件的信息。</strong> 显示每个压缩文件的压缩大小、未压缩大小、压缩比（百分比）和未压缩文件名。不解压文件。<ul>
+<li><code>gzip -l file.txt.gz</code></li>
+<li>常用组合 <code>-lv</code> 查看更详细的信息（包括校验和、时间戳）。</li>
+</ul>
+</li>
+<li><code>-v</code> 或 <code>--verbose</code>：<strong>详细模式。</strong> 在处理文件时显示文件名和压缩比。<ul>
+<li><code>gzip -v file.txt</code> (压缩时显示压缩比)</li>
+<li><code>gzip -dv file.txt.gz</code> (解压时显示信息)</li>
+<li><code>gzip -lv file.txt.gz</code> (查看列表时显示更详细信息)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>递归操作 (需要结合其他命令):</strong></p>
+<ul>
+<li><code>gzip</code> <strong>本身不能递归压缩目录及其子目录下的所有文件。</strong> 你需要先使用 <code>tar</code> 打包目录，然后再压缩打包后的 <code>.tar</code> 文件。<ul>
+<li><code>tar -czvf archive.tar.gz directory/</code>：打包并压缩目录（常用）</li>
+<li><code>tar -xzvf archive.tar.gz</code>：解压 <code>.tar.gz</code> 文件</li>
+<li><code>gzip</code> 也可以直接压缩 <code>.tar</code> 文件：<code>gzip archive.tar</code> -&gt; <code>archive.tar.gz</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>文件属性:</strong></p>
+<ul>
+<li><code>-N</code> 或 <code>--name</code>：<strong>解压时，如果原始文件名和文件时间戳信息存储在压缩文件中，则恢复原始文件名和时间戳。</strong> 这是默认行为。如果压缩时使用了 <code>--no-name</code>，则解压时需要用 <code>-N</code> 来强制恢复原始名和时间戳。</li>
+<li><code>-n</code> 或 <code>--no-name</code>：<strong>压缩时，不存储原始文件名和时间戳。</strong> 解压时，如果压缩文件没有存储原始名，则使用压缩文件名去掉 <code>.gz</code> 后缀（即使这样可能不准确）。解压时不恢复原始时间戳，使用当前时间。</li>
+<li><code>-T</code> 或 <code>--test</code>：<strong>测试压缩文件的完整性。</strong> 检查文件是否有错误，但不解压输出任何内容。如果文件完好，命令正常退出（退出码为 0）。</li>
+</ul>
+</li>
+</ol>
+<h4 id="文件压缩"><a href="#文件压缩" class="headerlink" title="文件压缩"></a>文件压缩</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@wickt tmp]# gzip testfile </span><br><span class="line">[root@wickt tmp]# <span class="built_in">ls</span> -lh testfile.gz </span><br><span class="line">-rw-r--r--. 1 root root 100K 8月   4 18:24 testfile.gz</span><br><span class="line"></span><br><span class="line">[root@wickt tmp]# file testfile.gz </span><br><span class="line">testfile.gz: gzip compressed data, was <span class="string">&quot;testfile&quot;</span>, last modified: Mon Aug  4 10:24:55 2025, from Unix, original size 104857600</span><br><span class="line"></span><br><span class="line"><span class="comment"># testfile.gz:被检查的文件名</span></span><br><span class="line"><span class="comment"># gzip compressed data 文件类型是 gzip 压缩数据（符合 gzip 格式标准）</span></span><br><span class="line"><span class="comment"># was &quot;testfile&quot; 压缩前的原始文件名是 testfile，zip 在压缩时会默认记录原始文件名（除非使用 -n 选项禁用）</span></span><br><span class="line"><span class="comment"># last modified: Mon Aug 4 10:24:55 2025 原始文件的 最后修改时间 是 2025年8月4日 10:24:55</span></span><br><span class="line"><span class="comment"># from Unix 文件是在 Unix/Linux 系统 上创建的</span></span><br><span class="line"><span class="comment"># original size 104857600 原始文件的 未压缩大小 为 104,857,600 字节</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看到在使用gzip压缩时不加参数默认删除原文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@wickt tmp]# <span class="built_in">mkdir</span> test1</span><br><span class="line">[root@wickt tmp]# <span class="built_in">mv</span> testfile ./test1</span><br><span class="line">[root@wickt tmp]# gzip -k ./test1</span><br><span class="line">gzip: ./test1 is a directory -- ignored</span><br></pre></td></tr></table></figure>
+
+<p>！！！gzip无法压缩文件夹</p>
+<h4 id="文件解压"><a href="#文件解压" class="headerlink" title="文件解压"></a>文件解压</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># gunzip 解压</span></span><br><span class="line">[root@wickt tmp]# gunzip testfile.gz </span><br><span class="line">[root@wickt tmp]# <span class="built_in">ls</span> -lh testfile</span><br><span class="line">-rw-r--r--. 1 root root 100M 8月   4 18:24 testfile</span><br><span class="line">[root@wickt tmp]# </span><br><span class="line"></span><br><span class="line"><span class="comment"># gzip -d 命令解压</span></span><br><span class="line">[root@wickt tmp]# gzip -d -k testfile.gz</span><br><span class="line">gzip: testfile already exists; <span class="keyword">do</span> you wish to overwrite (y or n)? y</span><br><span class="line">[root@wickt tmp]# <span class="built_in">ls</span> -lh | grep testfile</span><br><span class="line">-rw-r--r--. 1 root       root       100M 8月   4 18:24 testfile</span><br><span class="line">-rw-r--r--. 1 root       root       100K 8月   4 18:24 testfile.gz</span><br></pre></td></tr></table></figure>
+
+<p>文件解压不加参数也是默认删除原文件</p>
+<h2 id="bzip2命令"><a href="#bzip2命令" class="headerlink" title="bzip2命令"></a>bzip2命令</h2><p><code>bzip2</code> 是 Linux&#x2F;Unix 系统中一个高效的文件压缩工具，使用 <strong>Burrows-Wheeler 变换 (BWT)</strong> 和 <strong>Huffman 编码</strong>算法，通常能提供比 <code>gzip</code> <strong>更高的压缩率</strong>（尤其是文本文件），但压缩&#x2F;解压速度相对较慢。压缩后的文件扩展名为 <code>.bz2</code>。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bzip2 [选项] 文件名           <span class="comment"># 压缩文件</span></span><br><span class="line">bunzip2 [选项] 文件名.bz2     <span class="comment"># 解压（等价于 bzip2 -d）</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>压缩与解压基础</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>无选项</strong></td>
+<td align="left">压缩文件（默认删除原始文件），生成 <code>.bz2</code> 文件： <code>bzip2 file.txt</code> → <code>file.txt.bz2</code></td>
+</tr>
+<tr>
+<td align="left"><code>-d</code> <code>--decompress</code></td>
+<td align="left">解压文件（默认删除 <code>.bz2</code> 文件）： <code>bzip2 -d file.txt.bz2</code> → <code>file.txt</code> <code>bunzip2 file.txt.bz2</code> 效果相同</td>
+</tr>
+<tr>
+<td align="left"><code>-k</code> <code>--keep</code></td>
+<td align="left"><strong>保留原始文件</strong>（压缩或解压后）： <code>bzip2 -k file.txt</code>（保留 <code>file.txt</code>） <code>bzip2 -dk file.txt.bz2</code>（保留 <code>file.txt.bz2</code>）</td>
+</tr>
+<tr>
+<td align="left"><code>-c</code> <code>--stdout</code></td>
+<td align="left">输出到标准输出（不修改文件），用于管道操作： <code>bzip2 -c file.txt &gt; file.txt.bz2</code> <code>bzip2 -dc file.txt.bz2 &gt; file.txt</code></td>
+</tr>
+<tr>
+<td align="left"><code>-f</code> <code>--force</code></td>
+<td align="left">强制覆盖输出文件，忽略错误（如文件已存在）</td>
+</tr>
+</tbody></table>
+<hr>
+<ol start="2">
+<li><strong>压缩级别控制 (1-9)</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">速度</th>
+<th align="left">压缩率</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-1</code> (或 <code>--fast</code>)</td>
+<td align="left">最快</td>
+<td align="left">最低</td>
+<td align="left">快速压缩（牺牲压缩率）</td>
+</tr>
+<tr>
+<td align="left"><code>-9</code> (或 <code>--best</code>)</td>
+<td align="left">最慢</td>
+<td align="left">最高</td>
+<td align="left">最佳压缩（默认级别）</td>
+</tr>
+<tr>
+<td align="left"><code>-#</code></td>
+<td align="left">中间值</td>
+<td align="left">平衡</td>
+<td align="left"><code>#</code> 为 1-9 的数字（例如 <code>-5</code>）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>注意</strong>：级别 <code>-9</code> 是默认值，比低级别多占用 10% 内存，但压缩率显著提升。</p>
+</blockquote>
+<hr>
+<ol start="3">
+<li><strong>文件检查与测试</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-t</code> <code>--test</code></td>
+<td align="left"><strong>测试压缩文件完整性</strong>（不输出数据）： <code>bzip2 -t file.txt.bz2</code> （成功返回 0，失败返回 1）</td>
+</tr>
+<tr>
+<td align="left"><code>-v</code> <code>--verbose</code></td>
+<td align="left">显示操作详情（文件名、压缩率等）： <code>bzip2 -v file.txt</code> <code>bzip2 -tv file.txt.bz2</code>（测试+详情）</td>
+</tr>
+</tbody></table>
+<hr>
+<ol start="4">
+<li><strong>解压专用工具</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">等效操作</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>bunzip2</code></td>
+<td align="left"><code>bzip2 -d</code></td>
+<td align="left">解压 <code>.bz2</code> 文件</td>
+</tr>
+<tr>
+<td align="left"><code>bzcat</code></td>
+<td align="left"><code>bzip2 -dc</code></td>
+<td align="left"><strong>不解压直接查看内容</strong>： &#96;bzcat file.txt.bz2</td>
+</tr>
+</tbody></table>
+<h3 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@wickt tmp]# bzip2 ./test1/testfile </span><br><span class="line">[root@wickt tmp]# <span class="built_in">ls</span> -lh ./test1/</span><br><span class="line">总用量 4.0K</span><br><span class="line">-rw-r--r--. 1 root root 113 8月   4 18:24 testfile.bz2</span><br><span class="line">[root@wickt tmp]# </span><br></pre></td></tr></table></figure>
+
+<p><code>bzip2</code>默认压缩删除原文件，使用<code>-k</code>参数保留原文件</p>
+<p>同样bzip2不能压缩目录文件（文件夹）</p>
+<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># bunzip2 命令</span></span><br><span class="line">[root@wickt tmp]# bunzip2 ./test1/testfile.bz2 </span><br><span class="line">[root@wickt tmp]# <span class="built_in">ls</span> -lh ./test1/</span><br><span class="line">总用量 100M</span><br><span class="line">-rw-r--r--. 1 root root 100M 8月   4 18:24 testfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># bzip2 -d 命令</span></span><br><span class="line">[root@wickt tmp]# bzip2 -dk ./test1/testfile.bz2</span><br><span class="line">[root@wickt tmp]# <span class="built_in">ls</span> -lh ./test1/</span><br><span class="line">总用量 101M</span><br><span class="line">-rw-r--r--. 1 root root 100M 8月   4 18:24 testfile</span><br><span class="line">-rw-r--r--. 1 root root  113 8月   4 18:24 testfile.bz2</span><br><span class="line">[root@wickt tmp]# </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>bzip2</code>默认解压缩也是删除原文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bzcat ./test1/testfile.bz2 		<span class="comment"># 查看压缩内容</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="打包命令tar"><a href="#打包命令tar" class="headerlink" title="打包命令tar"></a>打包命令tar</h2><p><code>tar</code>（Tape ARchiver）是 Linux&#x2F;Unix 系统中用于<strong>打包和解包文件</strong>的核心工具，可将多个文件&#x2F;目录合并为单个归档文件（tarball），常与压缩工具（如 gzip, bzip2, xz）结合使用。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar [操作模式] [选项] [归档文件] [文件/目录...]</span><br></pre></td></tr></table></figure>
+
+<h4 id="操作模式（必须选一个）"><a href="#操作模式（必须选一个）" class="headerlink" title="操作模式（必须选一个）"></a><strong>操作模式（必须选一个）</strong></h4><table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">全称</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-c</code></td>
+<td align="left"><code>--create</code></td>
+<td align="left"><strong>创建</strong>新归档</td>
+</tr>
+<tr>
+<td align="left"><code>-x</code></td>
+<td align="left"><code>--extract</code></td>
+<td align="left"><strong>解包</strong>归档文件</td>
+</tr>
+<tr>
+<td align="left"><code>-t</code></td>
+<td align="left"><code>--list</code></td>
+<td align="left"><strong>列出</strong>归档内容</td>
+</tr>
+<tr>
+<td align="left"><code>-r</code></td>
+<td align="left"><code>--append</code></td>
+<td align="left">向归档<strong>追加</strong>文件</td>
+</tr>
+<tr>
+<td align="left"><code>-u</code></td>
+<td align="left"><code>--update</code></td>
+<td align="left">仅追加<strong>比归档内新的文件</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="关键选项"><a href="#关键选项" class="headerlink" title="关键选项"></a><strong>关键选项</strong></h3><h4 id="1-文件指定"><a href="#1-文件指定" class="headerlink" title="1. 文件指定"></a>1. 文件指定</h4><table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-f</code></td>
+<td align="left"><strong>指定归档文件名</strong>（必须选项） <code>tar -cf archive.tar dir/</code></td>
+</tr>
+<tr>
+<td align="left"><code>-v</code></td>
+<td align="left">显示操作详情（<strong>verbose 模式</strong>）</td>
+</tr>
+<tr>
+<td align="left"><code>-C</code></td>
+<td align="left">解压到<strong>指定目录</strong> <code>tar -xf file.tar -C /target</code></td>
+</tr>
+</tbody></table>
+<h4 id="2-压缩类型"><a href="#2-压缩类型" class="headerlink" title="2. 压缩类型"></a>2. 压缩类型</h4><table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">压缩工具</th>
+<th align="left">典型扩展名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-z</code></td>
+<td align="left">gzip</td>
+<td align="left"><code>.tar.gz</code>, <code>.tgz</code></td>
+</tr>
+<tr>
+<td align="left"><code>-j</code></td>
+<td align="left">bzip2</td>
+<td align="left"><code>.tar.bz2</code>, <code>.tbz2</code></td>
+</tr>
+<tr>
+<td align="left"><code>-J</code></td>
+<td align="left">xz</td>
+<td align="left"><code>.tar.xz</code>, <code>.txz</code></td>
+</tr>
+<tr>
+<td align="left"><code>--zstd</code></td>
+<td align="left">zstd</td>
+<td align="left"><code>.tar.zst</code></td>
+</tr>
+</tbody></table>
+<h4 id="3-权限与路径"><a href="#3-权限与路径" class="headerlink" title="3. 权限与路径"></a>3. 权限与路径</h4><table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-p</code></td>
+<td align="left">保留文件<strong>权限</strong>（解压时默认保留）</td>
+</tr>
+<tr>
+<td align="left"><code>--same-owner</code></td>
+<td align="left">保留文件<strong>所有者</strong>（需 root 权限）</td>
+</tr>
+<tr>
+<td align="left"><code>-P</code></td>
+<td align="left">允许使用<strong>绝对路径</strong>（默认移除根目录 <code>/</code>）</td>
+</tr>
+<tr>
+<td align="left"><code>--strip-components=N</code></td>
+<td align="left">解压时<strong>移除前 N 层目录</strong></td>
+</tr>
+</tbody></table>
+<h4 id="4-过滤文件"><a href="#4-过滤文件" class="headerlink" title="4. 过滤文件"></a>4. 过滤文件</h4><table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>--exclude=&quot;PATTERN&quot;</code></td>
+<td align="left"><strong>排除</strong>匹配文件&#x2F;目录 <code>--exclude=&quot;*.log&quot;</code></td>
+</tr>
+<tr>
+<td align="left"><code>--wildcards</code></td>
+<td align="left">使用通配符匹配文件名（配合 <code>-t</code> 使用）</td>
+</tr>
+</tbody></table>
+<h3 id="压缩效率对比"><a href="#压缩效率对比" class="headerlink" title="压缩效率对比"></a><strong>压缩效率对比</strong></h3><table>
+<thead>
+<tr>
+<th align="left">格式</th>
+<th align="left">压缩率</th>
+<th align="left">速度</th>
+<th align="left">典型用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>.tar</code></td>
+<td align="left">-</td>
+<td align="left">最快</td>
+<td align="left">临时打包</td>
+</tr>
+<tr>
+<td align="left"><code>.tar.gz</code></td>
+<td align="left">中</td>
+<td align="left">快</td>
+<td align="left">通用压缩（日志&#x2F;文本）</td>
+</tr>
+<tr>
+<td align="left"><code>.tar.bz2</code></td>
+<td align="left">高</td>
+<td align="left">慢</td>
+<td align="left">高压缩率需求</td>
+</tr>
+<tr>
+<td align="left"><code>.tar.xz</code></td>
+<td align="left">最高</td>
+<td align="left">最慢</td>
+<td align="left">长期存储&#x2F;分发</td>
+</tr>
+</tbody></table>
+<h3 id="压缩-1"><a href="#压缩-1" class="headerlink" title="压缩"></a>压缩</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@wickt tmp]# <span class="built_in">ls</span> -l ./test1/</span><br><span class="line">总用量 102404</span><br><span class="line">-rw-r--r--. 1 root root 104857600 8月   4 18:24 testfile</span><br><span class="line">-rw-r--r--. 1 root root       113 8月   4 18:24 testfile.bz2</span><br><span class="line">[root@wickt tmp]# tar -cf ./test2/test1.tar ./test1</span><br><span class="line">[root@wickt tmp]# <span class="built_in">ls</span> -lh ./test2/</span><br><span class="line">总用量 101M</span><br><span class="line">-rw-r--r--. 1 root root 101M 8月   4 19:23 test1.tar</span><br><span class="line"></span><br><span class="line"><span class="comment"># -c 创建新文件， -f 指定文件名必须放最后</span></span><br><span class="line"><span class="comment"># 打包文件需要使用相对路径，用绝对路径会将tmp目录一起打包</span></span><br></pre></td></tr></table></figure>
+
+<p>与<code>gzip</code>、<code>bzip2</code>和<code>xz</code>联动</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># gzip</span></span><br><span class="line">[root@wickt tmp]# tar -zcf ./test2/test1.tar.gz ./test1</span><br><span class="line"></span><br><span class="line"><span class="comment"># bzip2</span></span><br><span class="line">[root@wickt tmp]# tar -cjvf ./test2/test1.tar.bz2 ./test1</span><br><span class="line">./test1/</span><br><span class="line">./test1/testfile.bz2</span><br><span class="line">./test1/testfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 高压缩倍率xz</span></span><br><span class="line">[root@wickt tmp]# tar -cJvf ./test2/test1.tar.xz ./test1</span><br><span class="line">./test1/</span><br><span class="line">./test1/testfile.bz2</span><br><span class="line">./test1/testfile</span><br><span class="line">[root@wickt tmp]# <span class="built_in">ls</span> ./test2</span><br><span class="line">test1.tar  test1.tar.bz2  test1.tar.gz  test1.tar.xz</span><br></pre></td></tr></table></figure>
+
+<h3 id="解压-1"><a href="#解压-1" class="headerlink" title="解压"></a>解压</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@wickt tmp]# tar -xf ./test2/test1.tar</span><br><span class="line">[root@wickt tmp]# ll -h | grep test1</span><br><span class="line">drwxr-xr-x. 2 root       root         42 8月   4 19:10 test1</span><br><span class="line"></span><br><span class="line"><span class="comment"># -C 指定解压路径</span></span><br><span class="line">[root@wickt tmp]# tar -xf ./test2/test1.tar -C ./test2</span><br><span class="line">[root@wickt tmp]# <span class="built_in">ls</span> -lh ./test2/ | grep test1</span><br><span class="line">drwxr-xr-x. 2 root root   42 8月   4 19:10 test1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压 .tar.gz 文件</span></span><br><span class="line">[root@wickt tmp]# tar -zxf ./test2/test1.tar.gz -C ./ttw/</span><br><span class="line">[root@wickt tmp]# <span class="built_in">ls</span> -lh ./ttw/</span><br><span class="line">总用量 0</span><br><span class="line">drwxr-xr-x. 2 root root 42 8月   4 19:10 test1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压 .tar.bz2 文件</span></span><br><span class="line">[root@wickt tmp]# tar -xjvf ./test2/test1.tar.bz2 -C </span><br><span class="line">[root@wickt tmp]# <span class="built_in">ls</span> -lh ./ttn2/</span><br><span class="line">总用量 0</span><br><span class="line">drwxr-xr-x. 2 root root 42 8月   4 19:10 test1</span><br><span class="line"></span><br><span class="line"><span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+<h3 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看 tar 文件内容</span></span><br><span class="line">[root@wickt tmp]# tar -tf ./test2/test1.tar</span><br><span class="line">./test1/</span><br><span class="line">./test1/testfile.bz2</span><br><span class="line">./test1/testfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 .tar.gz 文件</span></span><br><span class="line">[root@wickt tmp]# tar -ztf ./test2/test1.tar.gz</span><br><span class="line">./test1/</span><br><span class="line">./test1/testfile.bz2</span><br><span class="line">./test1/testfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 搜索归档内文件</span></span><br><span class="line">[root@wickt tmp]# tar -tzvf ./test2/test1.tar.gz | grep <span class="string">&quot;test&quot;</span></span><br><span class="line">drwxr-xr-x root/root         0 2025-08-04 19:10 ./test1/</span><br><span class="line">-rw-r--r-- root/root       113 2025-08-04 18:24 ./test1/testfile.bz2</span><br><span class="line">-rw-r--r-- root/root 104857600 2025-08-04 18:24 ./test1/testfile</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他用法"><a href="#其他用法" class="headerlink" title="其他用法"></a>其他用法</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 排除特定文件/目录</span></span><br><span class="line">tar -czvf site.tar.gz --exclude=<span class="string">&quot;*.tmp&quot;</span> --exclude=<span class="string">&quot;cache/&quot;</span> /var/www/</span><br><span class="line"><span class="comment"># 使用通配符打包多个文件</span></span><br><span class="line">tar -czvf logs.tar.gz /var/log/*.<span class="built_in">log</span></span><br><span class="line"><span class="comment"># 增量备份（仅打包新修改的文件）</span></span><br><span class="line">tar -czvf incremental_backup.tar.gz --newer-mtime=<span class="string">&quot;2023-01-01&quot;</span> /data/</span><br></pre></td></tr></table></figure>
+
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">wickt42</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/08/04/8-4-work/">http://example.com/2025/08/04/8-4-work/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2025/08/04/8-4-work-2/"><i class="fa fa-chevron-left">  </i><span>8.4_work_2</span></a></div><div class="next-post pull-right"><a href="/2025/08/02/8-2-blog/"><span>Linux综合基础测试</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729164955479.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2025 By wickt42</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/lib/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.1"></script><script src="/js/fancybox.js?version=1.9.1"></script><script src="/js/sidebar.js?version=1.9.1"></script><script src="/js/copy.js?version=1.9.1"></script><script src="/js/fireworks.js?version=1.9.1"></script><script src="/js/transition.js?version=1.9.1"></script><script src="/js/scroll.js?version=1.9.1"></script><script src="/js/head.js?version=1.9.1"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"left","hOffset":0,"vOffset":-20},"log":false,"tagMode":false});</script></body></html>
