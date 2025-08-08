@@ -1,0 +1,477 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="8.6_work"><meta name="keywords" content=""><meta name="author" content="wickt42"><meta name="copyright" content="wickt42"><title>8.6_work | Wickt42's Tech Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '7.3.0'
+} </script><meta name="generator" content="Hexo 7.3.0"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">进程管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">进程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">进程是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%9D%A5%E6%BA%90%EF%BC%9A"><span class="toc-number">1.1.2.</span> <span class="toc-text">进程来源：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%EF%BC%9A"><span class="toc-number">1.1.3.</span> <span class="toc-text">进程状态：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.1.4.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E7%AC%A6%EF%BC%9A"><span class="toc-number">1.1.5.</span> <span class="toc-text">进程描述符：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PID%E7%9A%84%E7%89%B9%E6%AE%8A%E8%A7%92%E8%89%B2"><span class="toc-number">1.1.5.2.</span> <span class="toc-text">PID的特殊角色</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="toc-number">1.1.6.</span> <span class="toc-text">进程间通信</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86-1"><span class="toc-number">1.2.</span> <span class="toc-text">进程管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PS%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">PS查看进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TOP%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.2.2.</span> <span class="toc-text">TOP查看进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#top-%E7%95%8C%E9%9D%A2%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">top 界面详解</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9A%E7%B3%BB%E7%BB%9F%E6%B1%87%E6%80%BB%E4%BF%A1%E6%81%AF-%E9%A1%B6%E9%83%A8%E5%87%A0%E8%A1%8C"><span class="toc-number">1.2.2.1.1.</span> <span class="toc-text">第一部分：系统汇总信息 (顶部几行)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9A%E8%BF%9B%E7%A8%8B-%E4%BB%BB%E5%8A%A1%E5%88%97%E8%A1%A8-%E4%B8%8B%E6%96%B9%E8%A1%A8%E6%A0%BC"><span class="toc-number">1.2.2.1.2.</span> <span class="toc-text">第二部分：进程&#x2F;任务列表 (下方表格)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%BF%AB%E6%8D%B7%E9%94%AE-%E5%9C%A8-top-%E8%BF%90%E8%A1%8C%E6%97%B6%E6%8C%89%E4%B8%8B"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">常用交互式快捷键 (在 top 运行时按下)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E9%80%89%E9%A1%B9-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">启动选项 (命令行参数)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E6%8E%A7%E5%88%B6"><span class="toc-number">1.2.3.</span> <span class="toc-text">信号控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">语法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">1.3.</span> <span class="toc-text">进程优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%9D%99%E6%80%81%E4%BC%98%E5%85%88%E7%BA%A7-Nice-%E5%80%BC"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">1. 静态优先级 (Nice 值)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%8A%A8%E6%80%81%E4%BC%98%E5%85%88%E7%BA%A7-%E5%AE%9E%E6%97%B6%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">2. 动态优先级 (实时优先级)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F-proc"><span class="toc-number">1.4.</span> <span class="toc-text">虚拟文件系统 proc</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%EF%BC%9A%E4%BF%A1%E5%8F%B7%E6%8E%A7%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">实验：信号控制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%EF%BC%9B%E4%BD%9C%E4%B8%9A%E6%8E%A7%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">实验；作业控制</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729165900674.jpg"></div><div class="author-info__name text-center">wickt42</div><div class="author-info__description text-center">Information Security</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/wickt42/wickt42.github.io">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">17</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">3</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">8</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://github.com/">github</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody">hexo-theme-melody</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729164955479.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Wickt42's Tech Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/slides">Slides</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">8.6_work</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2025-08-06</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h1><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><h3 id="进程是什么？"><a href="#进程是什么？" class="headerlink" title="进程是什么？"></a>进程是什么？</h3><p>进程是<strong>正在执行中的程序的一个实例</strong>。它是操作系统进行资源分配和调度的基本单位。</p>
+<p>程序在启动，运行时(执行命令，运行服务）都会产生进程，需要通过进程 来完成程序的工作。</p>
+<p>包含：内存地址空间、安全属性、执行线程、进程状态</p>
+<p>程序 vs 进程：</p>
+<ul>
+<li><p>程序是存储在磁盘上的静态指令和数据的集合（一个可执行文件）。当你运行这个程序时，操作系统会将它加载到内存中，并为它分配资源（CPU 时间、内存空间、文件句柄、网络端口等），这时它就变成了一个活跃的、动态的进程。</p>
+</li>
+<li><p>程序：二进制文件（静态）如 </p>
+</li>
+<li><p>&#x2F;usr&#x2F;bin&#x2F;passwd</p>
+</li>
+<li><p>进程：程序运行过程（动态），有生命周期及状态</p>
+</li>
+</ul>
+<h3 id="进程来源："><a href="#进程来源：" class="headerlink" title="进程来源："></a>进程来源：</h3><p>父进程通过</p>
+<p>fork 创建子进程</p>
+<p>所有进程的祖先进程：</p>
+<ul>
+<li>CentOS5&#x2F;6: init</li>
+<li>CentOS7&#x2F;8: systemd</li>
+</ul>
+<h3 id="进程状态："><a href="#进程状态：" class="headerlink" title="进程状态："></a>进程状态：</h3><p>运行状态产生原因：CPU时间片轮转</p>
+<p>状态类型：</p>
+<ul>
+<li>R (运行) | S (睡眠) | T (停止)</li>
+<li>Z (僵尸) | X (死亡</li>
+</ul>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><ol>
+<li><strong>创建 (Created &#x2F; New):</strong> 一个新进程被创建（通常由现有进程通过 <code>fork()</code> 系统调用创建）。</li>
+<li><strong>就绪 (Ready):</strong> 进程已准备好运行，所需资源（除 CPU 外）都已获得，等待操作系统调度器分配 CPU 时间片。</li>
+<li><strong>运行 (Running):</strong> 进程正在 CPU 上执行指令。</li>
+<li><strong>阻塞&#x2F;等待 (Blocked&#x2F;Waiting&#x2F;Sleeping):</strong> 进程因等待某个事件（如 I&#x2F;O 操作完成、信号量可用、子进程终止等）而无法继续执行，主动让出 CPU。</li>
+<li><strong>终止 (Terminated&#x2F;Zombie):</strong><ul>
+<li><strong>正常终止:</strong> 进程执行完毕或调用 <code>exit()</code>。</li>
+<li><strong>异常终止:</strong> 进程收到无法处理的信号（如 <code>SIGKILL</code>, <code>SIGSEGV</code>）。</li>
+<li><strong>僵尸状态 (Zombie):</strong> 进程已终止，但其退出状态信息（<code>exit code</code>）还未被父进程读取 (<code>wait()</code> 或 <code>waitpid()</code>)。此时进程占用的系统资源（内存、文件描述符等）已被释放，但在进程表中仍保留一个条目记录其退出状态，等待父进程“收尸”。</li>
+<li><strong>孤儿进程 (Orphan):</strong> 父进程先于子进程终止。Linux 会将孤儿进程的父进程 ID (<code>PPID</code>) 设置为 <code>1</code> (<code>init</code> 或 <code>systemd</code> 进程），由 <code>init/systemd</code> 负责在其终止后回收资源（防止僵尸进程）。孤儿进程本身是正常运行的。</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250806195344159.png" alt="image-20250806195337055"></p>
+<h3 id="进程描述符："><a href="#进程描述符：" class="headerlink" title="进程描述符："></a>进程描述符：</h3><p>**进程标识符 (<code>pid</code>, <code>ppid</code>, <code>tgid</code>)：**唯一且 非负的整数，用于在操作系统中唯一标识一个正在运行的进程。每个进程（包括程序、服务、后台任务 等）启动时都会被分配一个PID，系统通过PID管理和跟踪进程的生命周期。</p>
+<ul>
+<li><code>pid</code>: 进程的唯一 ID。</li>
+<li><code>ppid</code>: 父进程 ID。</li>
+<li><code>tgid</code>: 线程组 ID (主线程的 <code>pid</code>)。对于单线程进程，<code>pid == tgid</code>。</li>
+</ul>
+<h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><ul>
+<li><strong>唯一标识进程</strong> ：在多任务操作系统中，同一时间内系统中可能运行着多个进程。PID 就像每个进程的 “身份证号码”，确保每个进程都有一个独一无二的标识，以便操作系统能够准确地区分和管理这些不同的进程。例如，在 Linux 系统中，可以通过命令 <code>ps -ef</code> 查看所有进程及其对应的 PID。</li>
+<li><strong>进程调度和管理</strong> ：操作系统内核利用 PID 对进程进行调度。当系统需要切换进程时，通过 PID 快速找到对应的进程控制块（PCB）等信息，来保存当前进程的运行状态和恢复下一个进程的运行状态。而且在进行进程间通信、资源分配等操作时，PID 也是必不可少的依据。比如，当一个进程需要向另一个进程发送信号时，就需要使用目标进程的 PID 来指定接收信号的进程。</li>
+<li><strong>方便用户操作</strong> ：用户可以通过 PID 来对特定的进程进行操作，如结束进程（通过 <code>kill</code> 命令加 PID）、查看进程详细信息等。</li>
+</ul>
+<h4 id="PID的特殊角色"><a href="#PID的特殊角色" class="headerlink" title="PID的特殊角色"></a>PID的特殊角色</h4><ul>
+<li>PID&#x3D;1（Init进程）  <ul>
+<li>系统启动后的第一个进程，负责启动和管理其他所有用户进程。</li>
+<li>如果PID&#x3D;1的进程终止，系统会触发内核恐慌（Kernel Panic）并崩溃。</li>
+</ul>
+</li>
+<li>父进程PID（PPID） <ul>
+<li>每个进程（除Init）都有父进程（Parent Process），父进程的PID称为  PPID。</li>
+<li>通过ps -ef查看PPID</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@wickt 桌面]# ps -ef | grep rcu_gp</span><br><span class="line">root          3      2  0 20:04 ?        00:00:00 [rcu_gp]</span><br><span class="line">root        240      2  0 20:04 ?        00:00:00 [kworker/0:4-rcu_gp]</span><br><span class="line">root       2812   2747  0 20:06 pts/0    00:00:00 grep --color=auto rcu_gp</span><br><span class="line">[root@wickt 桌面]#</span><br></pre></td></tr></table></figure>
+
+<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p>进程是独立的，但有时需要协作或交换数据。Linux 提供了多种 IPC 机制：</p>
+<ol>
+<li><strong>管道 (<code>|</code>)：</strong><ul>
+<li>匿名管道：用于具有共同祖先（通常是父子）进程间的通信。数据单向流动（先进先出 FIFO）。通过 <code>pipe()</code> 系统调用创建。</li>
+<li>命名管道 (FIFO)：存在于文件系统中（有路径名），可用于任意进程间通信。通过 <code>mkfifo()</code> 创建。</li>
+</ul>
+</li>
+<li><strong>信号 (<code>Signal</code>)：</strong><ul>
+<li>内核或进程向目标进程发送一个小的、预定义的通知（如 <code>SIGINT</code> (Ctrl+C), <code>SIGKILL</code>, <code>SIGTERM</code>, <code>SIGUSR1</code>）。</li>
+<li>用于通知进程发生了异步事件（如终止请求、错误）。<code>kill</code>, <code>pkill</code> 命令用于发送信号。</li>
+</ul>
+</li>
+<li><strong>共享内存 (<code>Shared Memory</code>)：</strong><ul>
+<li>多个进程可以访问同一块物理内存区域。<strong>最快</strong>的 IPC 方式。</li>
+<li>需要配合信号量等机制进行同步，防止竞态条件。<code>shmget</code>, <code>shmat</code>, <code>shmdt</code> 系统调用。</li>
+</ul>
+</li>
+<li><strong>消息队列 (<code>Message Queues</code>)：</strong><ul>
+<li>在内核中维护的消息链表。进程可以发送格式化的消息到队列，其他进程可以按类型接收。<code>msgget</code>, <code>msgsnd</code>, <code>msgrcv</code>。</li>
+</ul>
+</li>
+<li><strong>信号量 (<code>Semaphores</code>)：</strong><ul>
+<li>主要用于进程&#x2F;线程间的<strong>同步</strong>，控制对共享资源的访问（如一次只允许一个进程进入临界区）。<code>semget</code>, <code>semop</code>。</li>
+</ul>
+</li>
+<li><strong>套接字 (<code>Sockets</code>)：</strong><ul>
+<li>最强大、最通用的 IPC 机制，可用于<strong>不同主机</strong>上的进程通信（网络通信），也可用于<strong>同一主机</strong>上的进程通信（Unix Domain Sockets）。提供可靠的双向字节流或数据报通信。</li>
+</ul>
+</li>
+</ol>
+<h2 id="进程管理-1"><a href="#进程管理-1" class="headerlink" title="进程管理"></a>进程管理</h2><h3 id="PS查看进程"><a href="#PS查看进程" class="headerlink" title="PS查看进程"></a>PS查看进程</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ps [选项]</span><br><span class="line">ps aux			<span class="comment"># 常用</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><code>ps aux</code> <ul>
+<li><strong><code>a</code>:</strong> 显示<strong>所有用户</strong>的进程（不仅仅是当前用户）。</li>
+<li><strong><code>u</code>:</strong> 以<strong>面向用户</strong>的格式显示，提供更详细的信息（如用户、CPU、内存等）。</li>
+<li><strong><code>x</code>:</strong> 显示<strong>没有控制终端 (tty)</strong> 的进程（如守护进程、后台服务）。</li>
+<li><strong>输出列详解 (典型输出)：</strong><ul>
+<li><code>USER</code>: 进程所有者（用户）。</li>
+<li><code>PID</code>: 进程 ID (唯一标识)。</li>
+<li><code>%CPU</code>: 进程使用的 CPU 时间百分比。</li>
+<li><code>%MEM</code>: 进程使用的物理内存百分比。</li>
+<li><code>VSZ</code> (vsz): 虚拟内存大小 (KiB)。</li>
+<li><code>RSS</code> (rss): 驻留集大小，即实际使用的、未被换出的物理内存大小 (KiB)。</li>
+<li><code>TTY</code>: 进程关联的终端 (<code>?</code> 表示无终端，通常是守护进程)。</li>
+<li><code>STAT</code>: 进程状态 (见下文详解)。</li>
+<li><code>START</code>: 进程启动时间。</li>
+<li><code>TIME</code>: 进程累计使用的 CPU 时间 (分钟:秒)。</li>
+<li><code>COMMAND</code>: 启动该进程的命令行（包括参数）。用 <code>[]</code> 括起来的通常是内核线程。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>ps -ef</code> <ul>
+<li><strong><code>-e</code>:</strong> 选择<strong>所有</strong>进程 (等同于 <code>-A</code>)。</li>
+<li><strong><code>-f</code>:</strong> 显示<strong>完整格式</strong>的列表。</li>
+<li><strong>输出列详解 (典型输出)：</strong><ul>
+<li><code>UID</code>: 用户 ID (等同于 <code>USER</code>，但显示的是数字 ID)。</li>
+<li><code>PID</code>: 进程 ID。</li>
+<li><code>PPID</code>: 父进程 ID。</li>
+<li><code>C</code>: CPU 利用率 (一个已废弃的字段，通常显示为 <code>0</code> 或意义不大)。</li>
+<li><code>STIME</code>: 进程启动时间 (小时:分钟:秒 或 日期)。</li>
+<li><code>TTY</code>: 关联的终端。</li>
+<li><code>TIME</code>: 累计 CPU 时间。</li>
+<li><code>CMD</code>: 启动该进程的命令名（<strong>注意：</strong> 默认不显示完整命令行参数！这是与 <code>ps aux</code> 中 <code>COMMAND</code> 列的重要区别）。要显示完整命令，通常需要结合 <code>-f</code> 和 <code>-w</code> (或 <code>--width</code>) 选项，或者使用 <code>ps -efww</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>ps -eF</code> <ul>
+<li><strong><code>-e</code>:</strong> 所有进程。</li>
+<li><strong><code>-F</code>:</strong> 额外的完整格式。比 <code>-f</code> 提供更多信息列。</li>
+<li><strong>输出列 (在 <code>ps -ef</code> 基础上增加)：</strong><ul>
+<li><code>SZ</code>: 内存大小 (页数)。类似于 <code>VSZ</code>。</li>
+<li><code>RSS</code>: 驻留集大小 (KiB)。</li>
+<li><code>PSR</code>: 进程当前运行在哪个 CPU 核心上。</li>
+<li><code>ADDR</code>: 内核地址 (意义不大)。</li>
+<li><code>WCHAN</code>: 进程在内核中睡眠的函数名。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>ps -eH</code> &#x2F; <code>ps axjf</code> &#x2F; <code>ps --forest</code> (显示进程树)</strong><ul>
+<li><strong><code>-H</code> &#x2F; <code>-f</code> &#x2F; <code>--forest</code>:</strong> 显示进程的<strong>层级结构（树状图）</strong>，清晰展示父子进程关系。</li>
+<li><strong><code>-e</code> &#x2F; <code>ax</code>:</strong> 选择所有进程。</li>
+<li><strong><code>j</code>:</strong> BSD 作业控制格式 (常与 <code>f</code> 结合显示树状)。</li>
+<li><strong>示例:</strong><ul>
+<li><code>ps -ef --forest</code></li>
+<li><code>ps auxf</code></li>
+<li><code>ps axjf</code></li>
+</ul>
+</li>
+<li><strong>输出特点：</strong> 使用缩进或 ASCII 字符绘制树形结构，<code>CMD</code> 列通常只显示命令名而非完整路径。</li>
+</ul>
+</li>
+<li><strong><code>ps -eLf</code> (查看线程 - LWP)</strong><ul>
+<li><strong><code>-e</code>:</strong> 所有进程。</li>
+<li><strong><code>-L</code>:</strong> 显示 <strong>LWP (Light Weight Process)</strong> 和 <strong>NLWP (Number of LWPs)</strong> 信息。LWP 可以理解为线程。</li>
+<li><strong><code>-f</code>:</strong> 完整格式。</li>
+<li><strong>关键输出列：</strong><ul>
+<li><code>PID</code>: 进程 ID (整个进程)。</li>
+<li><code>LWP</code>: 线程 ID (该进程内的轻量级进程 ID)。</li>
+<li><code>NLWP</code>: 该进程包含的线程总数。</li>
+<li><code>CMD</code>: 命令名 (通常需要结合 <code>-w</code> 显示完整参数)。</li>
+</ul>
+</li>
+<li><strong>用途：</strong> 查看多线程应用程序的线程情况。</li>
+</ul>
+</li>
+</ol>
+<p><strong>进程状态 (<code>STAT</code>) 详解：</strong></p>
+<p>这是 <code>ps aux</code> 输出中 <code>STAT</code> 列的字母代码组合，表示进程的当前状态：</p>
+<ul>
+<li><strong><code>R</code> (Running&#x2F;Runnable):</strong> 进程<strong>正在运行</strong>或在<strong>运行队列中等待 CPU 调度</strong>。</li>
+<li><strong><code>S</code> (Interruptible Sleep):</strong> 进程在<strong>睡眠</strong>状态，<strong>可被中断</strong>。通常是在等待某个事件完成（如 I&#x2F;O 操作、信号量、用户输入）。</li>
+<li><strong><code>D</code> (Uninterruptible Sleep):</strong> 进程在<strong>睡眠</strong>状态，但<strong>不可被中断</strong>（通常是在等待磁盘 I&#x2F;O）。这类进程不能被 <code>kill</code> 信号终止，需要等待 I&#x2F;O 完成或重启系统。要特别注意这种状态。</li>
+<li><strong><code>T</code> (Stopped):</strong> 进程被<strong>暂停</strong>（挂起）。通常由作业控制信号 (<code>SIGSTOP</code>, <code>SIGTSTP</code>) 或调试器暂停。</li>
+<li><strong><code>t</code> (Tracing stop):</strong> 进程被<strong>调试器追踪暂停</strong>。</li>
+<li><strong><code>Z</code> (Zombie):</strong> <strong>僵尸进程</strong>。进程已终止，但其退出状态信息尚未被父进程读取 (<code>wait()</code>)。它不占用资源（除进程表项外），等待父进程“收尸”。</li>
+<li><strong><code>X</code> (Dead):</strong> 进程<strong>完全死亡</strong>（几乎不会在 <code>ps</code> 输出中看到）。</li>
+<li><strong><code>&lt;</code> (High Priority):</strong> 进程拥有<strong>高优先级</strong>（Nice 值 &lt; 0）。</li>
+<li><strong><code>N</code> (Low Priority):</strong> 进程拥有<strong>低优先级</strong>（Nice 值 &gt; 0）。</li>
+<li><strong><code>s</code> (Session Leader):</strong> 进程是一个<strong>会话领导者</strong>。</li>
+<li><strong><code>l</code> (Multi-threaded):</strong> 进程是<strong>多线程</strong>的（有多个 LWP）。</li>
+<li><strong><code>+</code> (Foreground Process Group):</strong> 进程位于<strong>前台进程组</strong>。</li>
+</ul>
+<p><strong><code>ps</code>其他常用选项：</strong></p>
+<ul>
+<li><strong><code>-p &lt;PID1&gt;,&lt;PID2&gt;,...</code> &#x2F; <code>p &lt;PID1&gt; &lt;PID2&gt; ...</code>:</strong> 仅显示指定 PID 的进程信息。e.g., <code>ps -p 1234,5678</code>, <code>ps p 1234 5678</code>.</li>
+<li><strong><code>-C &lt;command_name&gt;</code>:</strong> 仅显示指定命令名的进程。e.g., <code>ps -C sshd</code>, <code>ps C sshd</code>.</li>
+<li><strong><code>-u &lt;username&gt;/&lt;userid&gt;</code>:</strong> 仅显示指定用户拥有的进程。e.g., <code>ps -u root</code>, <code>ps u apache</code>.</li>
+<li><strong><code>--sort &lt;key&gt;</code>:</strong> 按指定列排序输出（加 <code>-</code> 表示降序）。e.g., <code>ps aux --sort=-%cpu</code> (按 CPU 降序), <code>ps aux --sort=rss</code> (按 RSS 升序). 常用排序键：<code>%cpu</code>, <code>%mem</code>, <code>rss</code>, <code>vsz</code>, <code>pid</code>, <code>start_time</code>。</li>
+<li><strong><code>-o &lt;format&gt;</code> &#x2F; <code>o &lt;format&gt;</code>:</strong> <strong>自定义输出格式</strong>。这是 <code>ps</code> 最强大的功能之一。e.g., <code>ps -eo pid,ppid,user,pcpu,pmem,cmd</code>。可以精确控制显示哪些列及其顺序。使用 <code>ps L</code> 查看所有可用的格式说明符。</li>
+<li><strong><code>-w</code> &#x2F; <code>w</code> &#x2F; <code>--width &lt;n&gt;</code>:</strong> 强制宽输出模式或指定输出宽度，防止 <code>COMMAND</code> 或 <code>CMD</code> 列被截断。e.g., <code>ps auxww</code>, <code>ps -efw</code>.</li>
+<li><strong><code>-M</code>:</strong> 在 <code>COMMAND</code> 列后显示<strong>安全上下文</strong>（SELinux 相关）。</li>
+</ul>
+<h3 id="TOP查看进程"><a href="#TOP查看进程" class="headerlink" title="TOP查看进程"></a>TOP查看进程</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">top		<span class="comment"># 启动 top</span></span><br><span class="line">q 或 ctrl + c		<span class="comment"># 退出 top</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250806203623266.png" alt="image-20250806203623200"></p>
+<h4 id="top-界面详解"><a href="#top-界面详解" class="headerlink" title="top 界面详解"></a><code>top</code> 界面详解</h4><p><code>top</code> 的输出分为两个主要部分：</p>
+<h5 id="第一部分：系统汇总信息-顶部几行"><a href="#第一部分：系统汇总信息-顶部几行" class="headerlink" title="第一部分：系统汇总信息 (顶部几行)"></a>第一部分：系统汇总信息 (顶部几行)</h5><ul>
+<li><strong>第一行 (<code>top - ...</code>):</strong><ul>
+<li><code>top</code>: 命令名。</li>
+<li><code>当前时间</code>: 如 <code>14:35:07</code>。</li>
+<li><code>系统运行时间 (up)</code>: 如 <code>1:23</code>, 表示系统已运行 1 小时 23 分钟。后面可能跟登录用户数 (<code>1 user</code>)。</li>
+<li><code>系统平均负载 (load average)</code>: 如 <code>0.00, 0.01, 0.05</code>。分别表示过去 1 分钟、5 分钟、15 分钟的平均负载。<strong>核心理解：</strong><ul>
+<li>对于单核 CPU，<code>1.00</code> 表示 CPU 完全饱和。</li>
+<li>对于 N 核 CPU，<code>N.00</code> 表示所有核心完全饱和。</li>
+<li>低于 <code>1.00</code> 通常表示 CPU 较空闲；持续高于 <code>1.00</code> 或远高于核心数表示系统过载。</li>
+<li>关注 5 分钟和 15 分钟负载更稳定。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>第二行 (<code>Tasks: ...</code>):</strong> 任务（进程）状态统计。<ul>
+<li><code>total</code>: 总进程数。</li>
+<li><code>running</code>: 处于 <strong>运行 (R)</strong> 状态的进程数（正在使用 CPU 或等待 CPU 调度）。</li>
+<li><code>sleeping</code>: 处于 <strong>睡眠 (S)</strong> 状态的进程数（等待事件完成，可中断）。</li>
+<li><code>stopped</code>: 处于 <strong>停止 (T)</strong> 状态的进程数（如被 <code>Ctrl+Z</code> 挂起）。</li>
+<li><code>zombie</code>: <strong>僵尸 (Z)</strong> 进程数（已终止但父进程未回收）。非零且持续存在需关注。</li>
+</ul>
+</li>
+<li><strong>第三行 (<code>%Cpu(s): ...</code>):</strong> <strong>CPU 使用率百分比 (关键！)</strong>。显示所有 CPU 核心的总体使用情况。<ul>
+<li><code>us</code>: <strong>用户空间 (user)</strong>。普通优先级进程消耗的 CPU 时间。</li>
+<li><code>sy</code>: <strong>内核空间 (system)</strong>。系统内核进程消耗的 CPU 时间。</li>
+<li><code>ni</code>: <strong>用户空间优先级调整 (nice)</strong>。低优先级（<code>nice</code> 值 &gt; 0）的用户进程消耗的 CPU 时间。</li>
+<li><code>id</code>: <strong>空闲 (idle)</strong>。CPU 空闲时间百分比。<strong>理想情况希望它高</strong>。</li>
+<li><code>wa</code>: <strong>I&#x2F;O 等待 (IO-wait)</strong>。CPU 等待 I&#x2F;O（磁盘、网络）操作完成的时间百分比。<strong>高值通常表示 I&#x2F;O 瓶颈</strong>。</li>
+<li><code>hi</code>: <strong>硬件中断 (hardware interrupt)</strong>。处理硬件中断消耗的时间。</li>
+<li><code>si</code>: <strong>软件中断 (software interrupt)</strong>。处理软件中断消耗的时间。</li>
+<li><code>st</code>: <strong>虚拟机窃取时间 (steal time)</strong>。在虚拟化环境中，被 Hypervisor 偷去服务其他虚拟机的时间。<strong>非零表示宿主资源紧张</strong>。</li>
+<li><em>(注意：不同版本的 <code>top</code> 显示的项目和顺序可能略有差异)</em></li>
+</ul>
+</li>
+<li><strong>第四行 (<code>KiB Mem : ...</code>):</strong> <strong>物理内存 (RAM)</strong> 使用情况。<ul>
+<li><code>total</code>: 总物理内存。</li>
+<li><code>free</code>: <strong>完全空闲</strong>的内存。操作系统可立即使用的内存。</li>
+<li><code>used</code>: 已使用的内存 (<code>total - free - buffers/cache</code>)。<strong>注意：Linux 会积极利用内存做缓存，所以 <code>used</code> 高不一定是坏事</strong>。</li>
+<li><code>buff/cache</code>: <strong>缓冲区 (buffers) 和缓存 (cache)</strong> 使用的内存。<ul>
+<li><code>buffers</code>: 内核缓冲区，用于块设备 I&#x2F;O（如磁盘读写）。</li>
+<li><code>cache</code>: 页缓存，用于缓存文件数据，加速文件访问。</li>
+<li><strong>这部分内存可以被应用程序快速回收使用。</strong> 关注 <code>available</code> 更准确。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>第五行 (<code>KiB Swap: ...</code>):</strong> <strong>交换空间 (Swap)</strong> 使用情况。<ul>
+<li><code>total</code>: 总交换空间大小。</li>
+<li><code>free</code>: 空闲的交换空间。</li>
+<li><code>used</code>: 已使用的交换空间。</li>
+<li><code>avail Mem</code>: <strong>(重要！)</strong> <strong>可用内存 (Available Memory)</strong>。估算的、<strong>无需交换</strong>即可提供给应用程序使用的内存量。它是 <code>free + buff/cache</code> 中可回收部分的一个更准确的估计值。<strong>这个值比 <code>free</code> 更能反映系统内存是否充足。<code>avail Mem</code> 过低表示内存压力大</strong>。</li>
+</ul>
+</li>
+</ul>
+<h5 id="第二部分：进程-任务列表-下方表格"><a href="#第二部分：进程-任务列表-下方表格" class="headerlink" title="第二部分：进程&#x2F;任务列表 (下方表格)"></a>第二部分：进程&#x2F;任务列表 (下方表格)</h5><p>默认按 CPU 使用率 (<code>%CPU</code>) 降序排序。每一列代表一个进程的属性：</p>
+<ul>
+<li><strong>PID:</strong> 进程 ID (唯一标识)。</li>
+<li><strong>USER:</strong> 进程所有者（用户名）。</li>
+<li><strong>PR:</strong> 进程的<strong>调度优先级 (Priority)</strong>。Linux 下是实时优先级。数值越小优先级越高 (RT 任务为负值或很小的正值)。</li>
+<li><strong>NI:</strong> <strong>Nice 值 (Nice Value)</strong>。用户空间优先级调整值。范围 <code>-20</code> (最高优先级) 到 <code>19</code> (最低优先级)。普通用户只能增加 Nice 值（降低优先级）。</li>
+<li><strong>VIRT:</strong> <strong>虚拟内存大小 (Virtual Memory Size - KiB)</strong>。进程使用的虚拟内存总量（代码 + 数据 + 共享库 + 映射但未使用的内存等）。</li>
+<li><strong>RES:</strong> <strong>驻留内存大小 (Resident Memory Size - KiB)</strong>。进程当前实际使用的、未被换出的物理内存量（包含共享库占用的部分）。<strong>这是进程消耗物理内存的关键指标！</strong> 与 <code>ps</code> 中的 <code>RSS</code> 对应。</li>
+<li><strong>SHR:</strong> <strong>共享内存大小 (Shared Memory - KiB)</strong>。<code>RES</code> 中可被其他进程共享的部分（主要是共享库）。</li>
+<li><strong>%CPU:</strong> 进程<strong>自上次刷新以来</strong>使用的 <strong>CPU 时间百分比</strong>（按单个 CPU 核心计算）。如果进程是多线程的或者系统是多核的，这个值<strong>可以超过 100%</strong>。例如，一个进程使用了 2 个核心的 100%，那么它的 <code>%CPU</code> 会显示 <code>200%</code>。</li>
+<li><strong>%MEM:</strong> 进程使用的<strong>物理内存 (<code>RES</code>)</strong> 占<strong>总物理内存</strong>的百分比。</li>
+<li><strong>TIME+:</strong> 进程<strong>自启动以来</strong>消耗的总 <strong>CPU 时间</strong>（格式：分:秒.毫秒）。<code>+</code> 表示显示到毫秒级。</li>
+<li><strong>COMMAND:</strong> 启动该进程的<strong>命令名或命令行</strong>。按 <code>c</code> 键可以在命令名和完整命令行之间切换。</li>
+</ul>
+<h4 id="常用交互式快捷键-在-top-运行时按下"><a href="#常用交互式快捷键-在-top-运行时按下" class="headerlink" title="常用交互式快捷键 (在 top 运行时按下)"></a>常用交互式快捷键 (在 <code>top</code> 运行时按下)</h4><p><code>top</code> 的强大之处在于其交互性。以下是最常用和关键的快捷键：</p>
+<ol>
+<li><strong>排序：</strong><ul>
+<li><code>P</code> (大写)： 按 <strong>%CPU</strong> 使用率<strong>降序</strong>排序 (默认)。</li>
+<li><code>M</code> (大写)： 按 <strong>%MEM</strong> 使用率<strong>降序</strong>排序 (查看内存占用大户)。</li>
+<li><code>T</code> (大写)： 按 <strong>TIME+</strong> (累计 CPU 时间)<strong>降序</strong>排序。</li>
+<li><code>N</code> (大写)： 按 <strong>PID</strong> <strong>降序</strong>排序 (新进程在底部)。</li>
+<li><code>n</code> (小写)： 按 <strong>PID</strong> <strong>升序</strong>排序 (新进程在顶部)。</li>
+<li><code>R</code>: <strong>反转</strong>当前排序顺序 (升序变降序，降序变升序)。</li>
+</ul>
+</li>
+<li><strong>进程管理：</strong><ul>
+<li><code>k</code>: <strong>杀死 (kill)</strong> 进程。输入 <code>k</code> 后，会提示输入要杀死的进程的 <code>PID</code>，然后提示输入要发送的信号（默认是 <code>15</code> <code>SIGTERM</code>，正常终止；输入 <code>9</code> 发送 <code>SIGKILL</code>，强制终止）。按 <code>Enter</code> 确认。</li>
+<li><code>r</code>: <strong>调整进程的 Nice 值 (Renice)</strong>。输入 <code>r</code> 后，提示输入进程 <code>PID</code>，然后提示输入新的 Nice 值（<code>-20</code> 到 <code>19</code>）。需要权限。</li>
+</ul>
+</li>
+<li><strong>显示控制：</strong><ul>
+<li><code>c</code>: <strong>切换 COMMAND 列显示模式</strong>。在只显示命令名和显示完整命令行之间切换。</li>
+<li><code>f</code> &#x2F; <code>F</code> (Fields): <strong>进入字段管理界面</strong> (非常重要！)。可以：<ul>
+<li>按 <code>d</code> 或空格键 <strong>切换</strong> 某个字段是否显示 (<code>*</code> 表示显示)。</li>
+<li>按 <code>s</code> 键设置某个字段为<strong>排序键</strong>。</li>
+<li>按 <code>方向键</code> 移动选择字段。</li>
+<li>按 <code>&gt;</code> 或 <code>&lt;</code> 键<strong>移动选中字段的位置</strong> (调整列顺序)。</li>
+<li>按 <code>q</code> 或 <code>Esc</code> 退出字段管理。</li>
+</ul>
+</li>
+<li><code>l</code> (小写 L): <strong>切换顶部第一行 (平均负载) 的显示</strong>。</li>
+<li><code>t</code>: <strong>切换顶部第二行 (任务状态) 和第三行 (CPU 状态) 的显示模式</strong>。可以在文本、条形图、纯文本之间循环切换。</li>
+<li><code>m</code>: <strong>切换顶部第四行 (内存) 和第五行 (Swap) 的显示模式</strong>。文本和条形图切换。</li>
+<li><code>1</code> (数字一): <strong>切换显示所有 CPU 核心的单独统计信息</strong>。再按一次切回总体统计。在多核服务器上非常有用。</li>
+<li><code>u</code> &#x2F; <code>U</code>: <strong>按用户筛选进程</strong>。输入 <code>u</code> 后，提示输入用户名，只显示该用户的进程。输入 <code>U</code> 可以清除筛选。</li>
+<li><code>i</code>: <strong>切换显示空闲进程</strong>。默认显示所有进程。按 <code>i</code> 后，只显示非空闲（即 <code>%CPU &gt; 0.0</code>）的进程。再按一次恢复。</li>
+<li><code>V</code>: <strong>切换到树状视图</strong>。以层级结构显示父进程和子进程的关系。再按一次切回列表视图。</li>
+</ul>
+</li>
+<li><strong>刷新与退出：</strong><ul>
+<li><code>s</code>: <strong>改变刷新间隔 (秒)</strong>。输入新的秒数 (如 <code>2</code> 或 <code>0.5</code>)。</li>
+<li><code>空格键</code>: <strong>立即刷新</strong>一次屏幕。</li>
+<li><code>h</code> &#x2F; <code>?</code>: <strong>显示帮助信息</strong>。包含所有可用的快捷键。</li>
+<li><code>q</code>: <strong>退出 <code>top</code></strong>。</li>
+</ul>
+</li>
+</ol>
+<h4 id="启动选项-命令行参数"><a href="#启动选项-命令行参数" class="headerlink" title="启动选项 (命令行参数)"></a>启动选项 (命令行参数)</h4><p>在启动 <code>top</code> 时可以指定一些选项来改变其初始行为：</p>
+<ul>
+<li><code>-d &lt;秒数&gt;</code>: 设置刷新间隔 (替代交互式 <code>s</code>)。如 <code>top -d 2</code> (2 秒刷新一次)。</li>
+<li><code>-p &lt;PID1&gt;,&lt;PID2&gt;,...</code>: 仅监控指定的进程 ID。如 <code>top -p 1234,5678</code>。</li>
+<li><code>-u &lt;用户名&gt;</code>: 仅监控指定用户的进程。如 <code>top -u apache</code>。</li>
+<li><code>-n &lt;次数&gt;</code>: 指定 <code>top</code> 刷新多少次后自动退出。如 <code>top -n 3</code> (刷新 3 次后退出)。</li>
+<li><code>-b</code>: <strong>批处理模式 (Batch mode)</strong>。将输出重定向到文件或管道时使用，避免控制字符干扰。通常结合 <code>-n</code> 使用。如 <code>top -b -n 1 &gt; top_snapshot.txt</code>。</li>
+<li><code>-H</code>: <strong>显示线程 (而不是进程)</strong>。在进程列表中，会显示进程内各个线程的信息 (<code>LWP</code>)。结合 <code>-p</code> 监控特定进程的线程非常有用。如 <code>top -H -p &lt;pid&gt;</code>。</li>
+<li><code>-o &lt;字段名&gt;</code>: 指定启动时的排序字段 (替代交互式按键)。字段名是大小写敏感的。如 <code>top -o %MEM</code> (按内存降序启动), <code>top -o -RES</code> (按 RES 升序启动，注意 <code>-</code> 表示升序)。</li>
+</ul>
+<h3 id="信号控制"><a href="#信号控制" class="headerlink" title="信号控制"></a>信号控制</h3><p><code>kill</code> 命令是 Linux 中用于<strong>向进程发送信号</strong>的核心工具，它不仅能终止进程，还能实现进程间通信、配置重载等多种功能。</p>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">kill</span> [选项] &lt;PID&gt;...         <span class="comment"># 向指定 PID 发送信号</span></span><br><span class="line"><span class="built_in">kill</span> [选项] -&lt;信号名&gt; &lt;PID&gt;... <span class="comment"># 明确指定信号名</span></span><br><span class="line"><span class="built_in">kill</span> [选项] -&lt;信号编号&gt; &lt;PID&gt;... <span class="comment"># 明确指定信号编号</span></span><br></pre></td></tr></table></figure>
+
+<p>Linux 定义了约 <strong>64 种信号</strong>（<code>kill -l</code> 查看完整列表），常用信号如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">信号编号</th>
+<th align="left">信号名</th>
+<th align="left">说明</th>
+<th align="left">默认行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>1</strong></td>
+<td align="left"><code>SIGHUP</code></td>
+<td align="left"><strong>挂起信号</strong> - 终端断开或控制进程结束</td>
+<td align="left">终止</td>
+</tr>
+<tr>
+<td align="left"><strong>2</strong></td>
+<td align="left"><code>SIGINT</code></td>
+<td align="left"><strong>中断信号</strong> - 用户按下 <code>Ctrl+C</code></td>
+<td align="left">终止</td>
+</tr>
+<tr>
+<td align="left"><strong>3</strong></td>
+<td align="left"><code>SIGQUIT</code></td>
+<td align="left"><strong>退出信号</strong> - 用户按下 <code>Ctrl+\</code></td>
+<td align="left">终止 + 生成 core</td>
+</tr>
+<tr>
+<td align="left"><strong>9</strong></td>
+<td align="left"><code>SIGKILL</code></td>
+<td align="left"><strong>强制终止</strong> - <strong>不可被捕获或忽略</strong>，立即结束进程</td>
+<td align="left">强制终止</td>
+</tr>
+<tr>
+<td align="left"><strong>15</strong></td>
+<td align="left"><code>SIGTERM</code></td>
+<td align="left"><strong>终止信号</strong> - <strong>默认信号</strong>，请求进程正常退出（清理资源）</td>
+<td align="left">终止</td>
+</tr>
+<tr>
+<td align="left"><strong>18</strong></td>
+<td align="left"><code>SIGCONT</code></td>
+<td align="left"><strong>继续执行</strong> - 恢复被 <code>SIGSTOP</code> 暂停的进程</td>
+<td align="left">继续运行</td>
+</tr>
+<tr>
+<td align="left"><strong>19</strong></td>
+<td align="left"><code>SIGSTOP</code></td>
+<td align="left"><strong>暂停信号</strong> - <strong>不可被捕获或忽略</strong>，立即暂停进程（<code>Ctrl+Z</code> 发送此信号）</td>
+<td align="left">暂停</td>
+</tr>
+<tr>
+<td align="left"><strong>20</strong></td>
+<td align="left"><code>SIGTSTP</code></td>
+<td align="left"><strong>终端暂停</strong> - 用户按下 <code>Ctrl+Z</code>（可被捕获处理）</td>
+<td align="left">暂停</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong><code>SIGTERM (15)</code></strong>：<strong>优雅终止</strong>（进程可捕获此信号进行资源清理）</li>
+<li><strong><code>SIGKILL (9)</code></strong>：<strong>强制杀死</strong>（进程无法防御，可能导致资源未释放）</li>
+<li><strong><code>SIGSTOP (19)</code></strong> vs <code>SIGTSTP (20)</code>：前者不可捕获，后者可被程序处理。</li>
+</ul>
+<h2 id="进程优先级"><a href="#进程优先级" class="headerlink" title="进程优先级"></a>进程优先级</h2><p>Linux 进程优先级分为两个独立体系：</p>
+<h4 id="1-静态优先级-Nice-值"><a href="#1-静态优先级-Nice-值" class="headerlink" title="1. 静态优先级 (Nice 值)"></a>1. <strong>静态优先级 (Nice 值)</strong></h4><ul>
+<li><strong>范围</strong>：<code>-20</code>（最高）到 <code>19</code>（最低）</li>
+<li><strong>默认值</strong>：<code>0</code></li>
+<li><strong>特点</strong>：<ul>
+<li>用户态进程可调整（普通用户只能<strong>降低</strong>优先级，即增大 Nice 值）</li>
+<li>影响 <strong>CPU 时间片的分配比例</strong></li>
+</ul>
+</li>
+<li><strong>计算公式</strong>：<br><code>时间片权重 = 1024 / (1.25)^(Nice值)</code><br><em>（Nice&#x3D;0 时权重为1024，每降低1级权重增加25%）</em></li>
+</ul>
+<h4 id="2-动态优先级-实时优先级"><a href="#2-动态优先级-实时优先级" class="headerlink" title="2. 动态优先级 (实时优先级)"></a>2. <strong>动态优先级 (实时优先级)</strong></h4><ul>
+<li><p><strong>范围</strong>：<code>1</code>（最低）到 <code>99</code>（最高）</p>
+</li>
+<li><p><strong>调度策略</strong>：</p>
+<table>
+<thead>
+<tr>
+<th align="left">策略</th>
+<th align="left">标识符</th>
+<th align="left">特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>SCHED_FIFO</strong></td>
+<td align="left"><code>F</code></td>
+<td align="left">先进先出，高优先级进程独占CPU直到退出</td>
+</tr>
+<tr>
+<td align="left"><strong>SCHED_RR</strong></td>
+<td align="left"><code>R</code></td>
+<td align="left">时间片轮转，同优先级进程轮流执行</td>
+</tr>
+<tr>
+<td align="left"><strong>SCHED_OTHER</strong></td>
+<td align="left"><code>TS</code></td>
+<td align="left">标准分时调度（使用 Nice 值）</td>
+</tr>
+<tr>
+<td align="left"><strong>SCHED_DEADLINE</strong></td>
+<td align="left"><code>DL</code></td>
+<td align="left">基于截止时间的调度（优先级最高）</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="虚拟文件系统-proc"><a href="#虚拟文件系统-proc" class="headerlink" title="虚拟文件系统 proc"></a>虚拟文件系统 proc</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/proc/cpuinfo    <span class="comment"># CPU信息</span></span><br><span class="line">/proc/meminfo    <span class="comment"># 内存信息</span></span><br><span class="line">/proc/cmdline    <span class="comment"># 内核启动参数</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> /proc/cpuinfo		<span class="comment"># 查看cpu详细</span></span><br><span class="line">less /proc/meminfo		<span class="comment"># 查看内存使用</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="实验：信号控制"><a href="#实验：信号控制" class="headerlink" title="实验：信号控制"></a>实验：信号控制</h1><p>首先启动httpd服务</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 由于之前设置了 httpd 服务自启动，这里重启服务</span></span><br><span class="line">[root@wickt 桌面]# systemctl restart httpd</span><br></pre></td></tr></table></figure>
+
+<p>查找所有关于httpd的进程</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@wickt 桌面]# ps -ef | grep httpd</span><br><span class="line">root       3690      1  0 21:04 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND		<span class="comment"># id为3690的进程是http的主进程</span></span><br><span class="line">apache     3696   3690  0 21:04 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">apache     3697   3690  0 21:04 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">apache     3698   3690  0 21:04 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">apache     3699   3690  0 21:04 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">root       3951   2747  0 21:04 pts/0    00:00:00 grep --color=auto httpd</span><br></pre></td></tr></table></figure>
+
+<p>对http主进程发送信号1</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@wickt 桌面]# <span class="built_in">kill</span> -1 3690		<span class="comment"># 当服务配置变更以后，可以通过-1来刷新主进程</span></span><br><span class="line">[root@wickt 桌面]# ps -ef | grep httpd		<span class="comment"># 主进程id没变，子进程id变化</span></span><br><span class="line">root       3690      1  0 21:04 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">apache     4015   3690  0 21:09 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">apache     4016   3690  0 21:09 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">apache     4017   3690  0 21:09 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">apache     4018   3690  0 21:09 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">root       4241   2747  0 21:09 pts/0    00:00:00 grep --color=auto httpd</span><br></pre></td></tr></table></figure>
+
+<p>对http主进程发送信号15，查看访问状态</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@wickt 桌面]# <span class="built_in">kill</span> -15 3690</span><br><span class="line">[root@wickt 桌面]# ps -ef | grep httpd</span><br><span class="line">root       4364   2747  0 21:11 pts/0    00:00:00 grep --color=auto httpd</span><br><span class="line"></span><br><span class="line">[root@wickt 桌面]# systemctl status httpd</span><br><span class="line">● httpd.service - The Apache HTTP Server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; vendor preset: di&gt;</span><br><span class="line">   Active: inactive (dead) since Wed 2025-08-06 21:11:34 CST; 2min 51s ago</span><br><span class="line">     Docs: man:httpd.service(8)</span><br><span class="line">  Process: 3690 ExecStart=/usr/sbin/httpd <span class="variable">$OPTIONS</span> -DFOREGROUND (code=exited, status&gt;</span><br><span class="line"> Main PID: 3690 (code=exited, status=0/SUCCESS)</span><br><span class="line">   Status: <span class="string">&quot;Running, listening on: port 80&quot;</span></span><br><span class="line"></span><br><span class="line">8月 06 21:04:03 wickt systemd[1]: Starting The Apache HTTP Server...</span><br><span class="line">8月 06 21:04:03 wickt httpd[3690]: AH00558: httpd: Could not reliably determine the &gt;</span><br><span class="line">8月 06 21:04:03 wickt systemd[1]: Started The Apache HTTP Server.</span><br><span class="line">8月 06 21:04:03 wickt httpd[3690]: Server configured, listening on: port 80</span><br><span class="line">8月 06 21:09:48 wickt httpd[3690]: Server configured, listening on: port 80</span><br><span class="line">lines 1-13/13 (END)</span><br><span class="line"></span><br><span class="line"><span class="comment"># inactive (dead) 表示服务当前已停止运行</span></span><br></pre></td></tr></table></figure>
+
+<p>重启http服务，对http主进程发送信号9杀死进程</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@wickt 桌面]# systemctl restart httpd</span><br><span class="line">[root@wickt 桌面]# ps -ef | grep httpd</span><br><span class="line">root       4428      1  0 21:15 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">apache     4429   4428  0 21:15 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">apache     4430   4428  0 21:15 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">apache     4431   4428  0 21:15 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">apache     4433   4428  0 21:15 ?        00:00:00 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">root       4660   2747  0 21:15 pts/0    00:00:00 grep --color=auto httpd</span><br><span class="line">[root@wickt 桌面]# <span class="built_in">kill</span> -9 4428</span><br><span class="line">[root@wickt 桌面]# ps -ef | grep httpd</span><br><span class="line">root       4691   2747  0 21:15 pts/0    00:00:00 grep --color=auto httpd</span><br><span class="line">[root@wickt 桌面]# ps -ef | grep httpd | grep -v grep</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发现还有一个子进程</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="实验；作业控制"><a href="#实验；作业控制" class="headerlink" title="实验；作业控制"></a>实验；作业控制</h1><p>linux可以在一个终端中管理多个任务进程(这些进程称之为job)。 有些进程会占用终端运行很久或是一直占用终端，那么想要运行第二进程就无法操作了, 所以进程可以放到后台执行，这样就不影响在同一个 终端运行第二个进程</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 先查看当前终端运行的 job</span></span><br><span class="line">[root@wickt 桌面]# <span class="built_in">jobs</span> -l</span><br><span class="line">[root@wickt 桌面]# <span class="built_in">sleep</span> 10		<span class="comment"># 等待10秒，此时终端会被占用无法进行其他命令</span></span><br><span class="line">[root@wickt 桌面]# <span class="built_in">sleep</span> 10 &amp;		<span class="comment"># &amp; 为后台符号，这样任务会在后台进行，终端现在可以输入其他命令</span></span><br><span class="line">[1] 4907</span><br><span class="line">[root@wickt 桌面]# ps -ef | grep <span class="built_in">sleep</span></span><br><span class="line">root       4879   1059  0 21:26 ?        00:00:00 <span class="built_in">sleep</span> 60</span><br><span class="line">root       4907   2747  0 21:26 pts/0    00:00:00 <span class="built_in">sleep</span> 10</span><br><span class="line">root       4915   2747  0 21:26 pts/0    00:00:00 grep --color=auto <span class="built_in">sleep</span></span><br><span class="line"></span><br><span class="line">[root@wickt 桌面]# <span class="built_in">sleep</span> 100 &amp;</span><br><span class="line">[1] 4972</span><br><span class="line">[root@wickt 桌面]# <span class="built_in">fg</span> %1			<span class="comment"># 将后台命令转到终端前台执行</span></span><br><span class="line"><span class="built_in">sleep</span> 100</span><br><span class="line">^Z								<span class="comment"># ctrl + z 可以将占用前台的进程转到后端暂停执行</span></span><br><span class="line">[1]+  已停止               <span class="built_in">sleep</span> 100</span><br><span class="line">[root@wickt 桌面]# <span class="built_in">jobs</span> -l</span><br><span class="line">[1]+  4972 停止                  <span class="built_in">sleep</span> 100</span><br><span class="line">[root@wickt 桌面]# <span class="built_in">bg</span> %1			<span class="comment"># 将后台停止的进程转为后台运行状态</span></span><br><span class="line">[1]+ <span class="built_in">sleep</span> 100 &amp;</span><br><span class="line">[root@wickt 桌面]# <span class="built_in">jobs</span> -l</span><br><span class="line">[1]+  4972 运行中               <span class="built_in">sleep</span> 100 </span><br></pre></td></tr></table></figure>
+
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">wickt42</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/08/06/8-6-work/">http://example.com/2025/08/06/8-6-work/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2025/08/06/8-6-work%20-%202/"><i class="fa fa-chevron-left">  </i><span>8.6_work</span></a></div><div class="next-post pull-right"><a href="/2025/08/05/8-5/"><span>8.5</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729164955479.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2025 By wickt42</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/lib/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.1"></script><script src="/js/fancybox.js?version=1.9.1"></script><script src="/js/sidebar.js?version=1.9.1"></script><script src="/js/copy.js?version=1.9.1"></script><script src="/js/fireworks.js?version=1.9.1"></script><script src="/js/transition.js?version=1.9.1"></script><script src="/js/scroll.js?version=1.9.1"></script><script src="/js/head.js?version=1.9.1"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"left","hOffset":0,"vOffset":-20},"log":false,"tagMode":false});</script></body></html>
