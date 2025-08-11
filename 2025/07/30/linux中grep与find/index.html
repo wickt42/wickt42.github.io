@@ -1,0 +1,745 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="grep与find"><meta name="keywords" content="Linux"><meta name="author" content="wickt42"><meta name="copyright" content="wickt42"><title>grep与find | Wickt42's Tech Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '7.3.0'
+} </script><meta name="generator" content="Hexo 7.3.0"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#grep%E5%91%BD%E4%BB%A4%E8%AF%AD%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">grep命令语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81grep-%E5%B8%B8%E7%94%A8%E9%80%89%E9%A1%B9"><span class="toc-number">1.1.</span> <span class="toc-text">一、grep 常用选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">二、正则表达式核心语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9F%BA%E7%A1%80%E5%8C%B9%E9%85%8D"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 基础匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%AD%97%E7%AC%A6%E7%B1%BB"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 字符类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E9%94%9A%E5%AE%9A%E4%B8%8E%E8%BE%B9%E7%95%8C"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. 锚定与边界</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%88%86%E7%BB%84%E4%B8%8E%E9%80%BB%E8%BE%91"><span class="toc-number">1.2.4.</span> <span class="toc-text">4. 分组与逻辑</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E8%BD%AC%E4%B9%89%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6"><span class="toc-number">1.2.5.</span> <span class="toc-text">5. 转义特殊字符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E6%89%A9%E5%B1%95%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.2.6.</span> <span class="toc-text">6.扩展正则表达式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#grep%E5%91%BD%E4%BB%A4%E7%BB%83%E4%B9%A0"><span class="toc-number">2.</span> <span class="toc-text">grep命令练习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%96%87%E4%BB%B6%E5%87%86%E5%A4%87"><span class="toc-number">2.1.</span> <span class="toc-text">实验文件准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E7%BB%83%E4%B9%A0"><span class="toc-number">2.2.</span> <span class="toc-text">命令练习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%BD%E7%95%A5%E5%A4%A7%E5%B0%8F%E5%86%99"><span class="toc-number">2.2.1.</span> <span class="toc-text">忽略大小写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E8%A1%8C%E5%8F%B7%E5%92%8C%E5%8C%B9%E9%85%8D%E6%AC%A1%E6%95%B0"><span class="toc-number">2.2.2.</span> <span class="toc-text">显示行号和匹配次数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E9%99%A4%E5%8C%B9%E9%85%8D%E9%A1%B9"><span class="toc-number">2.2.3.</span> <span class="toc-text">排除匹配项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-number">2.2.4.</span> <span class="toc-text">查看上下文</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D%E6%97%B6%E9%97%B4%E8%8C%83%E5%9B%B4"><span class="toc-number">2.2.5.</span> <span class="toc-text">匹配时间范围</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%B9%E9%85%8DIP%E5%9C%B0%E5%9D%80"><span class="toc-number">2.2.6.</span> <span class="toc-text">匹配IP地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D%E9%82%AE%E7%AE%B1%E5%9C%B0%E5%9D%80"><span class="toc-number">2.2.7.</span> <span class="toc-text">匹配邮箱地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E7%9B%AE%E5%BD%95%E9%80%92%E5%BD%92%E7%BB%83%E4%B9%A0"><span class="toc-number">2.2.8.</span> <span class="toc-text">扩展目录递归练习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%9C%BA%E6%99%AF%E6%8E%92%E6%9F%A5"><span class="toc-number">2.2.9.</span> <span class="toc-text">常用场景排查</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find%E5%91%BD%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">find命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="toc-number">3.1.</span> <span class="toc-text">基础语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%8C%B9%E9%85%8D%E6%9D%A1%E4%BB%B6"><span class="toc-number">3.2.</span> <span class="toc-text">常用匹配条件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%89%E8%B7%AF%E5%BE%84%E5%8C%B9%E9%85%8D"><span class="toc-number">3.2.1.</span> <span class="toc-text">按路径匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%89%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.2.2.</span> <span class="toc-text">按文件类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%89%E5%A4%A7%E5%B0%8F%E8%BF%87%E6%BB%A4"><span class="toc-number">3.2.3.</span> <span class="toc-text">按大小过滤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%83%E9%99%90-%E7%94%A8%E6%88%B7%E8%BF%87%E6%BB%A4"><span class="toc-number">3.2.4.</span> <span class="toc-text">权限&#x2F;用户过滤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E7%BB%84%E5%90%88"><span class="toc-number">3.2.5.</span> <span class="toc-text">逻辑组合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4%E8%81%94%E5%8A%A8%E7%9A%84%E6%89%A7%E8%A1%8C%E5%8A%A8%E4%BD%9C"><span class="toc-number">3.2.6.</span> <span class="toc-text">与其他命令联动的执行动作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-number">3.2.6.1.</span> <span class="toc-text">注意</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8E%E7%AE%A1%E9%81%93-xargs-%E8%81%94%E5%8A%A8"><span class="toc-number">3.2.6.2.</span> <span class="toc-text">与管道| xargs 联动</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#xargs%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.6.3.</span> <span class="toc-text">xargs命令</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E6%A1%88%E4%BE%8B"><span class="toc-number">3.2.7.</span> <span class="toc-text">组合案例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E7%A4%BA%E4%BE%8B"><span class="toc-number">3.2.8.</span> <span class="toc-text">场景示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find%E5%91%BD%E4%BB%A4%E7%BB%83%E4%B9%A0"><span class="toc-number">4.</span> <span class="toc-text">find命令练习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%96%87%E4%BB%B6%E5%87%86%E5%A4%87-1"><span class="toc-number">4.1.</span> <span class="toc-text">实验文件准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E7%BB%83%E4%B9%A0-1"><span class="toc-number">4.2.</span> <span class="toc-text">命令练习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%89%E5%90%8D%E7%A7%B0%E6%90%9C%E7%B4%A2%E6%96%87%E4%BB%B6"><span class="toc-number">4.2.1.</span> <span class="toc-text">按名称搜索文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%89%E7%9B%AE%E5%BD%95%E6%90%9C%E7%B4%A2%E6%96%87%E4%BB%B6"><span class="toc-number">4.2.2.</span> <span class="toc-text">按目录搜索文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%BE%E5%88%B0%E7%89%B9%E5%AE%9A%E5%90%8D%E7%A7%B0%E5%92%8C%E7%89%B9%E5%AE%9A%E5%A4%A7%E5%B0%8F%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">4.2.3.</span> <span class="toc-text">找到特定名称和特定大小的文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%9C%80%E8%BF%91%E4%BF%AE%E6%94%B9%E8%BF%87%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">4.2.4.</span> <span class="toc-text">查找最近修改过的文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E9%99%A4%E7%89%B9%E5%AE%9A%E6%9D%83%E9%99%90%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">4.2.5.</span> <span class="toc-text">排除特定权限的文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="toc-number">4.2.6.</span> <span class="toc-text">删除文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%9D%83%E9%99%90"><span class="toc-number">4.2.7.</span> <span class="toc-text">批量修改权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%B9%B6%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6"><span class="toc-number">4.2.8.</span> <span class="toc-text">搜索并压缩文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%BD%E7%95%A5%E7%89%B9%E5%AE%9A%E7%9B%AE%E5%BD%95"><span class="toc-number">4.2.9.</span> <span class="toc-text">忽略特定目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="toc-number">4.2.10.</span> <span class="toc-text">注意点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%89-o%E6%97%B6"><span class="toc-number">4.2.10.1.</span> <span class="toc-text">有-o时</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B2%A1%E6%9C%89-o%E6%97%B6"><span class="toc-number">4.2.10.2.</span> <span class="toc-text">没有-o时</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E5%90%88xargs%E5%A4%84%E7%90%86%E6%96%87%E4%BB%B6"><span class="toc-number">4.2.11.</span> <span class="toc-text">结合xargs处理文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%BD%BF%E7%94%A8"><span class="toc-number">4.3.</span> <span class="toc-text">场景使用</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729165900674.jpg"></div><div class="author-info__name text-center">wickt42</div><div class="author-info__description text-center">Information Security</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/wickt42/wickt42.github.io">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">21</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">5</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">20</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://github.com/">github</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody">hexo-theme-melody</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729164955479.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Wickt42's Tech Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/slides">Slides</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">grep与find</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2025-07-30</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Linux/">Linux</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Linux/grep%E4%B8%8Efind%E8%AF%AD%E6%B3%95/">grep与find语法</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="grep命令语法"><a href="#grep命令语法" class="headerlink" title="grep命令语法"></a>grep命令语法</h2><h3 id="一、grep-常用选项"><a href="#一、grep-常用选项" class="headerlink" title="一、grep 常用选项"></a>一、grep 常用选项</h3><table>
+<thead>
+<tr>
+<th align="center"><strong>选项</strong></th>
+<th align="center"><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>-i</code></td>
+<td align="center">忽略大小写（<code>grep -i &quot;error&quot; file</code>）</td>
+</tr>
+<tr>
+<td align="center"><code>-v</code></td>
+<td align="center">反向匹配（显示<strong>不包含</strong>模式的行，<code>grep -v &quot;debug&quot; file</code>）</td>
+</tr>
+<tr>
+<td align="center"><code>-n</code></td>
+<td align="center">显示匹配行的行号（<code>grep -n &quot;warning&quot; file</code>）</td>
+</tr>
+<tr>
+<td align="center"><code>-c</code></td>
+<td align="center">统计匹配行数（<code>grep -c &quot;success&quot; file</code>）</td>
+</tr>
+<tr>
+<td align="center"><code>-o</code></td>
+<td align="center">仅输出匹配的部分（而非整行，<code>grep -o &quot;[0-9]\+&quot; file</code>）</td>
+</tr>
+<tr>
+<td align="center"><code>-r</code></td>
+<td align="center">递归搜索目录（<code>grep -r &quot;function&quot; /path/to/dir</code>）</td>
+</tr>
+<tr>
+<td align="center"><code>-l</code></td>
+<td align="center">仅显示包含匹配项的文件名（<code>grep -l &quot;pattern&quot; *.txt</code>）</td>
+</tr>
+<tr>
+<td align="center"><code>-w</code></td>
+<td align="center">全词匹配（<code>grep -w &quot;word&quot; file</code> 匹配 “word”，不匹配 “password”）</td>
+</tr>
+<tr>
+<td align="center"><code>-A NUM</code></td>
+<td align="center">显示匹配行及<strong>后</strong> NUM 行（<code>grep -A 3 &quot;error&quot; file</code>）</td>
+</tr>
+<tr>
+<td align="center"><code>-B NUM</code></td>
+<td align="center">显示匹配行及<strong>前</strong> NUM 行（<code>grep -B 2 &quot;crash&quot; file</code>）</td>
+</tr>
+<tr>
+<td align="center"><code>-C NUM</code></td>
+<td align="center">显示匹配行<strong>前后各</strong> NUM 行（<code>grep -C 1 &quot;timeout&quot; file</code>）</td>
+</tr>
+<tr>
+<td align="center"><code>-E</code></td>
+<td align="center">使用扩展正则表达式（等价于 <code>egrep</code>）</td>
+</tr>
+<tr>
+<td align="center"><code>-F</code></td>
+<td align="center">禁用正则，按字面字符串匹配（等价于 <code>fgrep</code>）</td>
+</tr>
+</tbody></table>
+<h3 id="二、正则表达式核心语法"><a href="#二、正则表达式核心语法" class="headerlink" title="二、正则表达式核心语法"></a>二、正则表达式核心语法</h3><h4 id="1-基础匹配"><a href="#1-基础匹配" class="headerlink" title="1. 基础匹配"></a>1. 基础匹配</h4><table>
+<thead>
+<tr>
+<th align="center"><strong>表达式</strong></th>
+<th align="center"><strong>功能</strong></th>
+<th align="center"><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>.</code></td>
+<td align="center">匹配任意<strong>单个字符</strong>（除换行符）</td>
+<td align="center"><code>gr.y</code> → “gray”、”grey”</td>
+</tr>
+<tr>
+<td align="center"><code>*</code></td>
+<td align="center">前一个字符出现 <strong>0 次或多次</strong></td>
+<td align="center"><code>go*gle</code> → “ggle”、”gogle”、”google”</td>
+</tr>
+<tr>
+<td align="center"><code>+</code></td>
+<td align="center">前一个字符出现 <strong>1 次或多次</strong>（需 <code>-E</code>）</td>
+<td align="center"><code>go+gle</code> → “gogle”、”google”（不匹配”ggle”）</td>
+</tr>
+<tr>
+<td align="center"><code>?</code></td>
+<td align="center">前一个字符出现 <strong>0 次或 1 次</strong>（需 <code>-E</code>）</td>
+<td align="center"><code>colou?r</code> → “color”、”colour”</td>
+</tr>
+<tr>
+<td align="center"><code>&#123;n&#125;</code></td>
+<td align="center">前一个字符精确匹配 <strong>n 次</strong>（需 <code>-E</code>）</td>
+<td align="center"><code>[0-9]&#123;4&#125;</code> → 匹配 4 位数字（如 “2023”）</td>
+</tr>
+<tr>
+<td align="center"><code>&#123;n,&#125;</code></td>
+<td align="center">前一个字符至少匹配<strong>n次</strong></td>
+<td align="center"><code>a&#123;3,&#125;</code>→ “aaa”, “aaaa”</td>
+</tr>
+<tr>
+<td align="center"><code>&#123;n,m&#125;</code></td>
+<td align="center">前一个字符匹配<strong>n到m次</strong></td>
+<td align="center"><code>b&#123;2,4&#125;</code>→ “bb”, “bbb”, “bbbb”</td>
+</tr>
+</tbody></table>
+<h4 id="2-字符类"><a href="#2-字符类" class="headerlink" title="2. 字符类"></a>2. 字符类</h4><table>
+<thead>
+<tr>
+<th align="center"><strong>表达式</strong></th>
+<th align="center"><strong>功能</strong></th>
+<th align="center"><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>[...]</code></td>
+<td align="center">匹配括号内任意<strong>一个字符</strong></td>
+<td align="center"><code>[aeiou]</code> → 匹配任意元音字母</td>
+</tr>
+<tr>
+<td align="center"><code>[^...]</code></td>
+<td align="center">匹配<strong>不在</strong>括号内的任意字符</td>
+<td align="center"><code>[^0-9]</code> → 匹配非数字字符</td>
+</tr>
+<tr>
+<td align="center"><code>[a-z]</code></td>
+<td align="center">匹配小写字母范围</td>
+<td align="center"><code>[a-f]</code> → 匹配 a 到 f 的字母</td>
+</tr>
+<tr>
+<td align="center"><code>\d</code></td>
+<td align="center">匹配数字（等效 <code>[0-9]</code>，<strong>需 <code>-P</code></strong>）</td>
+<td align="center"><code>grep -P &quot;\d&quot; file</code></td>
+</tr>
+<tr>
+<td align="center"><code>\w</code></td>
+<td align="center">匹配单词字符（字母、数字、下划线）</td>
+<td align="center"><code>\w+</code> → 匹配一个单词</td>
+</tr>
+</tbody></table>
+<h4 id="3-锚定与边界"><a href="#3-锚定与边界" class="headerlink" title="3. 锚定与边界"></a>3. 锚定与边界</h4><table>
+<thead>
+<tr>
+<th align="left"><strong>表达式</strong></th>
+<th align="center"><strong>功能</strong></th>
+<th align="center"><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>^</code></td>
+<td align="center">匹配行<strong>首</strong></td>
+<td align="center"><code>^start</code> → 匹配以 “start” 开头的行</td>
+</tr>
+<tr>
+<td align="left"><code>$</code></td>
+<td align="center">匹配行<strong>尾</strong></td>
+<td align="center"><code>end$</code> → 匹配以 “end” 结尾的行</td>
+</tr>
+<tr>
+<td align="left"><code>\b</code></td>
+<td align="center">匹配单词边界（<strong>需 <code>-E</code>&#x2F;<code>-P</code></strong>）</td>
+<td align="center"><code>\bword\b</code> → 精确匹配单词 “word”</td>
+</tr>
+</tbody></table>
+<h4 id="4-分组与逻辑"><a href="#4-分组与逻辑" class="headerlink" title="4. 分组与逻辑"></a>4. 分组与逻辑</h4><table>
+<thead>
+<tr>
+<th align="center"><strong>表达式</strong></th>
+<th align="center"><strong>功能</strong></th>
+<th align="center"><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>(...)</code></td>
+<td align="center">分组（捕获子模式）</td>
+<td align="center"><code>(abc)+</code> → “abc”、”abcabc”</td>
+</tr>
+<tr>
+<td align="center">&#96;</td>
+<td align="center">&#96;</td>
+<td align="center"><strong>或</strong>逻辑（需 <code>-E</code>）</td>
+</tr>
+<tr>
+<td align="center"><code>(?:...)</code></td>
+<td align="center">非捕获分组（<strong>需 <code>-P</code></strong>）</td>
+<td align="center">&#96;(?:http</td>
+</tr>
+</tbody></table>
+<h4 id="5-转义特殊字符"><a href="#5-转义特殊字符" class="headerlink" title="5. 转义特殊字符"></a>5. 转义特殊字符</h4><p>如<code>$</code>、<code>*</code>需要使用<code>\</code>转义</p>
+<p>用 <code>\</code> 转义特殊字符：<code>\.</code>、<code>\*</code>、<code>\+</code>、<code>\?</code>、<code>\(\)</code>、<code>\&#123; \&#125;</code>、<code>\[ \]</code> 等。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 匹配IP地址</span></span><br><span class="line">grep -E <span class="string">&quot;\b([0-9]&#123;1,3&#125;\.)&#123;3&#125;[0-9]&#123;1,3&#125;\b&quot;</span> file</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 匹配日期格式</span></span><br><span class="line">grep -E <span class="string">&quot;[0-9]&#123;4&#125;-[0-9]&#123;2&#125;-[0-9]&#123;2&#125;&quot;</span> data.txt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 匹配邮箱地址</span></span><br><span class="line">grep -E -o <span class="string">&quot;\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]&#123;2,&#125;\b&quot;</span> contacts.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-扩展正则表达式"><a href="#6-扩展正则表达式" class="headerlink" title="6.扩展正则表达式"></a>6.扩展正则表达式</h4><table>
+<thead>
+<tr>
+<th align="left">表达式</th>
+<th align="left">功能</th>
+<th align="left">等价写法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>\d</code></td>
+<td align="left">数字</td>
+<td align="left"><code>[0-9]</code></td>
+</tr>
+<tr>
+<td align="left"><code>\D</code></td>
+<td align="left">非数字</td>
+<td align="left"><code>[^0-9]</code></td>
+</tr>
+<tr>
+<td align="left"><code>\s</code></td>
+<td align="left">空白字符</td>
+<td align="left"><code>[ \t\n\r]</code></td>
+</tr>
+<tr>
+<td align="left"><code>\S</code></td>
+<td align="left">非空白字符</td>
+<td align="left"><code>[^ \t\n\r]</code></td>
+</tr>
+<tr>
+<td align="left"><code>\w</code></td>
+<td align="left">单词字符</td>
+<td align="left"><code>[a-zA-Z0-9_]</code></td>
+</tr>
+<tr>
+<td align="left"><code>\W</code></td>
+<td align="left">非单词字符</td>
+<td align="left"><code>[^a-zA-Z0-9_]</code></td>
+</tr>
+</tbody></table>
+<h2 id="grep命令练习"><a href="#grep命令练习" class="headerlink" title="grep命令练习"></a>grep命令练习</h2><h3 id="实验文件准备"><a href="#实验文件准备" class="headerlink" title="实验文件准备"></a>实验文件准备</h3><p>创建practice.txt文件保存以下内容以供命令练习</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># practice.txt</span></span><br><span class="line">2023-10-01 08:05:23 [INFO] User <span class="string">&#x27;admin&#x27;</span> logged <span class="keyword">in</span> from 192.168.1.100</span><br><span class="line">2023-10-01 08:06:45 [ERROR] Database connection failed (error code: 500)</span><br><span class="line">2023-10-01 08:07:11 [WARNING] Disk usage at 85% on /dev/sda1</span><br><span class="line">2023-10-01 08:08:00 [DEBUG] Request ID: 7X2G9P received from 10.0.0.55</span><br><span class="line">2023-10-01 08:09:34 [INFO] Payment processed: <span class="variable">$150</span>.00 via PayPal(user_john@example.com)</span><br><span class="line">2023-10-01 08:10:55 [ERROR] API <span class="built_in">timeout</span> after 30s (endpoint: /api/v1/data)</span><br><span class="line">2023-10-01 08:11:23 [INFO] Backup completed: size=2.5GB,path=/backup/20231001</span><br><span class="line">2023-10-01 08:12:17 [WARNING] Memory usage at 90% (process: java)</span><br><span class="line">2023-10-01 08:13:45 [ERROR] Invalid input from 192.168.1.200: <span class="string">&quot;GET /invalid?query=*&quot;</span></span><br><span class="line">2023-10-01 08:14:00 [INFO] User <span class="string">&#x27;guest&#x27;</span> logged out</span><br><span class="line">2023-10-01 08:14:00 [INFO] user_john@example.com</span><br></pre></td></tr></table></figure>
+
+<h3 id="命令练习"><a href="#命令练习" class="headerlink" title="命令练习"></a>命令练习</h3><h4 id="忽略大小写"><a href="#忽略大小写" class="headerlink" title="忽略大小写"></a>忽略大小写</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -i <span class="string">&quot;error&quot;</span> practice.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730104937313.png" alt="image-20250730104937279"></p>
+<h4 id="显示行号和匹配次数"><a href="#显示行号和匹配次数" class="headerlink" title="显示行号和匹配次数"></a>显示行号和匹配次数</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -<span class="keyword">in</span> <span class="string">&quot;error&quot;</span> practice.txt	<span class="comment"># -n显示行号</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730105023419.png" alt="image-20250730105023394"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -c <span class="string">&quot;ERROR&quot;</span> practice.txt	<span class="comment"># -c显示匹配次数</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730110330693.png" alt="image-20250730110330657"></p>
+<h4 id="排除匹配项"><a href="#排除匹配项" class="headerlink" title="排除匹配项"></a>排除匹配项</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -v <span class="string">&quot;ERROR&quot;</span> practice.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730105942526.png" alt="image-20250730105942495"></p>
+<h4 id="查看上下文"><a href="#查看上下文" class="headerlink" title="查看上下文"></a>查看上下文</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -A 1 <span class="string">&quot;ERROR&quot;</span> practice.txt	<span class="comment"># -A number 显示匹配字段后number行</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730110627450.png" alt="image-20250730110627418"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -B 2 <span class="string">&quot;ERROR&quot;</span> practice.txt	<span class="comment"># -B number 显示匹配字段前number行</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730110716354.png" alt="image-20250730110716312"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -C 3 <span class="string">&quot;ERROR&quot;</span> practice.txt	<span class="comment"># -C number 显示匹配字段前后各number行</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730110732484.png" alt="image-20250730110732449"></p>
+<h4 id="匹配时间范围"><a href="#匹配时间范围" class="headerlink" title="匹配时间范围"></a>匹配时间范围</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep <span class="string">&quot;^2023-10-01 08:1&quot;</span> practice.txt	<span class="comment"># ^表示匹配首选项</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730111017201.png" alt="image-20250730111017170"></p>
+<h4 id="匹配IP地址"><a href="#匹配IP地址" class="headerlink" title="匹配IP地址"></a>匹配IP地址</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 匹配IP地址</span></span><br><span class="line">grep -E <span class="string">&quot;\b([0-9]&#123;1,3&#125;\.)&#123;3&#125;[0-9]&#123;1,3&#125;\b&quot;</span> practice.txt</span><br><span class="line">grep -Eo <span class="string">&quot;\b([0-9]&#123;1,3&#125;\.)&#123;3&#125;[0-9]&#123;1,3&#125;\b&quot;</span> practice.txt</span><br><span class="line"><span class="comment"># 匹配192.168.x.x的地址</span></span><br><span class="line">grep -Eo <span class="string">&quot;192\.168(\.[0-9]&#123;1,3&#125;)&#123;2&#125;&quot;</span> practice.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730105811399.png" alt="image-20250730105811361"></p>
+<h4 id="匹配邮箱地址"><a href="#匹配邮箱地址" class="headerlink" title="匹配邮箱地址"></a>匹配邮箱地址</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@localhost 桌面]# grep -Eio <span class="string">&quot;\b[A-Za-z0-9.+-%_]+@([A-Za-z0-9-]+\.)+[A-Z]&#123;2,&#125;\b&quot;</span> practice.txt</span><br><span class="line">grep: 不适用的范围结束</span><br><span class="line">[root@localhost 桌面]# grep -Eio <span class="string">&quot;\b[A-Za-z0-9.+-_%]+@([A-Za-z0-9.-]+\.)+[A-Z]&#123;2,&#125;\b&quot;</span> practice.txt</span><br><span class="line">user_john@example.com</span><br><span class="line">user_john@example.com</span><br><span class="line"><span class="comment"># ！！！注意在写匹配项时要注意</span></span><br><span class="line"><span class="comment"># 首先 - 要放在末尾，- 也可以表示范围。</span></span><br><span class="line"><span class="comment"># 若出现+-%由于 + 的 ASCII 值为43大于 % 的 ASCII 值37，形成降序范围，这在正则表达式中是非法语法，导致报错。</span></span><br><span class="line"><span class="comment"># 若出现%-+，% 到 + 的范围（ASCII 37 到 43）；因此 [%-+] 实际匹配了 % 、 &amp; 、&#x27;&#x27;（单引号） 、 ( 、 ) 、* 、 + ，这些字符，会匹配出额外的不符合期望的字符影响输出结果</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730134535606.png" alt="image-20250730134535581"></p>
+<h4 id="扩展目录递归练习"><a href="#扩展目录递归练习" class="headerlink" title="扩展目录递归练习"></a>扩展目录递归练习</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建目录结构</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /tmp/practice/logs/</span><br><span class="line"><span class="built_in">cp</span> practice.txt /tmp/practice/logs/</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;ERROR: File not found&quot;</span> &gt; /tmp/practice/error.log</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730135350783.png" alt="image-20250730135350760"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归搜索所有 &quot;ERROR&quot;</span></span><br><span class="line">grep -r <span class="string">&quot;ERROR&quot;</span> /tmp/practice/</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730135511031.png" alt="image-20250730135511003"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 排除 .log 文件</span></span><br><span class="line">grep -r --exclude=<span class="string">&quot;*.log&quot;</span> <span class="string">&quot;INFO&quot;</span> /tmp/practice/</span><br><span class="line">grep -r --exclude=<span class="string">&quot;*.log&quot;</span> <span class="string">&quot;ERROR&quot;</span> /tmp/practice/</span><br><span class="line">a*.b</span><br><span class="line">*.<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730135936384.png" alt="image-20250730135936359"></p>
+<h4 id="常用场景排查"><a href="#常用场景排查" class="headerlink" title="常用场景排查"></a>常用场景排查</h4><table>
+<thead>
+<tr>
+<th align="center">场景</th>
+<th align="center">命令示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">快速定位错误</td>
+<td align="center">grep -n  “ERROR” file</td>
+</tr>
+<tr>
+<td align="center">统计日志关键词频率</td>
+<td align="center">grep -c “pattern” file</td>
+</tr>
+<tr>
+<td align="center">提取结构化数据</td>
+<td align="center">grep -Eo “正则表达式” file</td>
+</tr>
+<tr>
+<td align="center">日志上下文分析</td>
+<td align="center">grep -C 3 “Exception” file</td>
+</tr>
+</tbody></table>
+<h2 id="find命令"><a href="#find命令" class="headerlink" title="find命令"></a>find命令</h2><h3 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find [搜索路径] [匹配条件] [执行动作]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>搜索路径</strong>：可指定多个路径（默认当前目录）</li>
+<li><strong>匹配条件</strong>：筛选文件的表达式（支持逻辑组合）</li>
+<li><strong>执行动作</strong>：对匹配文件执行的操作（默认 <code>-print</code>）</li>
+</ul>
+<h3 id="常用匹配条件"><a href="#常用匹配条件" class="headerlink" title="常用匹配条件"></a>常用匹配条件</h3><h4 id="按路径匹配"><a href="#按路径匹配" class="headerlink" title="按路径匹配"></a>按路径匹配</h4><table>
+<thead>
+<tr>
+<th align="left">条件</th>
+<th align="left">说明</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-name &quot;模式&quot;</code></td>
+<td align="left">基础文件名匹配（支持通配符）</td>
+<td align="left"><code>find . -name &quot;*.log&quot;</code></td>
+</tr>
+<tr>
+<td align="left"><code>-iname &quot;模式&quot;</code></td>
+<td align="left">不区分大小写的文件名匹配</td>
+<td align="left"><code>find /etc -iname &quot;*.conf&quot;</code></td>
+</tr>
+<tr>
+<td align="left"><code>-path &quot;模式&quot;</code></td>
+<td align="left">完整路径匹配（支持通配符）</td>
+<td align="left"><code>find . -path &quot;*temp/*.tmp&quot;</code></td>
+</tr>
+<tr>
+<td align="left"><code>-regex &quot;模式&quot;</code></td>
+<td align="left">正则表达式匹配完整路径</td>
+<td align="left"><code>find . -regex &quot;.*/file[0-9]&quot;</code></td>
+</tr>
+</tbody></table>
+<h4 id="按文件类型"><a href="#按文件类型" class="headerlink" title="按文件类型"></a>按文件类型</h4><table>
+<thead>
+<tr>
+<th align="left">条件</th>
+<th align="left">文件类型</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-type f</code></td>
+<td align="left">普通文件</td>
+<td align="left"><code>find ~ -type f</code></td>
+</tr>
+<tr>
+<td align="left"><code>-type d</code></td>
+<td align="left">目录</td>
+<td align="left"><code>find /var -type d</code></td>
+</tr>
+<tr>
+<td align="left"><code>-type l</code></td>
+<td align="left">符号链接</td>
+<td align="left"><code>find /bin -type l</code></td>
+</tr>
+<tr>
+<td align="left"><code>-type s</code></td>
+<td align="left">套接字文件</td>
+<td align="left"><code>find /tmp -type s</code></td>
+</tr>
+</tbody></table>
+<p>按时间过滤</p>
+<table>
+<thead>
+<tr>
+<th align="left">条件</th>
+<th align="left">说明</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-mtime -n</code></td>
+<td align="left"><strong>n天内</strong>修改的文件</td>
+<td align="left"><code>find /log -mtime -7</code></td>
+</tr>
+<tr>
+<td align="left"><code>-atime +n</code></td>
+<td align="left"><strong>n天前</strong>访问过的文件</td>
+<td align="left"><code>find /backup -atime +30</code></td>
+</tr>
+<tr>
+<td align="left"><code>-amin -5</code></td>
+<td align="left">5分钟内访问过的文件</td>
+<td align="left"><code>find /tmp -amin -5</code></td>
+</tr>
+<tr>
+<td align="left"><code>-newer file</code></td>
+<td align="left">比指定文件更新的文件</td>
+<td align="left"><code>find . -newer reference.txt</code></td>
+</tr>
+</tbody></table>
+<h4 id="按大小过滤"><a href="#按大小过滤" class="headerlink" title="按大小过滤"></a>按大小过滤</h4><table>
+<thead>
+<tr>
+<th align="left">条件</th>
+<th align="left">说明</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-size +10M</code></td>
+<td align="left">大于10MB的文件</td>
+<td align="left"><code>find /var -size +100M</code></td>
+</tr>
+<tr>
+<td align="left"><code>-size -1G</code></td>
+<td align="left">小于1GB的文件</td>
+<td align="left"><code>find ~ -size -500k</code></td>
+</tr>
+<tr>
+<td align="left"><code>-size 0</code></td>
+<td align="left">空文件</td>
+<td align="left"><code>find . -type f -size 0</code></td>
+</tr>
+</tbody></table>
+<h4 id="权限-用户过滤"><a href="#权限-用户过滤" class="headerlink" title="权限&#x2F;用户过滤"></a>权限&#x2F;用户过滤</h4><table>
+<thead>
+<tr>
+<th align="left">条件</th>
+<th align="left">说明</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-perm 644</code></td>
+<td align="left">精确权限匹配</td>
+<td align="left"><code>find . -perm 644</code></td>
+</tr>
+<tr>
+<td align="left"><code>-perm /u=x</code></td>
+<td align="left">用户有执行权限</td>
+<td align="left"><code>find /bin -perm -u=x</code></td>
+</tr>
+<tr>
+<td align="left"><code>-user root</code></td>
+<td align="left">属主为root的文件</td>
+<td align="left"><code>find / -user root</code></td>
+</tr>
+<tr>
+<td align="left"><code>-group www-data</code></td>
+<td align="left">属组为www-data的文件</td>
+<td align="left"><code>find /var -group www-data</code></td>
+</tr>
+</tbody></table>
+<h4 id="逻辑组合"><a href="#逻辑组合" class="headerlink" title="逻辑组合"></a>逻辑组合</h4><table>
+<thead>
+<tr>
+<th align="left">条件</th>
+<th align="left">说明</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-a</code> &#x2F; <code>-and</code></td>
+<td align="left">逻辑与（默认）</td>
+<td align="left"><code>find . -name &quot;*.tmp&quot; -size +1M</code></td>
+</tr>
+<tr>
+<td align="left"><code>-o</code> &#x2F; <code>-or</code></td>
+<td align="left">逻辑或</td>
+<td align="left"><code>find /var -name &quot;*.log&quot; -o -name &quot;*.bak&quot;</code></td>
+</tr>
+<tr>
+<td align="left"><code>!</code> &#x2F; <code>-not</code></td>
+<td align="left">逻辑非</td>
+<td align="left"><code>find ~ ! -user root</code></td>
+</tr>
+<tr>
+<td align="left"><code>\( ... \)</code></td>
+<td align="left">分组条件（需转义）</td>
+<td align="left"><code>find . \( -name &quot;*.jpg&quot; -o -name &quot;*.png&quot; \)</code></td>
+</tr>
+</tbody></table>
+<h4 id="与其他命令联动的执行动作"><a href="#与其他命令联动的执行动作" class="headerlink" title="与其他命令联动的执行动作"></a>与其他命令联动的执行动作</h4><table>
+<thead>
+<tr>
+<th align="left">动作</th>
+<th align="left">说明</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-print</code></td>
+<td align="left">打印完整路径（默认动作）</td>
+<td align="left"><code>find . -name &quot;*.conf&quot;</code></td>
+</tr>
+<tr>
+<td align="left"><code>-print0</code></td>
+<td align="left">用NULL分隔文件名（防空格）</td>
+<td align="left">&#96;find . -print0</td>
+</tr>
+<tr>
+<td align="left"><code>-ls</code></td>
+<td align="left">显示详细文件信息</td>
+<td align="left"><code>find /tmp -size +10M -ls</code></td>
+</tr>
+<tr>
+<td align="left"><code>-delete</code></td>
+<td align="left">删除匹配文件</td>
+<td align="left"><code>find . -name &quot;*.tmp&quot; -delete</code></td>
+</tr>
+<tr>
+<td align="left"><code>-exec</code></td>
+<td align="left">执行自定义命令</td>
+<td align="left"><code>find . -name &quot;*.log&quot; -exec rm &#123;&#125; \;</code></td>
+</tr>
+<tr>
+<td align="left"><code>-ok</code></td>
+<td align="left">交互式执行命令（需确认）</td>
+<td align="left"><code>find . -name &quot;*.tmp&quot; -ok rm &#123;&#125; \;</code></td>
+</tr>
+</tbody></table>
+<h5 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 基础格式（每文件执行一次命令）</span></span><br><span class="line">find [路径] [条件] -<span class="built_in">exec</span> 命令 &#123;&#125; \;</span><br><span class="line"><span class="comment"># 高效格式（合并参数执行）</span></span><br><span class="line">find [路径] [条件] -<span class="built_in">exec</span> 命令 &#123;&#125; +</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 交互式确认后才执行命令（更安全）</span></span><br><span class="line">find [路径] [条件] -ok 命令 &#123;&#125; \;</span><br><span class="line">find /tmp -mtime +30 -ok <span class="built_in">rm</span> &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>&#123;&#125;</code><strong>是一个占位符表示</strong>当前匹配到的文件路径</strong>。当 <code>find</code> 执行命令时，会自动将 <code>&#123;&#125;</code> 替换为实际文件名（包含完整路径）。</p>
+<p><strong><code>\;</code><strong>表示</strong>命令的结束符</strong>，分号 <code>;</code> 在 Shell 中有特殊含义（命令分隔符），所以必须用反斜杠转义为 <code>\;</code></p>
+<p><strong><code>&#123;&#125; +</code><strong>同样是占位符，但行为不同，会将 <strong>所有匹配的文件路径一次性传递给命令</strong>相当于把文件列表作为命令的</strong>最后一批参数</strong>。</p>
+<h5 id="与管道-xargs-联动"><a href="#与管道-xargs-联动" class="headerlink" title="与管道| xargs 联动"></a>与管道| xargs 联动</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 处理含空格文件名</span></span><br><span class="line">find . -name <span class="string">&quot;*.txt&quot;</span> -print0 | xargs -0 <span class="built_in">rm</span></span><br><span class="line"><span class="comment"># 多线程处理</span></span><br><span class="line">find /data -<span class="built_in">type</span> f | parallel -j 4 gzip</span><br></pre></td></tr></table></figure>
+
+<h5 id="xargs命令"><a href="#xargs命令" class="headerlink" title="xargs命令"></a>xargs命令</h5><p>**<code>xargs</code>**命令是 <strong>从标准输入构建并执行命令行</strong> 的工具，常与 <code>find</code> 等命令结合使用。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">command_generating_output | xargs [选项] target_command</span><br><span class="line"><span class="comment"># 将管道左侧命令的输出转换为 target_command 的参数</span></span><br><span class="line"><span class="comment"># 解决 &quot;参数列表过长&quot; 问题（自动分批执行）</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">说明</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-n</code></td>
+<td align="left">每次执行使用的参数数量</td>
+<td align="left"><code>xargs -n 3 rm</code>（每次删3个）</td>
+</tr>
+<tr>
+<td align="left"><code>-I</code></td>
+<td align="left">自定义参数占位符</td>
+<td align="left"><code>xargs -I &#123;&#125; cp &#123;&#125; /backup</code></td>
+</tr>
+<tr>
+<td align="left"><code>-t</code></td>
+<td align="left">先打印要执行的命令</td>
+<td align="left"><code>xargs -t rm</code>（显示再删除）</td>
+</tr>
+<tr>
+<td align="left"><code>-p</code></td>
+<td align="left">交互式确认</td>
+<td align="left"><code>xargs -p rm</code>（删除前确认）</td>
+</tr>
+<tr>
+<td align="left"><code>-0</code></td>
+<td align="left">处理 NULL 分隔的输入（防空格）</td>
+<td align="left">&#96;find -print0</td>
+</tr>
+</tbody></table>
+<h4 id="组合案例"><a href="#组合案例" class="headerlink" title="组合案例"></a>组合案例</h4><ol>
+<li><p><strong>清理旧日志</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find /var/log -name <span class="string">&quot;*.log&quot;</span> -mtime +30 -delete</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查找大文件并排序</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find / -<span class="built_in">type</span> f -size +100M -<span class="built_in">exec</span> <span class="built_in">du</span> -sh &#123;&#125; + | <span class="built_in">sort</span> -rh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>批量修改扩展名</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find . -name <span class="string">&quot;*.jpeg&quot;</span> -<span class="built_in">exec</span> bash -c <span class="string">&#x27;mv &quot;$0&quot; &quot;$&#123;0%.jpeg&#125;.jpg&quot;&#x27;</span> &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查找含关键字的文件</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find src/ -<span class="built_in">type</span> f -<span class="built_in">exec</span> grep -l <span class="string">&quot;TODO&quot;</span> &#123;&#125; +</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>备份配置文件</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find /etc -name <span class="string">&quot;*.conf&quot;</span> -<span class="built_in">exec</span> <span class="built_in">cp</span> --parents -t /backup &#123;&#125; +</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="场景示例"><a href="#场景示例" class="headerlink" title="场景示例"></a>场景示例</h4><table>
+<thead>
+<tr>
+<th align="left">场景</th>
+<th align="left">示例命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">批量重命名</td>
+<td align="left"><code>find . -name &quot;*.jpg&quot; -exec mv &#123;&#125; /images \;</code></td>
+</tr>
+<tr>
+<td align="left">查找并压缩文件</td>
+<td align="left"><code>find ~ -size +5M -exec gzip &#123;&#125; \;</code></td>
+</tr>
+<tr>
+<td align="left">修改权限</td>
+<td align="left"><code>find /var/www -type d -exec chmod 755 &#123;&#125; \;</code></td>
+</tr>
+<tr>
+<td align="left">查找并统计行数</td>
+<td align="left"><code>find src/ -name &quot;*.py&quot; -exec wc -l &#123;&#125; +</code></td>
+</tr>
+<tr>
+<td align="left">查找并复制（高效版）</td>
+<td align="left"><code>find . -name &quot;*.log&quot; -exec cp -t /backup &#123;&#125; +</code></td>
+</tr>
+</tbody></table>
+<p>会过滤没有权限访问的文件</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730143636630.png" alt="image-20250730143636585"></p>
+<h2 id="find命令练习"><a href="#find命令练习" class="headerlink" title="find命令练习"></a>find命令练习</h2><h3 id="实验文件准备-1"><a href="#实验文件准备-1" class="headerlink" title="实验文件准备"></a>实验文件准备</h3><p>创建目录以及文件做实验准备</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/find_practice/&#123;logs,data,backup&#125;</span><br><span class="line"><span class="built_in">touch</span> ~/find_practice/logs/&#123;app.log,error.log&#125;</span><br><span class="line"><span class="built_in">touch</span> ~/find_practice/data/&#123;file1.txt,file2.csv,image.jpg&#125;</span><br><span class="line"><span class="built_in">mkdir</span> ~/find_practice/bakeup/old</span><br><span class="line"><span class="built_in">touch</span> ~/find_practice/bakeup/old/archive.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730161244187.png" alt="image-20250730161244124"></p>
+<h3 id="命令练习-1"><a href="#命令练习-1" class="headerlink" title="命令练习"></a>命令练习</h3><h4 id="按名称搜索文件"><a href="#按名称搜索文件" class="headerlink" title="按名称搜索文件"></a>按名称搜索文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find ~/find_practice/ -name <span class="string">&quot;*.log&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730161542280.png" alt="image-20250730161542245"></p>
+<h4 id="按目录搜索文件"><a href="#按目录搜索文件" class="headerlink" title="按目录搜索文件"></a>按目录搜索文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find ~/find_practice/ -<span class="built_in">type</span> d</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730161741541.png" alt="image-20250730161741509"></p>
+<h4 id="找到特定名称和特定大小的文件"><a href="#找到特定名称和特定大小的文件" class="headerlink" title="找到特定名称和特定大小的文件"></a>找到特定名称和特定大小的文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find ~/find_practice/ -name <span class="string">&quot;*.jpg&quot;</span> -size 0		<span class="comment"># 查找大小为0的.jpg文件</span></span><br><span class="line">find ~/find_practice/ -name <span class="string">&quot;*.jpg&quot;</span> -size +10k	<span class="comment"># 查找大小大于10k的jpg文件</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730162143049.png" alt="image-20250730162143009"></p>
+<h4 id="查找最近修改过的文件"><a href="#查找最近修改过的文件" class="headerlink" title="查找最近修改过的文件"></a>查找最近修改过的文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find ~/find_practice/ -mtime -1		<span class="comment"># 一天内修改的文件</span></span><br><span class="line">find ~/find_practice/ -mtime -7		<span class="comment"># 七天内</span></span><br><span class="line">find ~/find_practice/ -mtime +10	<span class="comment"># 十天之前修改的文件</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730162521120.png" alt="image-20250730162521075"></p>
+<h4 id="排除特定权限的文件"><a href="#排除特定权限的文件" class="headerlink" title="排除特定权限的文件"></a>排除特定权限的文件</h4><p>-perm不支持内嵌逻辑运算符，所以不能写成-perm ! 644</p>
+<table>
+<thead>
+<tr>
+<th align="left">语法</th>
+<th align="left">含义</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-perm 644</code></td>
+<td align="left"><strong>精确匹配</strong>权限等于644</td>
+<td align="left"><code>644</code> 匹配，<code>755</code> 不匹配</td>
+</tr>
+<tr>
+<td align="left"><code>-perm -644</code></td>
+<td align="left"><strong>包含匹配</strong>（权限包含644所有位）</td>
+<td align="left"><code>644</code>&#x2F;<code>755</code> 匹配，<code>640</code> 不匹配</td>
+</tr>
+<tr>
+<td align="left"><code>-perm /644</code></td>
+<td align="left"><strong>任一匹配</strong>（权限包含644任意位）</td>
+<td align="left"><code>644</code>&#x2F;<code>755</code>&#x2F;<code>640</code> 都匹配</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find ~/find_practice/ ! -perm 644	<span class="comment"># 权限不是644的文件</span></span><br><span class="line"><span class="comment"># !!!注意 ! 的用法及位置</span></span><br><span class="line"><span class="comment"># !：逻辑非运算符（否定后面的条件）</span></span><br><span class="line"><span class="comment"># -perm 644：精确匹配权限为 644 的文件</span></span><br><span class="line"><span class="comment"># 组合含义：查找权限不等于 644 的文件</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730162919937.png" alt="image-20250730162919893"></p>
+<h4 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find ~/find_practice/data/ -size 0 -delete	<span class="comment"># 删除特定目录下大小为0的文件（删除空文件）</span></span><br><span class="line"><span class="comment"># !!! 删除慎用</span></span><br><span class="line"><span class="comment"># 使用-delete之前建议先使用-print确认文件列表</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730163300737.png" alt="image-20250730163300696"></p>
+<h4 id="批量修改权限"><a href="#批量修改权限" class="headerlink" title="批量修改权限"></a>批量修改权限</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find ~/find_practice/ -name <span class="string">&quot;*.log&quot;</span> -<span class="built_in">exec</span> <span class="built_in">chmod</span> 755 &#123;&#125; \;	<span class="comment"># 修改后缀为.log的文件权限为755</span></span><br><span class="line">find ~/find_practice/ -name <span class="string">&quot;*.log&quot;</span> -<span class="built_in">exec</span> <span class="built_in">ls</span> -<span class="built_in">ls</span> &#123;&#125; +		<span class="comment"># 查看权限</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730163918438.png" alt="image-20250730163918387"></p>
+<h4 id="搜索并压缩文件"><a href="#搜索并压缩文件" class="headerlink" title="搜索并压缩文件"></a>搜索并压缩文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find ~/find_practice/ -name <span class="string">&quot;*.jpg&quot;</span> -<span class="built_in">exec</span> tar -czvf jpg.tar.gz &#123;&#125; +		<span class="comment"># 将.jpg文件压缩成名为jpg.tar.gz的文件</span></span><br><span class="line"><span class="comment"># 由于此时的工作目录是在root的桌面下，压缩的文件自动生成在此目录下</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730164520982.png" alt="image-20250730164520937"></p>
+<h4 id="忽略特定目录"><a href="#忽略特定目录" class="headerlink" title="忽略特定目录"></a>忽略特定目录</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find ~/find_practice/ -path <span class="string">&quot;*/bakeup&quot;</span> -prune -o -name <span class="string">&quot;*.txt&quot;</span> -<span class="built_in">print</span>		<span class="comment"># 查找所有 .txt 文件，但跳过 backup 目录</span></span><br><span class="line"><span class="comment"># !!! </span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730165235129.png" alt="image-20250730165235097"></p>
+<h4 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h4><h5 id="有-o时"><a href="#有-o时" class="headerlink" title="有-o时"></a>有<code>-o</code>时</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find ~/find_practice/ [ -path <span class="string">&quot;*/backup&quot;</span> -prune ] OR [ -name <span class="string">&quot;*.txt&quot;</span> -<span class="built_in">print</span> ]</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>处理目录时</strong>：<ul>
+<li>遇到 <code>*/backup</code> 目录 → <code>-prune</code> 执行 → 返回 <code>true</code> → <strong>跳过该目录</strong></li>
+<li>OR 左侧为真 → 右侧不再执行 → <strong>不输出目录名</strong></li>
+</ul>
+</li>
+<li><strong>处理文件&#x2F;其他目录时</strong>：<ul>
+<li>不是 <code>*/backup</code> → 左侧返回 <code>false</code></li>
+<li>执行右侧：如果是 <code>*.txt</code> 文件 → <code>-print</code> 执行 → <strong>输出文件名</strong></li>
+</ul>
+</li>
+<li><strong>结果</strong>：<ul>
+<li>跳过所有 <code>backup</code> 目录</li>
+<li>输出所有非 <code>backup</code> 目录中的 <code>.txt</code> 文件</li>
+</ul>
+</li>
+</ol>
+<h5 id="没有-o时"><a href="#没有-o时" class="headerlink" title="没有-o时"></a>没有<code>-o</code>时</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find ~/find_practice/ [ -path <span class="string">&quot;*/backup&quot;</span> AND -prune AND -name <span class="string">&quot;*.txt&quot;</span> ] THEN -<span class="built_in">print</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>处理 <code>backup</code> 目录时</strong>：<ul>
+<li><code>-path &quot;*/backup&quot;</code> 匹配 → 真</li>
+<li><code>-prune</code> 执行 → 真</li>
+<li><code>-name &quot;*.txt&quot;</code> → <strong>目录名</strong>是否匹配 <code>*.txt</code>（通常不匹配）</li>
+<li>条件失败 → 不执行 <code>-print</code></li>
+</ul>
+</li>
+<li><strong>处理其他文件&#x2F;目录时</strong>：<ul>
+<li><code>-path &quot;*/backup&quot;</code> 不匹配 → 整个条件立即失败</li>
+<li>既不执行 <code>-prune</code> 也不执行 <code>-print</code></li>
+</ul>
+</li>
+<li><strong>结果</strong>：<ul>
+<li>跳过 <code>backup</code> 目录（因为 <code>-prune</code> 执行）</li>
+<li><strong>不输出任何文件</strong>（因为其他文件不满足 <code>-path &quot;*/backup&quot;</code>）</li>
+</ul>
+</li>
+</ol>
+<h4 id="结合xargs处理文件"><a href="#结合xargs处理文件" class="headerlink" title="结合xargs处理文件"></a>结合<code>xargs</code>处理文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find ~/find_practice/ -name <span class="string">&quot;*.csv&quot;</span> | xargs -I &#123;&#125; <span class="built_in">mv</span> &#123;&#125; ~/find_practice/logs/		<span class="comment"># 移动特定目录下的.csv文件到特定目录</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250730165658890.png" alt="image-20250730165658852"></p>
+<h3 id="场景使用"><a href="#场景使用" class="headerlink" title="场景使用"></a>场景使用</h3><table>
+<thead>
+<tr>
+<th align="center"><strong>场景</strong></th>
+<th align="center"><strong>命令示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">清理临时文件</td>
+<td align="center">find &#x2F;tmp -type f -mtime +7 -delete</td>
+</tr>
+<tr>
+<td align="center">查找大文件</td>
+<td align="center">find &#x2F; -size +100M -exec ls -lh {} ;</td>
+</tr>
+<tr>
+<td align="center">批量重命名</td>
+<td align="center">find . -name “*.old” -exec mv {} {}_new ;</td>
+</tr>
+<tr>
+<td align="center">按内容搜索</td>
+<td align="center">find . -type f -exec grep “pattern” {} ;</td>
+</tr>
+</tbody></table>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">wickt42</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/07/30/linux中grep与find/">http://example.com/2025/07/30/linux中grep与find/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2025/07/31/linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/"><i class="fa fa-chevron-left">  </i><span>用户管理</span></a></div><div class="next-post pull-right"><a href="/2025/07/29/Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/"><span>Linux系统基础</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729164955479.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2025 By wickt42</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/lib/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.1"></script><script src="/js/fancybox.js?version=1.9.1"></script><script src="/js/sidebar.js?version=1.9.1"></script><script src="/js/copy.js?version=1.9.1"></script><script src="/js/fireworks.js?version=1.9.1"></script><script src="/js/transition.js?version=1.9.1"></script><script src="/js/scroll.js?version=1.9.1"></script><script src="/js/head.js?version=1.9.1"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"left","hOffset":0,"vOffset":-20},"log":false,"tagMode":false});</script></body></html>

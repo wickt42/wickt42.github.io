@@ -1,0 +1,449 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="linux计划任务"><meta name="keywords" content="Linux"><meta name="author" content="wickt42"><meta name="copyright" content="wickt42"><title>linux计划任务 | Wickt42's Tech Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '7.3.0'
+} </script><meta name="generator" content="Hexo 7.3.0"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1"><span class="toc-number">1.</span> <span class="toc-text">计划任务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#at%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.</span> <span class="toc-text">at命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">1.1.1.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.1.2.</span> <span class="toc-text">常用时间格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.3.</span> <span class="toc-text">任务管理命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cron%E5%91%BD%E4%BB%A4"><span class="toc-number">1.2.</span> <span class="toc-text">cron命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.1.</span> <span class="toc-text">架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.2.</span> <span class="toc-text">语法配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E8%A7%A3%E6%9E%90"><span class="toc-number">1.2.3.</span> <span class="toc-text">符号解析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-number">1.2.4.</span> <span class="toc-text">命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#at%E4%B8%8Ecron%E5%AF%B9%E6%AF%94"><span class="toc-number">1.3.</span> <span class="toc-text">at与cron对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#date%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.</span> <span class="toc-text">date命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="toc-number">1.4.1.</span> <span class="toc-text">核心功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95-1"><span class="toc-number">1.4.2.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-number">1.4.3.</span> <span class="toc-text">时间格式化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-1"><span class="toc-number">1.4.4.</span> <span class="toc-text">示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E6%97%A5%E5%BF%97%E6%97%B6%E9%97%B4%E6%88%B3"><span class="toc-number">1.4.4.1.</span> <span class="toc-text">脚本日志时间戳</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E9%80%89%E9%A1%B9"><span class="toc-number">1.4.5.</span> <span class="toc-text">参数选项</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">2.</span> <span class="toc-text">实验</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729165900674.jpg"></div><div class="author-info__name text-center">wickt42</div><div class="author-info__description text-center">Information Security</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/wickt42/wickt42.github.io">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">21</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">5</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">20</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://github.com/">github</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody">hexo-theme-melody</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729164955479.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Wickt42's Tech Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/slides">Slides</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">linux计划任务</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2025-08-07</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Linux/">Linux</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Linux/%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1/">计划任务</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h1><p>计划任务是计算机系统中用于<strong>自动执行指定命令或脚本</strong>的功能</p>
+<ol>
+<li><strong>计划任务的作用</strong><ul>
+<li>定时备份数据、清理日志</li>
+<li>定期运行系统维护脚本</li>
+<li>自动化软件更新</li>
+<li>周期性生成报告</li>
+</ul>
+</li>
+<li><strong>Linux中的两类计划任务</strong><ul>
+<li><strong>周期性任务（cron）</strong>：按固定时间间隔（分钟&#x2F;小时&#x2F;日&#x2F;月&#x2F;周）重复执行。</li>
+<li><strong>一次性任务（at）</strong>：在指定时间点执行一次。</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>工具</strong></th>
+<th align="left"><strong>适用场景</strong></th>
+<th>时间粒度</th>
+<th align="left"><strong>特点</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">cron</td>
+<td align="left">周期性重复任务</td>
+<td>分钟级调度</td>
+<td align="left">配置灵活，日志完善</td>
+</tr>
+<tr>
+<td align="left">at</td>
+<td align="left">单次未来任务</td>
+<td>秒级调度</td>
+<td align="left">简单快速，无持久化配置</td>
+</tr>
+<tr>
+<td align="left">systemd</td>
+<td align="left">现代Linux系统</td>
+<td></td>
+<td align="left">依赖少，集成系统日志</td>
+</tr>
+</tbody></table>
+<h2 id="at命令"><a href="#at命令" class="headerlink" title="at命令"></a>at命令</h2><ul>
+<li><strong>作用</strong>：在<strong>指定时间点</strong>执行一次性任务（与<code>cron</code>的周期性任务互补）</li>
+<li><strong>典型场景</strong>：<ul>
+<li>下班后自动重启服务</li>
+<li>定时发送提醒邮件</li>
+<li>在低峰期执行资源密集型操作（如数据压缩）</li>
+</ul>
+</li>
+</ul>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">at [时间选项] [日期选项]</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用时间格式"><a href="#常用时间格式" class="headerlink" title="常用时间格式"></a><strong>常用时间格式</strong></h3><table>
+<thead>
+<tr>
+<th align="left"><strong>类型</strong></th>
+<th align="left"><strong>示例</strong></th>
+<th align="left"><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">绝对时间</td>
+<td align="left"><code>at 14:30</code></td>
+<td align="left">当天14:30执行</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"><code>at 23:59 2025-08-10</code></td>
+<td align="left">指定日期时间</td>
+</tr>
+<tr>
+<td align="left">相对时间</td>
+<td align="left"><code>at now + 2 hours</code></td>
+<td align="left">2小时后执行</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"><code>at now + 30 minutes</code></td>
+<td align="left">30分钟后执行</td>
+</tr>
+<tr>
+<td align="left">自然语言</td>
+<td align="left"><code>at teatime</code></td>
+<td align="left">下午16:00 (内置时间别名)</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"><code>at tomorrow</code></td>
+<td align="left">明天同一时间</td>
+</tr>
+<tr>
+<td align="left">组合时间</td>
+<td align="left"><code>at 9:00 AM next week</code></td>
+<td align="left">下周一上午9点</td>
+</tr>
+</tbody></table>
+<p><strong>内置时间别名</strong>：</p>
+<ul>
+<li><code>midnight</code>（00:00）, <code>noon</code>（12:00）, <code>teatime</code>（16:00）</li>
+</ul>
+<h3 id="任务管理命令"><a href="#任务管理命令" class="headerlink" title="任务管理命令"></a><strong>任务管理命令</strong></h3><table>
+<thead>
+<tr>
+<th align="left"><strong>命令</strong></th>
+<th align="left"><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>atq</code></td>
+<td align="left">查看等待执行的<code>at</code>任务队列</td>
+</tr>
+<tr>
+<td align="left"><code>atrm [任务ID]</code></td>
+<td align="left">删除指定任务（e.g. <code>atrm 4</code>）</td>
+</tr>
+<tr>
+<td align="left"><code>at -c [任务ID]</code></td>
+<td align="left">查看任务详情（包含环境变量）</td>
+</tr>
+</tbody></table>
+<h2 id="cron命令"><a href="#cron命令" class="headerlink" title="cron命令"></a>cron命令</h2><h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>组件</strong></th>
+<th align="left"><strong>路径</strong></th>
+<th align="left"><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>守护进程</strong></td>
+<td align="left"><code>/usr/sbin/crond</code></td>
+<td align="left">后台服务，扫描并执行任务</td>
+</tr>
+<tr>
+<td align="left"><strong>系统级配置</strong></td>
+<td align="left"><code>/etc/crontab</code></td>
+<td align="left">全局任务（需指定用户）</td>
+</tr>
+<tr>
+<td align="left"><strong>用户级配置</strong></td>
+<td align="left"><code>/var/spool/cron/</code></td>
+<td align="left">用户通过<code>crontab</code>创建的任务</td>
+</tr>
+<tr>
+<td align="left"><strong>预设目录</strong></td>
+<td align="left"><code>/etc/cron.&#123;hourly,daily,weekly,monthly&#125;</code></td>
+<td align="left">按周期执行的脚本目录</td>
+</tr>
+<tr>
+<td align="left"><strong>日志文件</strong></td>
+<td align="left"><code>/var/log/cron</code></td>
+<td align="left">任务执行记录（CentOS&#x2F;RHEL）</td>
+</tr>
+</tbody></table>
+<h3 id="语法配置"><a href="#语法配置" class="headerlink" title="语法配置"></a>语法配置</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@wickt 桌面]# <span class="built_in">cat</span> /etc/crontab</span><br><span class="line">SHELL=/bin/bash</span><br><span class="line">PATH=/sbin:/bin:/usr/sbin:/usr/bin</span><br><span class="line">MAILTO=root</span><br><span class="line"></span><br><span class="line"><span class="comment"># For details see man 4 crontabs</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Example of job definition:</span></span><br><span class="line"><span class="comment"># .---------------- minute (0 - 59)</span></span><br><span class="line"><span class="comment"># |  .------------- hour (0 - 23)</span></span><br><span class="line"><span class="comment"># |  |  .---------- day of month (1 - 31)</span></span><br><span class="line"><span class="comment"># |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...</span></span><br><span class="line"><span class="comment"># |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat</span></span><br><span class="line"><span class="comment"># |  |  |  |  |</span></span><br><span class="line"><span class="comment"># *  *  *  *  * user-name  command to be executed</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* * * * * 用户名 命令</span><br><span class="line">分钟 小时 日 月 星期</span><br><span class="line">分时日月周</span><br></pre></td></tr></table></figure>
+
+<h3 id="符号解析"><a href="#符号解析" class="headerlink" title="符号解析"></a>符号解析</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>符号</strong></th>
+<th align="left"><strong>示例</strong></th>
+<th align="left"><strong>含义</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>*</code></td>
+<td align="left"><code>* * * * *</code></td>
+<td align="left">每分钟执行</td>
+</tr>
+<tr>
+<td align="left"><code>,</code></td>
+<td align="left"><code>0 8,12,18 * * *</code></td>
+<td align="left">每天8点&#x2F;12点&#x2F;18点执行</td>
+</tr>
+<tr>
+<td align="left"><code>-</code></td>
+<td align="left"><code>0 9-17 * * 1-5</code></td>
+<td align="left">工作日9点到17点每小时执行</td>
+</tr>
+<tr>
+<td align="left"><code>*/n</code></td>
+<td align="left"><code>*/15 * * * *</code></td>
+<td align="left">每15分钟执行</td>
+</tr>
+<tr>
+<td align="left"><code>L</code></td>
+<td align="left"><code>0 0 L * *</code></td>
+<td align="left">每月最后一天执行（仅某些系统）</td>
+</tr>
+</tbody></table>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">0 3 * * *   /backup.sh         <span class="comment"># 每天3:00备份</span></span><br><span class="line">*/5 * * * * /monitor.sh        <span class="comment"># 每5分钟监控</span></span><br><span class="line">0 0 1 * *   /billing.sh        <span class="comment"># 每月1日0点结算</span></span><br><span class="line">0 12 * * 1  /report.sh         <span class="comment"># 每周一12点生成报告</span></span><br><span class="line">30 4 1,15 * * /update.sh       <span class="comment"># 每月1号和15号4:30更新</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>crontab -e</code></td>
+<td>编辑当前用户的任务（使用默认编辑器）</td>
+</tr>
+<tr>
+<td><code>crontab -l</code></td>
+<td>列出当前用户的所有任务</td>
+</tr>
+<tr>
+<td><code>crontab -r</code></td>
+<td>删除当前用户的所有任务（慎用！）</td>
+</tr>
+<tr>
+<td><code>crontab -u username [参数]</code></td>
+<td>管理其他用户的任务（需root权限）</td>
+</tr>
+<tr>
+<td><code>crontab -l &gt; mycron.backup</code></td>
+<td>导出任务备份</td>
+</tr>
+<tr>
+<td><code>crontab mycron.conf</code></td>
+<td>从文件导入任务（覆盖原有）</td>
+</tr>
+<tr>
+<td><code>crontab -i</code></td>
+<td>编辑时交互提示</td>
+</tr>
+<tr>
+<td><code>crontab -d</code></td>
+<td>删除用户任务（旧版用法）</td>
+</tr>
+</tbody></table>
+<h2 id="at与cron对比"><a href="#at与cron对比" class="headerlink" title="at与cron对比"></a>at与cron对比</h2><table>
+<thead>
+<tr>
+<th align="left"><strong>特性</strong></th>
+<th align="left"><code>at</code></th>
+<th align="left"><code>cron</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>执行次数</strong></td>
+<td align="left">一次性</td>
+<td align="left">周期性</td>
+</tr>
+<tr>
+<td align="left"><strong>配置方式</strong></td>
+<td align="left">命令行交互</td>
+<td align="left">编辑crontab文件</td>
+</tr>
+<tr>
+<td align="left"><strong>任务管理</strong></td>
+<td align="left"><code>atq</code>&#x2F;<code>atrm</code></td>
+<td align="left"><code>crontab -e</code></td>
+</tr>
+<tr>
+<td align="left"><strong>适用场景</strong></td>
+<td align="left">临时任务</td>
+<td align="left">常规维护任务</td>
+</tr>
+<tr>
+<td align="left"><strong>环境继承</strong></td>
+<td align="left">继承当前Shell环境</td>
+<td align="left">使用精简环境</td>
+</tr>
+</tbody></table>
+<h2 id="date命令"><a href="#date命令" class="headerlink" title="date命令"></a>date命令</h2><h3 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a><strong>核心功能</strong></h3><ol>
+<li><strong>查看时间</strong>：显示当前系统时间</li>
+<li><strong>设置时间</strong>：修改系统时钟（需 root 权限）</li>
+<li><strong>日期计算</strong>：对时间进行加减操作</li>
+<li><strong>格式转换</strong>：自定义时间显示格式</li>
+</ol>
+<h3 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">date</span> [选项]... [+格式]           <span class="comment"># 显示时间</span></span><br><span class="line"><span class="built_in">date</span> [选项] [MMDDhhmm[[CC]YY][.ss]]  <span class="comment"># 设置时间</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="时间格式化"><a href="#时间格式化" class="headerlink" title="时间格式化"></a>时间格式化</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>符号</strong></th>
+<th align="left"><strong>含义</strong></th>
+<th align="left"><strong>示例输出</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>%Y</code></td>
+<td align="left">4位年份</td>
+<td align="left">2025</td>
+</tr>
+<tr>
+<td align="left"><code>%y</code></td>
+<td align="left">2位年份</td>
+<td align="left">25</td>
+</tr>
+<tr>
+<td align="left"><code>%m</code></td>
+<td align="left">月份 (01-12)</td>
+<td align="left">08</td>
+</tr>
+<tr>
+<td align="left"><code>%d</code></td>
+<td align="left">日 (01-31)</td>
+<td align="left">09</td>
+</tr>
+<tr>
+<td align="left"><code>%H</code></td>
+<td align="left">24小时制小时</td>
+<td align="left">15</td>
+</tr>
+<tr>
+<td align="left"><code>%I</code></td>
+<td align="left">12小时制小时</td>
+<td align="left">03</td>
+</tr>
+<tr>
+<td align="left"><code>%M</code></td>
+<td align="left">分钟 (00-59)</td>
+<td align="left">30</td>
+</tr>
+<tr>
+<td align="left"><code>%S</code></td>
+<td align="left">秒 (00-60)</td>
+<td align="left">45</td>
+</tr>
+<tr>
+<td align="left"><code>%A</code></td>
+<td align="left">完整星期名</td>
+<td align="left">Saturday</td>
+</tr>
+<tr>
+<td align="left"><code>%a</code></td>
+<td align="left">缩写星期名</td>
+<td align="left">Sat</td>
+</tr>
+<tr>
+<td align="left"><code>%B</code></td>
+<td align="left">完整月份名</td>
+<td align="left">August</td>
+</tr>
+<tr>
+<td align="left"><code>%b</code></td>
+<td align="left">缩写月份名</td>
+<td align="left">Aug</td>
+</tr>
+<tr>
+<td align="left"><code>%Z</code></td>
+<td align="left">时区名</td>
+<td align="left">CST</td>
+</tr>
+<tr>
+<td align="left"><code>%z</code></td>
+<td align="left">时区偏移</td>
+<td align="left">+0800</td>
+</tr>
+<tr>
+<td align="left"><code>%s</code></td>
+<td align="left">Unix 时间戳</td>
+<td align="left">1754757045</td>
+</tr>
+<tr>
+<td align="left"><code>%N</code></td>
+<td align="left">纳秒 (GNU扩展)</td>
+<td align="left">123456789</td>
+</tr>
+<tr>
+<td align="left"><code>%3N</code></td>
+<td align="left">毫秒 (取前3位)</td>
+<td align="left">123</td>
+</tr>
+<tr>
+<td align="left"><code>%F</code></td>
+<td align="left"><strong>ISO 8601日期格式（年-月-日）</strong></td>
+<td align="left">2023-07-28</td>
+</tr>
+<tr>
+<td align="left"><code>%T</code></td>
+<td align="left"><strong>24小时制时间格式（时:分:秒）</strong></td>
+<td align="left">14:30:00</td>
+</tr>
+<tr>
+<td align="left"><code> %R</code></td>
+<td align="left"><strong>12小时制时间格式（带AM&#x2F;PM）</strong></td>
+<td align="left">02:30 PM</td>
+</tr>
+</tbody></table>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">date</span> <span class="string">&quot;+%Y-%m-%d&quot;</span>                  <span class="comment"># 2025-08-09</span></span><br><span class="line"><span class="built_in">date</span> <span class="string">&quot;+%H:%M:%S&quot;</span>                  <span class="comment"># 14:30:45</span></span><br><span class="line"><span class="built_in">date</span> <span class="string">&quot;+%A, %B %d %Y&quot;</span>              <span class="comment"># Saturday, August 09 2025</span></span><br><span class="line"><span class="built_in">date</span> <span class="string">&quot;+%Y%m%d_%H%M%S&quot;</span>             <span class="comment"># 20250809_143045 (日志时间戳)</span></span><br><span class="line"><span class="built_in">date</span> -Iseconds                    <span class="comment"># 2025-08-09T14:30:45+08:00</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;now&quot;</span>                     <span class="comment"># 当前时间（默认）</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;yesterday&quot;</span>               <span class="comment"># 昨天此时</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;tomorrow&quot;</span>                <span class="comment"># 明天此时</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;next Monday&quot;</span>             <span class="comment"># 下周一</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;2 days ago&quot;</span>              <span class="comment"># 两天前</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;3 hours + 5 minutes&quot;</span>     <span class="comment"># 3小时5分钟后</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;2025-12-31 + 1 day&quot;</span>      <span class="comment"># 2026-01-01</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;Jan 1 2030 - 1000 days&quot;</span>  <span class="comment"># 2027-04-06</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 时间戳 → 可读时间</span></span><br><span class="line"><span class="built_in">date</span> -d @1754757045               <span class="comment"># Sat Aug  9 14:30:45 CST 2025</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可读时间 → 时间戳</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;2025-08-09 14:30&quot;</span> +%s   <span class="comment"># 1754757000</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="脚本日志时间戳"><a href="#脚本日志时间戳" class="headerlink" title="脚本日志时间戳"></a><strong>脚本日志时间戳</strong></h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">log_time=$(<span class="built_in">date</span> <span class="string">&quot;+%F %T&quot;</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;[<span class="variable">$log_time</span>] 开始执行数据备份...&quot;</span> &gt;&gt; /var/log/backup.log</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数选项"><a href="#参数选项" class="headerlink" title="参数选项"></a>参数选项</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>选项</strong></th>
+<th align="left"><strong>作用</strong></th>
+<th align="left"><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-d</code></td>
+<td align="left">解析字符串时间</td>
+<td align="left"><code>date -d &quot;next Friday&quot;</code></td>
+</tr>
+<tr>
+<td align="left"><code>-s</code></td>
+<td align="left">设置系统时间</td>
+<td align="left"><code>date -s &quot;2025-08-10 15:30&quot;</code></td>
+</tr>
+<tr>
+<td align="left"><code>-r</code></td>
+<td align="left">显示文件最后修改时间</td>
+<td align="left"><code>date -r /etc/passwd</code></td>
+</tr>
+<tr>
+<td align="left"><code>-u</code></td>
+<td align="left">显示&#x2F;设置 UTC 时间</td>
+<td align="left"><code>date -u</code></td>
+</tr>
+<tr>
+<td align="left"><code>-I</code></td>
+<td align="left">ISO 8601 格式输出</td>
+<td align="left"><code>date -Iseconds</code></td>
+</tr>
+</tbody></table>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><p>每两个月的工作日的凌晨3点打包备份日志&#x2F;var&#x2F;log&#x2F;secure</p>
+<p>可以在&#x2F;etc&#x2F;crontab中直接编辑，也可以使用命令crontab -e 进行编辑（最好是使用crontab -e）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 编辑用户级crontab</span></span><br><span class="line">crontab -e</span><br><span class="line"><span class="comment"># 添加任务（每天3:00执行）</span></span><br><span class="line">0 3 * 1，3，5，7，9，11 1-5 root tar -zcf /tmp/log.tar.gz /var/log/secure</span><br><span class="line"><span class="comment"># 注意tar打包需要相对路径，不然会将目录文件一起打包，那么这条命令就需要修改</span></span><br><span class="line">0 3 * 1，3，5，7，9，11 1-5 root <span class="built_in">cd</span> /var/log;tar -zcf /tmp/log.tar.gz secure</span><br><span class="line"><span class="comment"># 同样，另一个问题每次打包生成的文件名相同的话，那么每次生成新的打包文件会覆盖掉旧的文件，最好是将打包文件加上时间命名便于区分</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终是</span></span><br><span class="line">[root@wickt 桌面]# crontab -e</span><br><span class="line"><span class="comment"># 输入</span></span><br><span class="line">0 12 9 8 * root <span class="built_in">cd</span> /var/log;tar -zcf /tmp/log`<span class="built_in">date</span> +\%H:\%M`.tar.gz secure</span><br><span class="line"><span class="comment"># 命令解释</span></span><br><span class="line">0 12 9 8 *			<span class="comment"># 每年8月9日12:00执行一次备份</span></span><br><span class="line"><span class="built_in">cd</span> /var/log			<span class="comment"># 路径为 /var/log</span></span><br><span class="line">&amp;&amp;					<span class="comment"># 只有cd成功后才执行tar</span></span><br><span class="line">/tmp/log`<span class="built_in">date</span> +\%H:\%M`.tar.gz secure		<span class="comment"># 备份到 /tmp 目录下 文件名为 log时:分.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250809112241452.png" alt="image-20250809112241408"></p>
+<p>到点验证测试</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">* * * * * root <span class="built_in">cd</span> /var/log;tar -zcf /tmp/log`<span class="built_in">date</span> +\%H:\%M`.tar.gz secure</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250809145045497.png" alt="image-20250809145045281"></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">wickt42</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/08/07/linux计划任务/">http://example.com/2025/08/07/linux计划任务/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2025/08/08/shell%E8%84%9A%E6%9C%AC%E5%88%9D%E8%AF%86/"><i class="fa fa-chevron-left">  </i><span>shell脚本初识</span></a></div><div class="next-post pull-right"><a href="/2025/08/07/linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/"><span>Linux网络管理</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729164955479.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2025 By wickt42</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/lib/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.1"></script><script src="/js/fancybox.js?version=1.9.1"></script><script src="/js/sidebar.js?version=1.9.1"></script><script src="/js/copy.js?version=1.9.1"></script><script src="/js/fireworks.js?version=1.9.1"></script><script src="/js/transition.js?version=1.9.1"></script><script src="/js/scroll.js?version=1.9.1"></script><script src="/js/head.js?version=1.9.1"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"left","hOffset":0,"vOffset":-20},"log":false,"tagMode":false});</script></body></html>
