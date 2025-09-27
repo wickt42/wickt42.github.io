@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="寄存器"><meta name="keywords" content="汇编"><meta name="author" content="wickt42"><meta name="copyright" content="wickt42"><title>寄存器 | Wickt42's Tech Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '7.3.0'
+} </script><meta name="generator" content="Hexo 7.3.0"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1%E3%80%81push%E5%92%8Cpop%E6%8C%87%E4%BB%A4%E6%BC%94%E7%A4%BA%E5%85%A5%E6%A0%88%E5%87%BA%E6%A0%88%EF%BC%8C%E5%AF%B9%E5%86%85%E5%AD%98%EF%BC%8C%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%8C%E7%AB%8B%E5%8D%B3%E6%95%B0%E4%B8%89%E7%A7%8D%E6%83%85%E5%86%B5%E6%A8%A1%E6%8B%9F"><span class="toc-number">1.</span> <span class="toc-text">1、push和pop指令演示入栈出栈，对内存，寄存器，立即数三种情况模拟</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#push"><span class="toc-number">1.1.</span> <span class="toc-text">push</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98"><span class="toc-number">1.1.1.</span> <span class="toc-text">内存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%8B%E5%8D%B3%E6%95%B0"><span class="toc-number">1.1.3.</span> <span class="toc-text">立即数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pop"><span class="toc-number">1.2.</span> <span class="toc-text">pop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">内存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%8B%E5%8D%B3%E6%95%B0-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">立即数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2%E3%80%81%E4%BD%BF%E7%94%A8mov%EF%BC%8Clea%EF%BC%8Csub%EF%BC%8Cadd%E7%AD%89%E6%8C%87%E4%BB%A4%E6%A8%A1%E6%8B%9Fpush%E5%92%8Cpop%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="toc-number">2.</span> <span class="toc-text">2、使用mov，lea，sub，add等指令模拟push和pop的行为</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9Fpush"><span class="toc-number">2.1.</span> <span class="toc-text">模拟push</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9Fpop"><span class="toc-number">2.2.</span> <span class="toc-text">模拟pop</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3%E3%80%81%E6%BC%94%E7%A4%BA%E5%85%AD%E7%A7%8D%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8%E5%8F%91%E7%94%9F%E5%8F%98%E5%8C%96%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-number">3.</span> <span class="toc-text">3、演示六种标志寄存器发生变化的情况</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97CF"><span class="toc-number">3.1.</span> <span class="toc-text">进位标志CF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%87%E5%81%B6%E6%A0%87%E5%BF%97PF"><span class="toc-number">3.2.</span> <span class="toc-text">奇偶标志PF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97AF"><span class="toc-number">3.3.</span> <span class="toc-text">辅助进位标志AF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%B6%E6%A0%87%E5%BF%97ZF"><span class="toc-number">3.4.</span> <span class="toc-text">零标志ZF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E6%A0%87%E5%BF%97SF"><span class="toc-number">3.5.</span> <span class="toc-text">符号标志SF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%A2%E5%87%BA%E6%A0%87%E5%BF%97OF"><span class="toc-number">3.6.</span> <span class="toc-text">溢出标志OF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E5%90%91%E6%A0%87%E5%BF%97DF"><span class="toc-number">3.7.</span> <span class="toc-text">方向标志DF</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729165900674.jpg"></div><div class="author-info__name text-center">wickt42</div><div class="author-info__description text-center">Information Security</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/wickt42/wickt42.github.io">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">47</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">13</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">34</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://github.com/">github</a><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody">hexo-theme-melody</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729164955479.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Wickt42's Tech Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/slides">Slides</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">寄存器</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2025-09-24</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="1、push和pop指令演示入栈出栈，对内存，寄存器，立即数三种情况模拟"><a href="#1、push和pop指令演示入栈出栈，对内存，寄存器，立即数三种情况模拟" class="headerlink" title="1、push和pop指令演示入栈出栈，对内存，寄存器，立即数三种情况模拟"></a>1、push和pop指令演示入栈出栈，对内存，寄存器，立即数三种情况模拟</h1><h2 id="push"><a href="#push" class="headerlink" title="push"></a>push</h2><h3 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">push dword ptr ds:[0x12FFDC]</span><br></pre></td></tr></table></figure>
+
+<p>[0x12FFDC]地址与对应的值</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092841218.png" alt="image-20250924160906639"></p>
+<p>原始堆栈</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092844663.png" alt="image-20250924160940623"></p>
+<p>运行后，栈顶地址减小，数值和地址 [0x12FFDC] 的数值相同</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092849406.png" alt="image-20250924161027861"></p>
+<h3 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">push ebx</span><br></pre></td></tr></table></figure>
+
+<p>EBX的值</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092853920.png" alt="image-20250924161203540"></p>
+<p>原始堆栈</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092858379.png" alt="image-20250924161217843"></p>
+<p>运行结果，栈顶地址减小，数值和寄存器 EBX 的数值相同</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092902783.png" alt="image-20250924161240742"></p>
+<h3 id="立即数"><a href="#立即数" class="headerlink" title="立即数"></a>立即数</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">push 0x12345678</span><br></pre></td></tr></table></figure>
+
+<p>原始堆栈（注意栈顶）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092908431.png" alt="image-20250924161413394"></p>
+<p>运行后，栈顶地址减小，数值与输入的立即数的数值相同</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092913360.png" alt="image-20250924161444198"></p>
+<h2 id="pop"><a href="#pop" class="headerlink" title="pop"></a>pop</h2><h3 id="内存-1"><a href="#内存-1" class="headerlink" title="内存"></a>内存</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pop dword ptr ds:[0x12FFF0]</span><br></pre></td></tr></table></figure>
+
+<p>地址[0x12FFF0]</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092919794.png" alt="image-20250924161848621"></p>
+<p>原始堆栈</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092923969.png" alt="image-20250924161905681"></p>
+<p>运行后，地址[0x12FFF0]值改变为弹出的堆栈中的值</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092928205.png" alt="image-20250924161925327"></p>
+<p>栈顶指针地址增加</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092936156.png" alt="image-20250924162027137"></p>
+<h3 id="寄存器-1"><a href="#寄存器-1" class="headerlink" title="寄存器"></a>寄存器</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pop EAX</span><br></pre></td></tr></table></figure>
+
+<p>EAX</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092941313.png" alt="image-20250924161730544"></p>
+<p>原始堆栈</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092945442.png" alt="image-20250924161749369"></p>
+<p>运行后，弹出数据，EAX寄存器值改变为弹出的堆栈中的值</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092950093.png" alt="image-20250924161805241"></p>
+<p>栈顶指针地址增加</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925092954431.png" alt="image-20250924161815910"></p>
+<h3 id="立即数-1"><a href="#立即数-1" class="headerlink" title="立即数"></a>立即数</h3><p>pop 不支持直接操作立即数</p>
+<h1 id="2、使用mov，lea，sub，add等指令模拟push和pop的行为"><a href="#2、使用mov，lea，sub，add等指令模拟push和pop的行为" class="headerlink" title="2、使用mov，lea，sub，add等指令模拟push和pop的行为"></a>2、使用mov，lea，sub，add等指令模拟push和pop的行为</h1><h2 id="模拟push"><a href="#模拟push" class="headerlink" title="模拟push"></a>模拟push</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">push eax</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sub esp,0x4</span><br><span class="line">mov dword ptr ss:[esp],eax</span><br></pre></td></tr></table></figure>
+
+<p>EAX</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093001624.png" alt="image-20250924162749380"></p>
+<p>栈顶</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093006773.png" alt="image-20250924162835597"></p>
+<p>执行命令后，栈顶指针减小，且 eax 寄存器的值被压入栈</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093011172.png" alt="image-20250924162914793"></p>
+<h2 id="模拟pop"><a href="#模拟pop" class="headerlink" title="模拟pop"></a>模拟pop</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pop ebx</span><br><span class="line"></span><br><span class="line">mov ebx, [esp]</span><br><span class="line">add esp, 0x4</span><br></pre></td></tr></table></figure>
+
+<p>EBX</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093016907.png" alt="image-20250924163203501"></p>
+<p>栈顶</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093021678.png" alt="image-20250924163223201"></p>
+<p>执行命令后，栈顶指针大小增加，数据弹出到 ebx 寄存器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093025744.png" alt="image-20250924163246810"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093030260.png" alt="image-20250924163408231"></p>
+<h1 id="3、演示六种标志寄存器发生变化的情况"><a href="#3、演示六种标志寄存器发生变化的情况" class="headerlink" title="3、演示六种标志寄存器发生变化的情况"></a>3、演示六种标志寄存器发生变化的情况</h1><h2 id="进位标志CF"><a href="#进位标志CF" class="headerlink" title="进位标志CF"></a>进位标志CF</h2><p>（主要记录无符号数）CF &#x3D; 1 表示有进位或借位，CF &#x3D; 0 表示没有进位或借位</p>
+<p>原始 CF 位</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093035977.png" alt="image-20250924163542924"></p>
+<p>EAX</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093040226.png" alt="image-20250924163819107"></p>
+<p>运行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">add al, 44h</span><br><span class="line"></span><br><span class="line">123AFCDB + 44h = 123AFC1F</span><br><span class="line"></span><br><span class="line">DB + 44h = 11F		产生了进位</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093045410.png" alt="image-20250924163858618"></p>
+<h2 id="奇偶标志PF"><a href="#奇偶标志PF" class="headerlink" title="奇偶标志PF"></a>奇偶标志PF</h2><p>运算结果中 1 个数为偶数时 PF &#x3D; 1，反之（只计算最低的一个字节）</p>
+<p>EAX</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093051332.png" alt="image-20250924164412358"></p>
+<p>原 PF 位</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093056557.png" alt="image-20250924164440534"></p>
+<p>计算</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">add ax, 11h</span><br><span class="line"></span><br><span class="line">FC1F + 11h = FC30</span><br><span class="line"></span><br><span class="line">FC30 末尾一个字节 0011 0000 偶数个 1 故 PF = 1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093100794.png" alt="image-20250924164533374"></p>
+<h2 id="辅助进位标志AF"><a href="#辅助进位标志AF" class="headerlink" title="辅助进位标志AF"></a>辅助进位标志AF</h2><p>进行字节（byte）操作时，低 4 位发生进位或借位时 AF &#x3D; 1，反之</p>
+<p>进行字（word）操作时，低 8 位发生进位或借位时 AF &#x3D; 1，反之</p>
+<p>EAX</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093108383.png" alt="image-20250924165205079"></p>
+<p>AF 位</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093113322.png" alt="image-20250924164954722"></p>
+<p>执行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">add al, 15h</span><br><span class="line"></span><br><span class="line">0C + 15h = 21</span><br><span class="line"></span><br><span class="line">C + 5 = 11h</span><br><span class="line">低四位产生进位，故 AF = 1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093121064.png" alt="image-20250924165229920"></p>
+<h2 id="零标志ZF"><a href="#零标志ZF" class="headerlink" title="零标志ZF"></a>零标志ZF</h2><p>运算结果为 0 时 ZF &#x3D; 1，反之 ZF &#x3D; 0</p>
+<p>EAX 和 EBX 寄存器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093125897.png" alt="image-20250924165743451"></p>
+<p>原始 ZF</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093130385.png" alt="image-20250924165801509"></p>
+<p>运行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sub EAX, EBX</span><br><span class="line"></span><br><span class="line">EAX = EAX - EBX</span><br><span class="line"></span><br><span class="line">结果为 0 ，故 ZF = 1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093135587.png" alt="image-20250924165840399"></p>
+<h2 id="符号标志SF"><a href="#符号标志SF" class="headerlink" title="符号标志SF"></a>符号标志SF</h2><p>（针对有符号数）运算结果为负 SF &#x3D; 1，反之 SF &#x3D; 0</p>
+<p>EAX</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093140264.png" alt="image-20250924171241476"></p>
+<p>SF 标志位</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093146762.png" alt="image-20250924171256362"></p>
+<p>执行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sub ax, 3h</span><br><span class="line"></span><br><span class="line">0002 - 0003 = -1 = ffff</span><br><span class="line"></span><br><span class="line">结果为 -1 故 SF = 1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093152540.png" alt="image-20250924171401601"></p>
+<h2 id="溢出标志OF"><a href="#溢出标志OF" class="headerlink" title="溢出标志OF"></a>溢出标志OF</h2><p>（主要针对有符号数）运算结果超过当前位数所表示的数的范围，则为溢出 OF &#x3D; 1，反之 OF &#x3D; 0</p>
+<p>例如：16 位有符号数最大 32767，最小 - 32768，计算 32767 + 1 时，由于表示的最大的数为 32767 （7FFF），+ 1 后就是 8000 符号位为 1 变成负数了，但却是两个正数相加，这种情况就叫溢出</p>
+<p>EAX</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093206907.png" alt="image-20250924173158916"></p>
+<p>OF 标志位</p>
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093211728.png" alt="image-20250924173213769"></p>
+<p>执行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">add ax, 1h</span><br><span class="line"></span><br><span class="line">7FFF + 1 = 8000h</span><br><span class="line"></span><br><span class="line">十六位表示的最大正数为 2^15 - 1 = 32767</span><br><span class="line">32767 + 1 = 32768 超过最大表示范围，溢出</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250925093216665.png" alt="image-20250924173255788"></p>
+<h2 id="方向标志DF"><a href="#方向标志DF" class="headerlink" title="方向标志DF"></a>方向标志DF</h2><p>标识移动移动方向，0 增加，1 减少</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">wickt42</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/09/24/寄存器/">http://example.com/2025/09/24/寄存器/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B1%87%E7%BC%96/">汇编</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/2025/09/23/%E7%AE%80%E5%8D%95%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/"><span>简单汇编指令</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/wickt42/PicGo.img@main/img/20250729164955479.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2025 By wickt42</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/lib/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.1"></script><script src="/js/fancybox.js?version=1.9.1"></script><script src="/js/sidebar.js?version=1.9.1"></script><script src="/js/copy.js?version=1.9.1"></script><script src="/js/fireworks.js?version=1.9.1"></script><script src="/js/transition.js?version=1.9.1"></script><script src="/js/scroll.js?version=1.9.1"></script><script src="/js/head.js?version=1.9.1"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"left","hOffset":0,"vOffset":-20},"log":false,"tagMode":false});</script></body></html>
